@@ -217,14 +217,7 @@ function Home() {
 
             <div class="container-home">
                 <StickyHeader />
-                <main class="home-main">
-                    {/* <div class="header-home">
-                        <span onClick={switchToTopQuestions} class="item active topq" data-name="01">Top Questions</span>
-                        <span onClick={switchToQuestions} class="item allq" data-name="02">Toutes les questions</span>
-                        <span onClick={switchToUnanswered} class="item unq" data-name="03">Questions non repondues</span>
-                        <span onClick={switchToUsers} class="item usrs"><a href="#">Utilisateurs</a></span>
-                    </div> */}
-                    
+                <main class="home-main">                                   
                     <div class="entete">
                         <span>Top Questions</span>
                         <span ><a href="/question/new">Poser une question</a></span>

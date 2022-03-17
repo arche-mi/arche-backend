@@ -6,6 +6,9 @@
     border-radius: 4px;
     width: 250px;
 }
+.msg-aside p , .hr-chat{
+    margin: 0;
+}
 .hello-aside {
     padding: 0 10px;
     margin: 10px 0 14px 0;

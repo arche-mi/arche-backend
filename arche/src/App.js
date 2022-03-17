@@ -17,6 +17,7 @@ import Badges from "./components/badges/Badge";
 import Chat from "./components/chat/Chat";
 import Privacy from "./components/privacyPolicy/privacyPolicy";
 import NotFound from "./components/notFound/NotFound";
+import Quiz from "./components/quiz/Quiz";
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
           <Route exact path="/" element={<Questions />} />
           <Route exact path="/question/top" element={<Home />} />
           <Route exact path="/blog" element={<Blog />} />   
+          <Route exact path="/quiz" element={<Quiz />} />   
           <Route exact path="/sign" element={<Sign />} />
           <Route exact path="/user" element={<Dashboard />} />
           <Route exact path="/users" element={<Users />} />
