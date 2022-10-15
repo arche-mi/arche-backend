@@ -1,4 +1,6 @@
-#### git clone {repos}
-#### cd arch
-#### npm install
-#### npm start
+```bash
+    git clone #repos
+    cd arch
+    npm install
+    npm start
+```

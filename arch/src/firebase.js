@@ -39,6 +39,7 @@ const signInWithGoogle = async () => {
         email: user.email,
       });
     }
+    alert('sign up with succes');
   } catch (err) {
     console.error(err);
     // alert(err.message);
