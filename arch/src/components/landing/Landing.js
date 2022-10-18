@@ -5,8 +5,7 @@ function Home() {
     return (
         <div>
             <p>Page d;aceuille</p>
-            <a href="/Sign">sign in</a><br></br>
-            <a href="/Login">login</a>
+            <a href="/Sign">sign up</a><br></br>
         </div>
     )
 }
