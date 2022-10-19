@@ -4,7 +4,7 @@ import { initializeApp } from "firebase/app";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 import { GoogleAuthProvider, getAuth, signInWithPopup, sendPasswordResetEmail, signOut, } from "firebase/auth";
-import { getFirestore, query, getDocs, collection, where, addDoc } from "firebase/firestore";
+import { getFirestore, query, getDocs, collection, where, addDoc, doc, setDoc } from "firebase/firestore";
 
 
 
@@ -32,25 +32,20 @@ const signInWithGoogle = async () => {
     const q = query(collection(db, "users"), where("uid", "==", user.uid));
     const docs = await getDocs(q);
     if (docs.docs.length === 0) {
-      await addDoc(collection(db, "users"), {
+      await setDoc(doc(collection(db, "users"), user.displayName), {
         uid: user.uid,
         name: user.displayName,
         authProvider: "google",
         email: user.email,
       });
     }
-    alert('sign up with succes');
+    console.log("sign sucess");
   } catch (err) {
     console.error(err);
     // alert(err.message);
   }
 };
 
-
-
-// Try login with Google here
-//
-//
 
 
 // Forgot password
