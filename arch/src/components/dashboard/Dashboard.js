@@ -7,17 +7,20 @@ function Dashboard() {
     const [user, loading] = useAuthState(auth);
     const navigate = useNavigate();
     const [name, setName] = useState("");
-    const creationTime = user.metadata.creationTime.split(',')[1].split('GMT');
-    const lastSeen = user.metadata.lastSignInTime.split(',')[1].split('GMT');
-    const photoUrl = user.photoURL;
+    const [lastSeen, setLastSeen]= useState();
+    const [creationTime, setCreationTime] = useState();
+    const [photo, setPhoto] = useState();    
     
     // Fetch username by uid
-    const fetchUserName = async () => {
+    const fetchUserInfo = async () => {
         try {
             setName(user.displayName);
-            console.log(user);
+            setCreationTime(user.metadata.creationTime.split(',')[1].split('GMT'));
+            setLastSeen(user.metadata.lastSignInTime.split(',')[1].split('GMT'));
+            setPhoto(user.photoURL);
+            //console.log(user);
         } catch (err) {
-            console.error(err);
+            //console.error(err);
         }
     }; 
     
@@ -25,14 +28,14 @@ function Dashboard() {
         if (loading) return;
         if (!user) return navigate("/sign");
             
-        fetchUserName();
-    });
+        fetchUserInfo();
+    }, [user, loading]);
       
 
     return (
         <div>
             <a href="/">Arch</a><br></br>
-            <img src={photoUrl} alt="user"/>
+            <img src={photo} alt="Photo"/>
             <p>{name}</p>
             <p>Derniere connexion : {lastSeen}</p>
             <p>Inscrit le : {creationTime}</p>
