@@ -8,16 +8,19 @@ function Home() {
     const [user, loading] = useAuthState(auth);
     const navigate = useNavigate();
 
+    const photoUrl = user.photoURL;
+
 
     useEffect(() => {
         if (loading) return;
-        if (user) navigate("/");
+        if (!user) navigate("/sign");
     }, [user, loading]);
 
     return (
         <div>
-            <p>Bienvenu sur le forum</p>
-            <a href="/Sign">commencer</a><br></br>
+            <a href="/users"><img src={photoUrl} alt="user"/></a>
+            <p>Home</p>        
+            <p>Ya tout ici normalement</p>
         </div>
     )
 }

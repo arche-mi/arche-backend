@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
-
+import { useAuthState } from "react-firebase-hooks/auth";
 import { signInWithGoogle,auth } from "../../firebase";
 
 
@@ -11,7 +10,7 @@ function Sign() {
     
     useEffect(() => {
       if (loading) return;
-      if (user) navigate("/users");
+      if (user) navigate("/");
     }, [user, loading]);
 
 
