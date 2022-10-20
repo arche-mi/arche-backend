@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { auth } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
-import { auth } from "../../firebase";
 
 function Dashboard() {
     const [user, loading] = useAuthState(auth);
@@ -31,6 +31,7 @@ function Dashboard() {
 
     return (
         <div>
+            <a href="/">Arch</a><br></br>
             <img src={photoUrl} alt="user"/>
             <p>{name}</p>
             <p>Derniere connexion : {lastSeen}</p>

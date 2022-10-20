@@ -12,7 +12,7 @@ function Home() {
     useEffect(() => {
         if (loading) return;
         if (user) navigate("/");
-    }, [user, loading]);
+    });
 
     return (
         <div>

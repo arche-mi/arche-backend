@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
+import { auth } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../firebase";
 
 
 function Home() {
@@ -13,8 +13,8 @@ function Home() {
 
     useEffect(() => {
         if (loading) return;
-        if (!user) navigate("/sign");
-    }, [user, loading]);
+        if (!user) navigate("/landing");
+    });
 
     return (
         <div>
