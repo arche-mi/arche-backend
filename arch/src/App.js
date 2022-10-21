@@ -4,6 +4,7 @@ import Landing from "./components/landing/Landing";
 import Sign from "./components/sign/Sign";
 import Dashboard from "./components/dashboard/Dashboard";
 import Home from "./components/home/Home";
+import CreateQuestion from "./components/question/CreateQuestion";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route exact path="/landing" element={<Landing />} />   
           <Route exact path="/sign" element={<Sign />} />
           <Route exact path="/users" element={<Dashboard />} />
+          <Route exact path="/question/new" element={<CreateQuestion />} />
         </Routes>
       </Router>
     </div>

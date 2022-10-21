@@ -32,9 +32,13 @@ function Home() {
 
     return (
         <div>
+            <h1>Header</h1>
             <a href="/users">va vers ton profil : {name}</a>
-            <p>Home</p>        
-            <p>Ya tout ici normalement</p>
+            <p>Home ,Ya tout ici normalement</p>
+
+            <h1>Question's</h1>
+            <a href="/question/new">Poser une question ici</a>
+            <h3>Tout les questions</h3>
         </div>
     )
 }

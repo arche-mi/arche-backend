@@ -11,6 +11,9 @@ function Dashboard() {
     const [creationTime, setCreationTime] = useState();
     const [photo, setPhoto] = useState();    
     
+    // Fetch user Questions
+    
+
     // Fetch username by uid
     const fetchUserInfo = async () => {
         try {
@@ -34,11 +37,14 @@ function Dashboard() {
 
     return (
         <div>
+            <h1>Bio</h1>
             <a href="/">Arch</a><br></br>
             <img src={photo} alt="Photo"/>
             <p>{name}</p>
             <p>Derniere connexion : {lastSeen}</p>
             <p>Inscrit le : {creationTime}</p>
+
+            <h1>Question's</h1>
         </div>
     )
 }
