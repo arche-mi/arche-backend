@@ -3,8 +3,9 @@ import { auth,db } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { query, collection, getDocs, where } from "firebase/firestore";
-import { doc, setDoc, updateDoc, addDoc} from "firebase/firestore";
-import { isEmpty, map } from "@firebase/util";
+import { doc, updateDoc} from "firebase/firestore";
+import { isEmpty } from "@firebase/util";
+
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -46,29 +47,30 @@ function CreateQuestion() {
         }
     }
 
-    const create = async () => {
+    const createNewQuestion = async () => {
         try {       
             const title = document.querySelector('#title').value;
             const text = document.querySelector('#text').value;
-            const tags = document.querySelector('#title').value;    
+            const tags = document.querySelector('#tags').value;    
             if (title === '' || text === '' || tags === '') {
+                alert("remplissez tout les champs svp");
                 return false;
             } else {               
                 const date = new Date();
                 let key = Object.keys(questions).length;
                 if (isEmpty(questions)) {
                     setQuestions({});
-                    key = -1;
+                    key = 0;
                 }
-                questions[key] = [{title:title}, {text:text}, {tags:tags}, date];
+                questions[key] = [{title:title}, {text:text}, {tags:tags.split(',')}, date];
                 console.log(questions);
 
                 console.log(name);
-                const userDocByName = doc(db, "users", name);
-                await updateDoc(userDocByName, {
+                const userDocByUsername = doc(db, "users", name);
+                await updateDoc(userDocByUsername, {
                     questions: questions
                 });
-                window.location.reload();
+                window.location = `/question?${+key}`;
             }            
 
         } catch (error) {
@@ -101,7 +103,7 @@ function CreateQuestion() {
                     Tags:
                     <input type="text" id="tags" name="tags" />
                 </label><br></br>
-                <button onClick={create}>Poser</button>
+                <button onClick={createNewQuestion}>Poser</button>
         </div>
     )
 }

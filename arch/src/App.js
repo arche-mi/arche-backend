@@ -5,6 +5,7 @@ import Sign from "./components/sign/Sign";
 import Dashboard from "./components/dashboard/Dashboard";
 import Home from "./components/home/Home";
 import CreateQuestion from "./components/question/CreateQuestion";
+import ReadQuestion from "./components/question/ReadQuestion";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route exact path="/sign" element={<Sign />} />
           <Route exact path="/users" element={<Dashboard />} />
           <Route exact path="/question/new" element={<CreateQuestion />} />
+          <Route exact path="/question" element={<ReadQuestion />} />
         </Routes>
       </Router>
     </div>
