@@ -3,20 +3,27 @@ import { auth,db } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import { query, collection, getDocs, where } from "firebase/firestore";
-
+import "./dashboard.css";
 
 
 function Dashboard() {
     const [user, loading] = useAuthState(auth);
     const navigate = useNavigate();
-    const [name, setName] = useState("");
     const [lastSeen, setLastSeen]= useState();
     const [creationTime, setCreationTime] = useState();
+    const [name, setName] = useState()
     const [photo, setPhoto] = useState();    
-    const [questions, setQuestions] = useState();
+
+    let hrefName = null;
+    try {
+        hrefName = window.location.href.split('?')[1].split('%20').join(' ');
+    } catch (err) {
+        console.log(err);
+    }
     
     // Fetch user Questions
     const fetchUserQuestions = async () => {
+        let questions = null;
         try {
             const q = query(collection(db, "users"), where("uid", "==", user?.uid));
             const doc = await getDocs(q);
@@ -24,15 +31,26 @@ function Dashboard() {
             //await sleep(1000);
             
             if (!data.questions) {
-                const questions = {};                
-                data.questions = questions;
+                questions = {};
+            } else {
+                questions = data.questions;
             }
-            setQuestions(data.questions);
-            console.log(questions)
 
         } catch (error) {
             console.log(error);
         }
+        // console.log(questions)
+        let list = document.getElementById("qs");
+        for (let i = 0; i < 10; i++) {
+            let ul = document.createElement("ul");
+            questions[i].forEach((item)=>{
+                let li = document.createElement("li");
+                li.innerText = Object.values(item);
+                ul.appendChild(li);
+            })     
+            list.appendChild(ul);
+        }
+
     }
 
     // Fetch username by uid
@@ -51,8 +69,11 @@ function Dashboard() {
     useEffect(() => {
         if (loading) return;
         if (!user) return navigate("/sign");
-            
+        if (!hrefName) return navigate("/sign");
+
         fetchUserInfo();
+        if (user.displayName != hrefName) return navigate("/sign");
+            
         fetchUserQuestions();
     }, [user, loading]);
       
@@ -66,8 +87,8 @@ function Dashboard() {
             <p>Derniere connexion : {lastSeen}</p>
             <p>Inscrit le : {creationTime}</p>
 
-            <h1>Question's</h1>
-            // display with foreach fn
+            <h1>Mes Question's</h1>
+            <div id="qs"></div>
         </div>
     )
 }

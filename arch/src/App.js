@@ -15,7 +15,7 @@ function App() {
           <Route exact path="/" element={<Home />} />   
           <Route exact path="/landing" element={<Landing />} />   
           <Route exact path="/sign" element={<Sign />} />
-          <Route exact path="/users" element={<Dashboard />} />
+          <Route exact path="/users/" element={<Dashboard />} />
           <Route exact path="/question/new" element={<CreateQuestion />} />
           <Route exact path="/question" element={<ReadQuestion />} />
         </Routes>

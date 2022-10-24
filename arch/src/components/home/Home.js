@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 
+
+
 function Home() {
     const [user, loading] = useAuthState(auth);
     const navigate = useNavigate();
@@ -22,6 +24,10 @@ function Home() {
         }
     }; 
 
+    function switchToProfile() {
+        window.location = `/users?${name}`;
+    }
+
 
     useEffect(() => {
         if (loading) return;
@@ -33,7 +39,7 @@ function Home() {
     return (
         <div>
             <h1>Header</h1>
-            <a href="/users">va vers ton profil : {name}</a>
+            <button onClick={switchToProfile}>vers ton profil {name}</button>
             <p>Home ,Ya tout ici normalement</p>
 
             <h1>Question's</h1>

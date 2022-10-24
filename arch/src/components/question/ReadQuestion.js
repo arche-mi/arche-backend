@@ -12,16 +12,16 @@ function sleep(ms) {
 function ReadQuestion() {
     const [user, loading] = useAuthState(auth);
     const navigate = useNavigate();    
-    const [questions, setQuestions] = useState();
     const [title, setTitle] = useState();
     const [text, setText] = useState();
     const [tags, setTags] = useState();
     const [date, setDate] = useState();
 
-    const questionId = window.location.href.split('?')[1][0];
+    const questionId = window.location.href.split('?')[1];
 
 
     const fetchUserQuestions = async () => {
+        let questions = null;        
         try {
             const q = query(collection(db, "users"), where("uid", "==", user?.uid));
             const doc = await getDocs(q);
@@ -29,11 +29,10 @@ function ReadQuestion() {
             //await sleep(1000);
             
             if (!data.questions) {
-                const questions = {};                
-                data.questions = questions;
+                questions = {};
+            } else {
+                questions = data.questions
             }
-            setQuestions(data.questions);
-
             setTitle(Object.values(questions[questionId][0])[0]);
             setText(Object.values(questions[questionId][1])[0]);
             setTags(Object.values(questions[questionId][2])[0]);

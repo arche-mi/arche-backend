@@ -15,7 +15,7 @@ function Sign() {
 
 
     return (
-        <button onClick={signInWithGoogle}>sign up with google to start</button>        
+        <button onClick={signInWithGoogle}>sign up with google to start</button>      
     )
 }
 
