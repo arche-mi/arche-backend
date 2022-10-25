@@ -40,11 +40,17 @@ function Dashboard() {
             console.log(error);
         }
         let list = document.getElementById("qs");
-        for (let i = 0; i < Object.keys(questions).length; i++) {
+        for (let i = 0; i <= Object.keys(questions).pop(); i++) {
             let ul = document.createElement("ul");
+
+            while (!questions[i]) i++;
+
             questions[i].forEach((item)=>{
                 let li = document.createElement("li");
-                li.innerText = Object.values(item);
+
+                if (Object.values(item) != '[object Object]') {
+                    li.innerText = Object.values(item);                   
+                }
                 ul.appendChild(li);
             })     
             let a = document.createElement("a");

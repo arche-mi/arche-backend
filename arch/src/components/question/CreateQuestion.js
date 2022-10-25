@@ -63,7 +63,7 @@ function CreateQuestion() {
                     setQuestions({});
                     key = 0;
                 }
-                questions[key] = [{title:title}, {text:text}, {tags:tags.split(',')}, responses,date];
+                questions[key] = [{title:title}, {text:text}, {tags:tags.split(',')}, {responses:responses}, date];
                 console.log(questions);
 
                 console.log(name);

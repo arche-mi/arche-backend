@@ -36,7 +36,7 @@ function ReadQuestion() {
             setTitle(Object.values(questions[questionId][0])[0]);
             setText(Object.values(questions[questionId][1])[0]);
             setTags(Object.values(questions[questionId][2])[0]);
-            setDate(Object.values(questions[questionId][3]));
+            setDate(Object.values(questions[questionId][4]));
 
         } catch (error) {
             console.log(error);
@@ -46,6 +46,7 @@ function ReadQuestion() {
     useEffect(() => {
         if (loading) return;
         if (!user) return navigate("/sign");
+        if (!questionId) return navigate("/sign");
         
         fetchUserQuestions();
     }, [user, loading]);
