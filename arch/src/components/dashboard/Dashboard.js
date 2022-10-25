@@ -39,15 +39,21 @@ function Dashboard() {
         } catch (error) {
             console.log(error);
         }
-        // console.log(questions)
         let list = document.getElementById("qs");
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < Object.keys(questions).length; i++) {
             let ul = document.createElement("ul");
             questions[i].forEach((item)=>{
                 let li = document.createElement("li");
                 li.innerText = Object.values(item);
                 ul.appendChild(li);
             })     
+            let a = document.createElement("a");
+            let linkText = document.createTextNode("voir plus");
+            a.appendChild(linkText);
+            ul.appendChild(a);
+            // a.title = "more";
+            a.href = `/question?${+i}`;
+
             list.appendChild(ul);
         }
 

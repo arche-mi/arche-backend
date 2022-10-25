@@ -51,7 +51,8 @@ function CreateQuestion() {
         try {       
             const title = document.querySelector('#title').value;
             const text = document.querySelector('#text').value;
-            const tags = document.querySelector('#tags').value;    
+            const tags = document.querySelector('#tags').value; 
+            const responses = {};
             if (title === '' || text === '' || tags === '') {
                 alert("remplissez tout les champs svp");
                 return false;
@@ -62,7 +63,7 @@ function CreateQuestion() {
                     setQuestions({});
                     key = 0;
                 }
-                questions[key] = [{title:title}, {text:text}, {tags:tags.split(',')}, date];
+                questions[key] = [{title:title}, {text:text}, {tags:tags.split(',')}, responses,date];
                 console.log(questions);
 
                 console.log(name);
