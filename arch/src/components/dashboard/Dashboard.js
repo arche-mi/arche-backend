@@ -43,16 +43,26 @@ function Dashboard() {
         for (let i = 0; i <= Object.keys(questions).pop(); i++) {
             let ul = document.createElement("ul");
 
+            // Pour les questions d'Id non incremente
             while (!questions[i]) i++;
 
-            questions[i].forEach((item)=>{
-                let li = document.createElement("li");
+            let li = document.createElement("li");
+            li.innerText = Object.values(questions[i][0])[0];
+            ul.appendChild(li);
 
-                if (Object.values(item) != '[object Object]') {
-                    li.innerText = Object.values(item);                   
-                }
-                ul.appendChild(li);
-            })     
+            li = document.createElement("li");
+            li.innerText = Object.values(questions[i][1])[0];  
+            ul.appendChild(li);
+            
+            li = document.createElement("li");
+            li.innerText = Object.values(questions[i][2])[0];               
+            ul.appendChild(li);
+            
+            li = document.createElement("li");
+            li.innerText = Object.keys(Object.values(questions[i][3])).pop() + " reponses";
+            ul.appendChild(li);
+
+
             let a = document.createElement("a");
             let linkText = document.createTextNode("voir plus");
             a.appendChild(linkText);
