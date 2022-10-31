@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { auth } from "../../firebase";
+import { auth,db } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
-
+import { query, collection, getDocs, where, doc } from "firebase/firestore";
 
 
 
@@ -12,6 +12,71 @@ function Home() {
     const [photo, setPhoto] = useState();
     const [name, setName] = useState("");
 
+
+    // Fetch users Questions
+    const fetchUsersQuestions = async () => {
+        let questions = [];
+        let names = [];
+        try {
+            const q = query(collection(db, "users"));
+            const doc = await getDocs(q);
+            const data = doc.docs;
+            data.forEach((item) => {
+                if (!item.data().questions) {
+                    item.data().questions = {};
+                }
+                questions.push(item.data().questions);
+                names.push(item.data().name)
+            })
+            //await sleep(1000);
+                        
+        } catch (error) {
+            console.log(error);
+        }
+
+        let list = document.getElementById("qs");
+        for (let i = 0; i <= Object.keys(questions).pop(); i++) {
+            let ul = document.createElement("ul");
+
+            // Pour les questions d'Id non incremente
+            while (!questions[i]) i++;
+
+
+            let usernamelink = document.createElement("a");
+            let usernamelinktext = document.createTextNode(names[i]);
+            usernamelink.appendChild(usernamelinktext);
+            ul.appendChild(usernamelink);
+            // a.title = "more";
+            usernamelink.href = `/users?${names[i]}`;
+
+            let li = document.createElement("li");
+            li.innerText = Object.values(Object.values(questions[i])[0][0])[0];
+            ul.appendChild(li);
+
+            li = document.createElement("li");
+            li.innerText = Object.values(Object.values(questions[i])[0][1])[0];  
+            ul.appendChild(li);
+            
+            li = document.createElement("li");
+            li.innerText = Object.values(Object.values(questions[i])[0][2])[0];               
+            ul.appendChild(li);
+            
+            li = document.createElement("li");
+            li.innerText = Object.keys(Object.values(Object.values(questions[i])[0][3])).pop() + " reponses";
+            ul.appendChild(li);
+
+
+            let a = document.createElement("a");
+            let linkText = document.createTextNode("voir plus");
+            a.appendChild(linkText);
+            ul.appendChild(a);
+            // a.title = "more";
+            a.href = `/question?${+i}`;            
+
+            list.appendChild(ul);
+        }
+
+    }
 
     // Fetch username by uid
     const fetchUserInfo = async () => {
@@ -34,6 +99,7 @@ function Home() {
         if (!user) navigate("/landing");
 
         fetchUserInfo();
+        fetchUsersQuestions();
     }, [user, loading]);
 
     return (
@@ -42,9 +108,10 @@ function Home() {
             <button onClick={switchToProfile}>vers ton profil {name}</button>
             <p>Home ,Ya tout ici normalement</p>
 
-            <h1>Question's</h1>
+            <h2>Question's</h2>
             <a href="/question/new">Poser une question ici</a>
             <h3>Tout les questions</h3>
+            <p id="qs"></p>
         </div>
     )
 }
