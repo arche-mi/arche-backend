@@ -93,7 +93,7 @@ function Dashboard() {
         let updBtn = document.querySelector('#upd-btn');
         let p = document.createElement("p");
         p.innerText = "modifier mon profile";
-        updBtn.appendChild(p);
+        //updBtn.appendChild(p);
     }
     
     useEffect(() => {

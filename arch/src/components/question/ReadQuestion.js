@@ -3,7 +3,7 @@ import { auth,db } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { query, collection, getDocs, where } from "firebase/firestore";
-import { async } from "@firebase/util";
+import { doc, updateDoc} from "firebase/firestore";
 
 
 function sleep(ms) {
@@ -11,6 +11,7 @@ function sleep(ms) {
 }
 
 function ReadQuestion() {
+    const [name, setName] = useState();
     const [user, loading] = useAuthState(auth);
     const navigate = useNavigate();    
     const [title, setTitle] = useState();
@@ -21,13 +22,24 @@ function ReadQuestion() {
 
     const questionId = window.location.href.split('?')[1];
 
+    const fetchUserName = async () => {
+        try {        
+          const q = query(collection(db, "users"), where("uid", "==", user?.uid));
+          const doc = await getDocs(q);
+          const data = doc.docs[0].data();
+        
+          setName(data.name);
+        } catch (err) {
+          console.error(err);
+        }
+    }; 
 
     const fetchUserQuestions = async () => {
         let questions = null;        
         try {
             const q = query(collection(db, "users"), where("uid", "==", user?.uid));
-            const doc = await getDocs(q);
-            const data = doc.docs[0].data();
+            const doct = await getDocs(q);
+            const data = doct.docs[0].data();
             //await sleep(1000);
             
             if (!data.questions) {
@@ -52,11 +64,48 @@ function ReadQuestion() {
 
         } catch (error) {
             console.log(error);
+            window.location = `/user?${name}`
         }
     }
 
     const deletQuestion = async () => {
         console.log(questionId);
+        let questions = {};        
+        try {
+            const q = query(collection(db, "users"), where("uid", "==", user?.uid));
+            const doct = await getDocs(q);
+            const data = doct.docs[0].data();
+            //await sleep(1000);
+            
+            if (!data.questions) {
+                questions = {};
+            } else {
+                questions = data.questions
+            }
+
+            let updQuestions = [];
+            for (let i = 0; i < Object.values(questions).length; i++) {
+                if (Object.keys(questions)[i] != questionId) {
+                    const temp = {};
+                    temp[Object.keys(questions)[i]] = Object.values(questions)[i]
+                    updQuestions.push(temp)
+                }
+            }
+            console.log(updQuestions)
+            console.log(name)
+            const userDocByUsername = doc(db, "users", name);
+            await updateDoc(userDocByUsername, {
+                questions: updQuestions[0]
+            });
+            window.location = `/user?${name}`;
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    function switchToProfile() {
+        window.location = `/user?${name}`;
     }
 
     useEffect(() => {
@@ -64,12 +113,14 @@ function ReadQuestion() {
         if (!user) return navigate("/sign");
         if (!questionId) return navigate("/sign");
         
+        fetchUserName();
         fetchUserQuestions();
     }, [user, loading]);
 
 
     return (
         <div>
+            <button onClick={switchToProfile}>mon profile</button>
             <h3>Question</h3>
             <p>titre : {title}</p>
             <p>text : {text}</p>

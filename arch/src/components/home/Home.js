@@ -13,6 +13,10 @@ function Home() {
     const [name, setName] = useState("");
 
 
+    function fetchUserQuestionLength(question) {
+        return parseInt(Object.keys(question).pop())
+    }
+
     // Fetch users Questions
     const fetchUsersQuestions = async () => {
         let questions = [];
@@ -35,45 +39,47 @@ function Home() {
         }
 
         let list = document.getElementById("qs");
-        for (let i = 0; i <= Object.keys(questions).pop(); i++) {
-            let ul = document.createElement("ul");
+        for (let k=0; k <= questions.length; k++) {        
+            for (let i = 0; i <= fetchUserQuestionLength(questions[k]); i++) {
+                let ul = document.createElement("ul");
 
-            // Pour les questions d'Id non incremente
-            while (!questions[i]) i++;
-
-
-            let usernamelink = document.createElement("a");
-            let usernamelinktext = document.createTextNode(names[i]);
-            usernamelink.appendChild(usernamelinktext);
-            ul.appendChild(usernamelink);
-            // a.title = "more";
-            usernamelink.href = `/user?${names[i]}`;
-
-            let li = document.createElement("li");
-            li.innerText = Object.values(Object.values(questions[i])[0][0])[0];
-            ul.appendChild(li);
-
-            li = document.createElement("li");
-            li.innerText = Object.values(Object.values(questions[i])[0][1])[0];  
-            ul.appendChild(li);
-            
-            li = document.createElement("li");
-            li.innerText = Object.values(Object.values(questions[i])[0][2])[0];               
-            ul.appendChild(li);
-            
-            li = document.createElement("li");
-            li.innerText = Object.keys(Object.values(Object.values(questions[i])[0][3])).pop() + " reponses";
-            ul.appendChild(li);
+                // Pour les questions d'Id non incremente
+                while (!questions[i]) i++;
 
 
-            let a = document.createElement("a");
-            let linkText = document.createTextNode("voir plus");
-            a.appendChild(linkText);
-            ul.appendChild(a);
-            // a.title = "more";
-            a.href = `/question?${+i}`;            
+                let usernamelink = document.createElement("a");
+                let usernamelinktext = document.createTextNode(names[i]);
+                usernamelink.appendChild(usernamelinktext);
+                ul.appendChild(usernamelink);
+                // a.title = "more";
+                usernamelink.href = `/user?${names[i]}`;
 
-            list.appendChild(ul);
+                let li = document.createElement("li");
+                li.innerText = Object.values(Object.values(questions[i])[0][0])[0];
+                ul.appendChild(li);
+
+                li = document.createElement("li");
+                li.innerText = Object.values(Object.values(questions[i])[0][1])[0];  
+                ul.appendChild(li);
+                
+                li = document.createElement("li");
+                li.innerText = Object.values(Object.values(questions[i])[0][2])[0];               
+                ul.appendChild(li);
+                
+                li = document.createElement("li");
+                li.innerText = Object.keys(Object.values(Object.values(questions[i])[0][3])).pop() + " reponses";
+                ul.appendChild(li);
+
+
+                let a = document.createElement("a");
+                let linkText = document.createTextNode("voir plus");
+                a.appendChild(linkText);
+                ul.appendChild(a);
+                // a.title = "more";
+                a.href = `/question?${+i}`;            
+
+                list.appendChild(ul);
+            }
         }
 
     }
