@@ -47,7 +47,7 @@ function Home() {
             usernamelink.appendChild(usernamelinktext);
             ul.appendChild(usernamelink);
             // a.title = "more";
-            usernamelink.href = `/users?${names[i]}`;
+            usernamelink.href = `/user?${names[i]}`;
 
             let li = document.createElement("li");
             li.innerText = Object.values(Object.values(questions[i])[0][0])[0];
@@ -90,7 +90,7 @@ function Home() {
     }; 
 
     function switchToProfile() {
-        window.location = `/users?${name}`;
+        window.location = `/user?${name}`;
     }
 
 

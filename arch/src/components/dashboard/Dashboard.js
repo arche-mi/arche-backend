@@ -7,6 +7,7 @@ import "./dashboard.css";
 
 
 function Dashboard() {
+    let isUser = true;
     const [user, loading] = useAuthState(auth);
     const navigate = useNavigate();
     const [lastSeen, setLastSeen]= useState();
@@ -87,14 +88,25 @@ function Dashboard() {
             //console.error(err);
         }
     }; 
+
+    if (isUser) {
+        let updBtn = document.querySelector('#upd-btn');
+        let p = document.createElement("p");
+        p.innerText = "modifier mon profile";
+        updBtn.appendChild(p);
+    }
     
     useEffect(() => {
         if (loading) return;
-        if (!user) return navigate("/sign");
+        if (!user) {
+            isUser = false;
+        };
         if (!hrefName) return navigate("/sign");
 
         fetchUserInfo();
-        if (user.displayName != hrefName) return navigate("/sign");
+        if (user.displayName != hrefName) {
+            isUser = false;
+        };
             
         fetchUserQuestions();
     }, [user, loading]);
@@ -108,6 +120,7 @@ function Dashboard() {
             <p>{name}</p>
             <p>Derniere connexion : {lastSeen}</p>
             <p>Inscrit le : {creationTime}</p>
+            <button id="upd-btn"></button>
 
             <h1>Mes Question's</h1>
             <div id="qs"></div>
