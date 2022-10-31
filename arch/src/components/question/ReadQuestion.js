@@ -64,7 +64,9 @@ function ReadQuestion() {
 
         } catch (error) {
             console.log(error);
-            window.location = `/user?${name}`
+
+            alert('tu nes pas a ta place ...');
+            window.location = `/`
         }
     }
 

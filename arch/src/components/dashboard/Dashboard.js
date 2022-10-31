@@ -45,7 +45,7 @@ function Dashboard() {
             let ul = document.createElement("ul");
 
             // Pour les questions d'Id non incremente
-            while (!questions[i]) i++;
+            if (!questions[i]) i++;
 
             let li = document.createElement("li");
             li.innerText = Object.values(questions[i][0])[0];

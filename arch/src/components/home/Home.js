@@ -14,13 +14,13 @@ function Home() {
 
 
     function fetchUserQuestionLength(question) {
+        //console.log(Object.keys(question).pop())
         return parseInt(Object.keys(question).pop())
     }
 
     // Fetch users Questions
     const fetchUsersQuestions = async () => {
         let questions = [];
-        let names = [];
         try {
             const q = query(collection(db, "users"));
             const doc = await getDocs(q);
@@ -29,45 +29,46 @@ function Home() {
                 if (!item.data().questions) {
                     item.data().questions = {};
                 }
-                questions.push(item.data().questions);
-                names.push(item.data().name)
+                const tempQuestions = [item.data().questions, item.data().name]
+                questions.push(tempQuestions);
             })
             //await sleep(1000);
                         
         } catch (error) {
             console.log(error);
         }
-
+        
         let list = document.getElementById("qs");
-        for (let k=0; k <= questions.length; k++) {        
-            for (let i = 0; i <= fetchUserQuestionLength(questions[k]); i++) {
+        questions.forEach((item) => {
+            
+            console.log(item[0])
+            for (const prop in item[0]) {
+
                 let ul = document.createElement("ul");
 
                 // Pour les questions d'Id non incremente
-                while (!questions[i]) i++;
-
 
                 let usernamelink = document.createElement("a");
-                let usernamelinktext = document.createTextNode(names[i]);
+                let usernamelinktext = document.createTextNode(item[1]);                
                 usernamelink.appendChild(usernamelinktext);
                 ul.appendChild(usernamelink);
                 // a.title = "more";
-                usernamelink.href = `/user?${names[i]}`;
+                usernamelink.href = `/user?${item[1]}`;
 
-                let li = document.createElement("li");
-                li.innerText = Object.values(Object.values(questions[i])[0][0])[0];
+                let li = document.createElement("li");                
+                li.innerText = Object.values(item[0][prop][0]);
                 ul.appendChild(li);
 
                 li = document.createElement("li");
-                li.innerText = Object.values(Object.values(questions[i])[0][1])[0];  
+                li.innerText = Object.values(item[0][prop][1]);
                 ul.appendChild(li);
                 
                 li = document.createElement("li");
-                li.innerText = Object.values(Object.values(questions[i])[0][2])[0];               
+                li.innerText = Object.values(item[0][prop][2])
                 ul.appendChild(li);
                 
                 li = document.createElement("li");
-                li.innerText = Object.keys(Object.values(Object.values(questions[i])[0][3])).pop() + " reponses";
+                li.innerText = Object.keys(Object.values(item[0][prop][3])).pop() + " reponses";
                 ul.appendChild(li);
 
 
@@ -76,11 +77,11 @@ function Home() {
                 a.appendChild(linkText);
                 ul.appendChild(a);
                 // a.title = "more";
-                a.href = `/question?${+i}`;            
+                a.href = `/question?${+prop}`;
 
                 list.appendChild(ul);
             }
-        }
+        })
 
     }
 
