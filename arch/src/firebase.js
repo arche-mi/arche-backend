@@ -22,7 +22,8 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 const googleProvider = new GoogleAuthProvider();
-
+const msg = "Bienvenu";
+const feedback = [];
 
 // Sign with Google
 const signInWithGoogle = async () => {
@@ -37,6 +38,8 @@ const signInWithGoogle = async () => {
         name: user.displayName,
         authProvider: "google",
         email: user.email,
+        message: msg,
+        feedback: feedback,
       });
     }
     console.log("sign sucess");

@@ -13,6 +13,7 @@ function Dashboard() {
     const [lastSeen, setLastSeen]= useState();
     const [creationTime, setCreationTime] = useState();
     const [name, setName] = useState()
+    const [message, setMessage] = useState();
     const [photo, setPhoto] = useState();    
 
     let hrefName = null;
@@ -79,34 +80,35 @@ function Dashboard() {
     // Fetch username by uid
     const fetchUserInfo = async () => {
         try {
+            const q = query(collection(db, "users"), where("uid", "==", user?.uid));
+            const doc = await getDocs(q);
+            const data = doc.docs[0].data();
+
             setName(user.displayName);
             setCreationTime(user.metadata.creationTime.split(',')[1].split('GMT'));
             setLastSeen(user.metadata.lastSignInTime.split(',')[1].split('GMT'));
             setPhoto(user.photoURL);
+            setMessage(data.message);
             // console.log(user);
         } catch (err) {
             //console.error(err);
         }
     }; 
 
-    if (isUser) {
-        let updBtn = document.querySelector('#upd-btn');
-        let p = document.createElement("p");
-        p.innerText = "modifier mon profile";
-        //updBtn.appendChild(p);
+
+    function switchToFeedback() {
+        window.location = `/feedback?${user.displayName}`
     }
+    
     
     useEffect(() => {
         if (loading) return;
-        if (!user) {
-            isUser = false;
-        };
+        if (!user) { return navigate("/sign") };
+
         if (!hrefName) return navigate("/sign");
+        if (user.displayName != hrefName) { return navigate("/sign") };
 
         fetchUserInfo();
-        if (user.displayName != hrefName) {
-            isUser = false;
-        };
             
         fetchUserQuestions();
     }, [user, loading]);
@@ -124,6 +126,10 @@ function Dashboard() {
 
             <h1>Mes Question's</h1>
             <div id="qs"></div>
+
+            <h2>Message</h2>
+            <p>{message}</p>
+            <button onClick={switchToFeedback}>feedback (nous laisser un message)</button>
         </div>
     )
 }

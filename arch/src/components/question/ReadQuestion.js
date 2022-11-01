@@ -85,19 +85,16 @@ function ReadQuestion() {
                 questions = data.questions
             }
 
-            let updQuestions = [];
+            let updQuestions = {};
             for (let i = 0; i < Object.values(questions).length; i++) {
                 if (Object.keys(questions)[i] != questionId) {
-                    const temp = {};
-                    temp[Object.keys(questions)[i]] = Object.values(questions)[i]
-                    updQuestions.push(temp)
+                    updQuestions[Object.keys(questions)[i]] = Object.values(questions)[i]
                 }
             }
-            console.log(updQuestions)
-            console.log(name)
+            console.log(updQuestions);
             const userDocByUsername = doc(db, "users", name);
             await updateDoc(userDocByUsername, {
-                questions: updQuestions[0]
+                questions: updQuestions
             });
             window.location = `/user?${name}`;
 

@@ -13,11 +13,6 @@ function Home() {
     const [name, setName] = useState("");
 
 
-    function fetchUserQuestionLength(question) {
-        //console.log(Object.keys(question).pop())
-        return parseInt(Object.keys(question).pop())
-    }
-
     // Fetch users Questions
     const fetchUsersQuestions = async () => {
         let questions = [];
@@ -39,6 +34,8 @@ function Home() {
         }
         
         let list = document.getElementById("qs");
+        if (list.textContent != "") { list.textContent = "" };
+
         questions.forEach((item) => {
             
             console.log(item[0])
