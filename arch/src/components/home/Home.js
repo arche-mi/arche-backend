@@ -74,7 +74,7 @@ function Home() {
                 a.appendChild(linkText);
                 ul.appendChild(a);
                 // a.title = "more";
-                a.href = `/question?${+prop}`;
+                a.href = `/question?${+prop}#${user?.uid}`;
 
                 list.appendChild(ul);
             }

@@ -20,11 +20,13 @@ function ReadQuestion() {
     const [date, setDate] = useState();
     const [responses, setResponses] = useState();
 
-    const questionId = window.location.href.split('?')[1];
+    const questionId = window.location.href.split('?')[1].split('#')[0];
+    const userid = window.location.href.split('#')[1];
+    console.log(questionId+' : '+userid);
 
     const fetchUserName = async () => {
         try {        
-          const q = query(collection(db, "users"), where("uid", "==", user?.uid));
+          const q = query(collection(db, "users"), where("uid", "==", userid));
           const doc = await getDocs(q);
           const data = doc.docs[0].data();
         
@@ -37,7 +39,7 @@ function ReadQuestion() {
     const fetchUserQuestions = async () => {
         let questions = null;        
         try {
-            const q = query(collection(db, "users"), where("uid", "==", user?.uid));
+            const q = query(collection(db, "users"), where("uid", "==", userid));
             const doct = await getDocs(q);
             const data = doct.docs[0].data();
             //await sleep(1000);
@@ -65,8 +67,8 @@ function ReadQuestion() {
         } catch (error) {
             console.log(error);
 
-            alert('tu nes pas a ta place ...');
-            window.location = `/`
+            //alert('tu nes pas a ta place ...');
+            //window.location = `/`
         }
     }
 
@@ -109,7 +111,7 @@ function ReadQuestion() {
 
     useEffect(() => {
         if (loading) return;
-        if (!user) return navigate("/sign");
+        //if (!user) return navigate("/sign");
         if (!questionId) return navigate("/sign");
         
         fetchUserName();

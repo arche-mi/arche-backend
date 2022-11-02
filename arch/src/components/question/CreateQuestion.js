@@ -71,7 +71,7 @@ function CreateQuestion() {
                 await updateDoc(userDocByUsername, {
                     questions: questions
                 });
-                window.location = `/question?${+key}`;
+                window.location = `/question?${+key}#${user?.uid}`;
             }            
 
         } catch (error) {
