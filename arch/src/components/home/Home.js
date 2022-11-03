@@ -24,7 +24,7 @@ function Home() {
                 if (!item.data().questions) {
                     item.data().questions = {};
                 }
-                const tempQuestions = [item.data().questions, item.data().name]
+                const tempQuestions = [item.data().questions, item.data().name, item.data().uid]
                 questions.push(tempQuestions);
             })
             //await sleep(1000);
@@ -32,6 +32,8 @@ function Home() {
         } catch (error) {
             console.log(error);
         }
+
+        console.log(user.metadata.lastSignInTime)
         
         let list = document.getElementById("qs");
         if (list.textContent != "") { list.textContent = "" };
@@ -43,14 +45,12 @@ function Home() {
 
                 let ul = document.createElement("ul");
 
-                // Pour les questions d'Id non incremente
-
                 let usernamelink = document.createElement("a");
                 let usernamelinktext = document.createTextNode(item[1]);                
                 usernamelink.appendChild(usernamelinktext);
                 ul.appendChild(usernamelink);
                 // a.title = "more";
-                usernamelink.href = `/user?${item[1]}`;
+                usernamelink.href = `/user?${item[1]}#${item[2]}`;
 
                 let li = document.createElement("li");                
                 li.innerText = Object.values(item[0][prop][0]);
@@ -74,7 +74,7 @@ function Home() {
                 a.appendChild(linkText);
                 ul.appendChild(a);
                 // a.title = "more";
-                a.href = `/question?${+prop}#${user?.uid}`;
+                a.href = `/question?${+prop}!${item[2]}#${user?.uid}`;
 
                 list.appendChild(ul);
             }
@@ -94,7 +94,7 @@ function Home() {
     }; 
 
     function switchToProfile() {
-        window.location = `/user?${name}`;
+        window.location = `/user?${name}#${user?.uid}`;
     }
 
 

@@ -6,29 +6,11 @@ import { query, collection, getDocs, where } from "firebase/firestore";
 import { doc, updateDoc} from "firebase/firestore";
 
 
-// Convert millisecond to Day:Hours:Minutes thanks Stackoverflow & @Mic
-function dhm(t){
-    var cd = 24 * 60 * 60 * 1000,
-        ch = 60 * 60 * 1000,
-        d = Math.floor(t / cd),
-        h = Math.floor( (t - d * cd) / ch),
-        m = Math.round( (t - d * cd - h * ch) / 60000),
-        pad = function(n){ return n < 10 ? '0' + n : n; };
-  if( m === 60 ){
-    h++;
-    m = 0;
-  }
-  if( h === 24 ){
-    d++;
-    h = 0;
-  }
-  return [d, pad(h), pad(m)].join(':');
-}
+// External fonctions
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
-
 
 function corMonth(m) {
     let finalMonth = null;
@@ -48,6 +30,8 @@ function firebaseTimeToDayMonthYearAndHourMinutes(time) {
 }
 
 
+
+// React fonction
 function ReadQuestion() {
     const [name, setName] = useState();
     const [user, loading] = useAuthState(auth);
@@ -58,8 +42,8 @@ function ReadQuestion() {
     const [date, setDate] = useState();
     const [responses, setResponses] = useState();
 
-    const questionId = window.location.href.split('?')[1].split('#')[0];
-    const userid = window.location.href.split('#')[1];
+    const questionId = window.location.href.split('?')[1].split('!')[0];
+    const userid = window.location.href.split('!')[1].split('#')[0];
     console.log(questionId+' : '+userid);
 
     const fetchUserName = async () => {
@@ -103,7 +87,6 @@ function ReadQuestion() {
 
             const currentTime = Date.now();
             const fetchTime = questions[questionId][4].toDate();           
-            console.log(firebaseTimeToDayMonthYearAndHourMinutes(fetchTime));
             setDate(firebaseTimeToDayMonthYearAndHourMinutes(fetchTime));
 
         } catch (error) {
@@ -141,7 +124,7 @@ function ReadQuestion() {
             await updateDoc(userDocByUsername, {
                 questions: updQuestions
             });
-            window.location = `/user?${name}`;
+            window.location = `/user?${name}#${user?.uid}`;
 
         } catch (error) {
             console.log(error);
@@ -149,7 +132,7 @@ function ReadQuestion() {
     }
 
     function switchToProfile() {
-        window.location = `/user?${name}`;
+        window.location = `/user?${name}#${userid}`;
     }
 
     useEffect(() => {
@@ -161,19 +144,34 @@ function ReadQuestion() {
         fetchUserQuestions();
     }, [user, loading]);
 
+    if (userid === user?.uid) {
+        return (
+            <div>
+                <button onClick={switchToProfile}>{name}</button>
+                <h3>Question</h3>
+                <p>titre : {title}</p>
+                <p>text : {text}</p>
+                <p id="tags">tags: </p>
+                <p>publier le : {date}</p>
+                <p>reponses : {responses}</p>
+                <button onClick={deletQuestion}>supprimer</button>
+            </div>
+        )
+    } else {
+        return (
+            <div>
+                <button onClick={switchToProfile}>{name}</button>
+                <h3>Question</h3>
+                <p>titre : {title}</p>
+                <p>text : {text}</p>
+                <p id="tags">tags: </p>
+                <p>publier le : {date}</p>
+                <p>reponses : {responses}</p>
+            </div>
+        )
+    }
 
-    return (
-        <div>
-            <button onClick={switchToProfile}>mon profile</button>
-            <h3>Question</h3>
-            <p>titre : {title}</p>
-            <p>text : {text}</p>
-            <p id="tags">tags: </p>
-            <p>publier le : {date}</p>
-            <p>reponses : {responses}</p>
-            <button onClick={deletQuestion}>supprimer</button>
-        </div>
-    )
+    
 }
 
 export default ReadQuestion;

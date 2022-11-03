@@ -40,6 +40,9 @@ const signInWithGoogle = async () => {
         email: user.email,
         message: msg,
         feedback: feedback,
+        creationTime: user.metadata.creationTime,
+        lastSeenTime: user.metadata.lastSignInTime,
+        userPhoto: user.photoURL,
       });
     }
     console.log("sign sucess");

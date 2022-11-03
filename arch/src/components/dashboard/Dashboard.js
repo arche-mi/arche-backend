@@ -17,8 +17,10 @@ function Dashboard() {
     const [photo, setPhoto] = useState();    
 
     let hrefName = null;
+    let userid = null;
     try {
-        hrefName = window.location.href.split('?')[1].split('%20').join(' ');
+        userid = window.location.href.split('#')[1];
+        hrefName = window.location.href.split('?')[1].split('#')[0].split('%20').join(' ');
     } catch (err) {
         console.log(err);
     }
@@ -27,7 +29,7 @@ function Dashboard() {
     const fetchUserQuestions = async () => {
         let questions = null;
         try {
-            const q = query(collection(db, "users"), where("uid", "==", user?.uid));
+            const q = query(collection(db, "users"), where("uid", "==", userid));
             const doc = await getDocs(q);
             const data = doc.docs[0].data();
             //await sleep(1000);
@@ -42,6 +44,8 @@ function Dashboard() {
             console.log(error);
         }
         let list = document.getElementById("qs");
+        if (list.textContent != "") { list.textContent = "" };
+
         for (let i = 0; i <= Object.keys(questions).pop(); i++) {
             let ul = document.createElement("ul");
 
@@ -70,7 +74,7 @@ function Dashboard() {
             a.appendChild(linkText);
             ul.appendChild(a);
             // a.title = "more";
-            a.href = `/question?${+i}`;
+            a.href = `/question?${+i}!${userid}#${user?.uid}`;
 
             list.appendChild(ul);
         }
@@ -80,16 +84,15 @@ function Dashboard() {
     // Fetch username by uid
     const fetchUserInfo = async () => {
         try {
-            const q = query(collection(db, "users"), where("uid", "==", user?.uid));
+            const q = query(collection(db, "users"), where("uid", "==", userid));
             const doc = await getDocs(q);
             const data = doc.docs[0].data();
 
-            setName(user.displayName);
-            setCreationTime(user.metadata.creationTime.split(',')[1].split('GMT'));
-            setLastSeen(user.metadata.lastSignInTime.split(',')[1].split('GMT'));
-            setPhoto(user.photoURL);
+            setName(data.name);            
+            setCreationTime(data.creationTime.split(',')[1].split('GMT'));
+            setLastSeen(data.lastSeenTime.split(',')[1].split('GMT'));
+            setPhoto(data.userPhoto);
             setMessage(data.message);
-            // console.log(user);
         } catch (err) {
             //console.error(err);
         }
@@ -104,34 +107,49 @@ function Dashboard() {
     useEffect(() => {
         if (loading) return;
         if (!user) { return navigate("/sign") };
-
         if (!hrefName) return navigate("/sign");
-        if (user.displayName != hrefName) { return navigate("/sign") };
 
-        fetchUserInfo();
-            
+        fetchUserInfo();            
         fetchUserQuestions();
     }, [user, loading]);
       
+    console.log(userid+':'+user?.uid)
+    if (userid != user?.uid) {
+        return (
+            <div>
+                <h1>Bio</h1>
+                <a href="/">Arch</a><br></br>
+                <img src={photo} alt="Photo"/>
+                <p>{name}</p>
+                <p>Derniere connexion : {lastSeen}</p>
+                <p>Inscrit le : {creationTime}</p>
 
-    return (
-        <div>
-            <h1>Bio</h1>
-            <a href="/">Arch</a><br></br>
-            <img src={photo} alt="Photo"/>
-            <p>{name}</p>
-            <p>Derniere connexion : {lastSeen}</p>
-            <p>Inscrit le : {creationTime}</p>
-            <button id="upd-btn"></button>
+                <h1>les question's de {name}</h1>
+                <div id="qs"></div>
+                
+            </div>
+        )    
+    } else {
+        return (
+            <div>
+                <h1>Bio</h1>
+                <a href="/">Arch</a><br></br>
+                <img src={photo} alt="Photo"/>
+                <p>{name}</p>
+                <p>Derniere connexion : {lastSeen}</p>
+                <p>Inscrit le : {creationTime}</p>
+    
+                <h1>Mes Question's</h1>
+                <div id="qs"></div>
+    
+                <h2>Message</h2>
+                <p>{message}</p>
+                <button onClick={switchToFeedback}>feedback (nous laisser un message)</button>
+            </div>
+        )
+    }
 
-            <h1>Mes Question's</h1>
-            <div id="qs"></div>
-
-            <h2>Message</h2>
-            <p>{message}</p>
-            <button onClick={switchToFeedback}>feedback (nous laisser un message)</button>
-        </div>
-    )
+    
 }
 
 export default Dashboard;
