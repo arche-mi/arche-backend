@@ -6,9 +6,47 @@ import { query, collection, getDocs, where } from "firebase/firestore";
 import { doc, updateDoc} from "firebase/firestore";
 
 
+// Convert millisecond to Day:Hours:Minutes thanks Stackoverflow & @Mic
+function dhm(t){
+    var cd = 24 * 60 * 60 * 1000,
+        ch = 60 * 60 * 1000,
+        d = Math.floor(t / cd),
+        h = Math.floor( (t - d * cd) / ch),
+        m = Math.round( (t - d * cd - h * ch) / 60000),
+        pad = function(n){ return n < 10 ? '0' + n : n; };
+  if( m === 60 ){
+    h++;
+    m = 0;
+  }
+  if( h === 24 ){
+    d++;
+    h = 0;
+  }
+  return [d, pad(h), pad(m)].join(':');
+}
+
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
+
+
+function corMonth(m) {
+    let finalMonth = null;
+    const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    month.forEach((i) => {
+        if (m == month.indexOf(i)) {
+            finalMonth = i;
+        }
+    })
+    return finalMonth
+}
+
+function firebaseTimeToDayMonthYearAndHourMinutes(time) {
+    const questionTime = time.getHours()+':'+time.getMinutes();
+    const questionDate = time.getDate()+' '+corMonth(time.getMonth())+', '+time.getFullYear();
+    return questionDate+' a '+questionTime;
+}
+
 
 function ReadQuestion() {
     const [name, setName] = useState();
@@ -61,8 +99,12 @@ function ReadQuestion() {
                 tagsp.appendChild(ul);
             }
 
-            setDate(Object.values(questions[questionId][4]));
             //setResponses(Object.values(questions[questionId][3]));
+
+            const currentTime = Date.now();
+            const fetchTime = questions[questionId][4].toDate();           
+            console.log(firebaseTimeToDayMonthYearAndHourMinutes(fetchTime));
+            setDate(firebaseTimeToDayMonthYearAndHourMinutes(fetchTime));
 
         } catch (error) {
             console.log(error);
@@ -71,6 +113,7 @@ function ReadQuestion() {
             //window.location = `/`
         }
     }
+    
 
     const deletQuestion = async () => {
         console.log(questionId);
@@ -126,7 +169,7 @@ function ReadQuestion() {
             <p>titre : {title}</p>
             <p>text : {text}</p>
             <p id="tags">tags: </p>
-            <p>date de publication : {date}</p>
+            <p>publier le : {date}</p>
             <p>reponses : {responses}</p>
             <button onClick={deletQuestion}>supprimer</button>
         </div>
