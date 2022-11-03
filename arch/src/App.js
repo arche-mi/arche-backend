@@ -7,6 +7,8 @@ import Home from "./components/home/Home";
 import CreateQuestion from "./components/question/CreateQuestion";
 import ReadQuestion from "./components/question/ReadQuestion";
 import Feedback from "./components/feedback/Feedback"
+import Donation from "./components/donation/Donation";
+
 
 function App() {
   return (
@@ -20,6 +22,7 @@ function App() {
           <Route exact path="/question/new" element={<CreateQuestion />} />
           <Route exact path="/question" element={<ReadQuestion />} />
           <Route exact path="/feedback" element={<Feedback />} />
+          <Route exact path="/donation" element={<Donation />} />
         </Routes>
       </Router>
     </div>

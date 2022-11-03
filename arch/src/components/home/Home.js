@@ -97,6 +97,10 @@ function Home() {
         window.location = `/user?${name}#${user?.uid}`;
     }
 
+    function switchToDonation() {
+        window.location.href = `/donation?${user.displayName}`;
+    }
+
 
     useEffect(() => {
         if (loading) return;
@@ -116,6 +120,8 @@ function Home() {
             <a href="/question/new">Poser une question ici</a>
             <h3>Tout les questions</h3>
             <p id="qs"></p>
+
+            <h1><button onClick={switchToDonation}>Faire un don !</button></h1>
         </div>
     )
 }

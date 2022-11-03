@@ -47,12 +47,14 @@ function CreateQuestion() {
         }
     }
 
+
     const createNewQuestion = async () => {
         try {       
             const title = document.querySelector('#title').value;
             const text = document.querySelector('#text').value;
             const tags = document.querySelector('#tags').value; 
             const responses = {};
+            const photo = "";
             if (title === '' || text === '' || tags === '') {
                 alert("remplissez tout les champs svp");
                 return false;
@@ -63,7 +65,7 @@ function CreateQuestion() {
                     setQuestions({});
                     key = 0;
                 }
-                questions[key] = [{title:title}, {text:text}, {tags:tags.split(',')}, {responses:responses}, date];
+                questions[key] = [{title:title}, {text:text}, {tags:tags.split(',')}, {responses:responses}, date, photo];
                 console.log(questions);
 
                 console.log(name);
@@ -104,6 +106,9 @@ function CreateQuestion() {
                     Tags:
                     <input type="text" id="tags" name="tags" />
                 </label><br></br>
+                <label>
+                    Photo:                   
+                </label>
                 <button onClick={createNewQuestion}>Poser</button>
         </div>
     )
