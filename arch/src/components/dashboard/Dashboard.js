@@ -3,7 +3,9 @@ import { auth,db } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import { query, collection, getDocs, where } from "firebase/firestore";
+import { doc, updateDoc} from "firebase/firestore";
 import "./dashboard.css";
+import { async } from "@firebase/util";
 
 
 function Dashboard() {
@@ -15,6 +17,11 @@ function Dashboard() {
     const [name, setName] = useState()
     const [message, setMessage] = useState();
     const [photo, setPhoto] = useState();    
+    const [university, setUniversity] = useState();
+    const [filiere, setFiliere] = useState();
+    const [level, setLevel] = useState();
+    const [sexe, setSexe] = useState();
+
 
     let hrefName = null;
     let userid = null;
@@ -93,10 +100,44 @@ function Dashboard() {
             setLastSeen(data.lastSeenTime.split(',')[1].split('GMT'));
             setPhoto(data.userPhoto);
             setMessage(data.message);
+            setUniversity(data.university);
+            setFiliere(data.filiere);
+            setLevel(data.level);
+            setSexe(data.sexe);
         } catch (err) {
             //console.error(err);
         }
     }; 
+
+
+    const updateUserProfile = async () => {
+        const nun = document.querySelector('#university').textContent;
+        const nfl = document.querySelector('#filiere').textContent;
+        const nlv = document.querySelector('#level').textContent;
+        const nsx = document.querySelector('#sexe').textContent;
+        if (nun === university && nfl === filiere && nlv === level && nsx === sexe) {
+            alert('aucun modification aporte');
+            return false;
+        } else {
+            setUniversity(nun);
+            setFiliere(nfl);
+            setLevel(nlv);
+            setSexe(nsx);
+            try {
+                const userDocByUsername = doc(db, "users", name);
+                await updateDoc(userDocByUsername, {
+                    university: nun,
+                    filiere: nfl,
+                    level: nlv,
+                    sexe: nsx,
+                });
+            } catch (err) {
+                console.error(err);
+                // alert(err.message);
+            }
+        }
+        window.location.reload();
+    }
 
 
     function switchToFeedback() {
@@ -121,6 +162,11 @@ function Dashboard() {
                 <a href="/">Arch</a><br></br>
                 <img src={photo} alt="Photo"/>
                 <p>{name}</p>
+                <h1>Info</h1>
+                <h3>universite : </h3><p id="university">{university}</p>
+                <h3>filiere : </h3><p id="filiere">{filiere}</p>
+                <h3>niveau : </h3><p id="level">{level}</p>
+                <h3>Genre : </h3><p id="sexe">{sexe}</p>
                 <p>Derniere connexion : {lastSeen}</p>
                 <p>Inscrit le : {creationTime}</p>
 
@@ -136,9 +182,15 @@ function Dashboard() {
                 <a href="/">Arch</a><br></br>
                 <img src={photo} alt="Photo"/>
                 <p>{name}</p>
-                <p>Derniere connexion : {lastSeen}</p>
-                <p>Inscrit le : {creationTime}</p>
-    
+                <h1>Info</h1>               
+                <h3>universite : </h3><p id="university" contenteditable="true">{university}</p>
+                <h3>filiere : </h3><p id="filiere" contenteditable="true">{filiere}</p>
+                <h3>niveau : </h3><p id="level" contenteditable="true">{level}</p>
+                <h3>Genre : </h3><p id="sexe" contenteditable="true">{sexe}</p>
+                <h3>Derniere connexion : {lastSeen}</h3>
+                <h3>Inscrit le : {creationTime}</h3>                
+                <button onClick={updateUserProfile}>Enregistrer les modification</button>
+
                 <h1>Mes Question's</h1>
                 <div id="qs"></div>
     

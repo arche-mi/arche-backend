@@ -40,7 +40,6 @@ function Home() {
 
         questions.forEach((item) => {
             
-            console.log(item[0])
             for (const prop in item[0]) {
 
                 let ul = document.createElement("ul");

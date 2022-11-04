@@ -24,6 +24,10 @@ const db = getFirestore(app);
 const googleProvider = new GoogleAuthProvider();
 const msg = "Bienvenu";
 const feedback = [];
+const university = 'ufhb';
+const filiere = "Math Info";
+const level = 'Inconnu';
+const sexe = 'Inconnu';
 
 // Sign with Google
 const signInWithGoogle = async () => {
@@ -43,6 +47,10 @@ const signInWithGoogle = async () => {
         creationTime: user.metadata.creationTime,
         lastSeenTime: user.metadata.lastSignInTime,
         userPhoto: user.photoURL,
+        university: university,
+        filiere: filiere,
+        level: level,
+        sexe: sexe,
       });
     }
     console.log("sign sucess");
