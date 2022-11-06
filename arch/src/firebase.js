@@ -5,7 +5,7 @@ import { initializeApp } from "firebase/app";
 
 import { GoogleAuthProvider, getAuth, signInWithPopup, sendPasswordResetEmail, signOut, } from "firebase/auth";
 import { getFirestore, query, getDocs, collection, where, addDoc, doc, setDoc } from "firebase/firestore";
-
+import { getStorage } from "firebase/storage";
 
 
 // Your web app's Firebase configuration
@@ -60,6 +60,10 @@ const signInWithGoogle = async () => {
   }
 };
 
+
+// Firebase storage reference
+const storage = getStorage(app);
+export default storage;
 
 
 // Forgot password

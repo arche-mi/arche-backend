@@ -40,6 +40,7 @@ function ReadQuestion() {
     const [text, setText] = useState();
     const [tags, setTags] = useState();
     const [date, setDate] = useState();
+    const [questionPhoto, setQuestionPhoto] = useState(); 
     const [responses, setResponses] = useState();
 
     const questionId = window.location.href.split('?')[1].split('!')[0];
@@ -73,6 +74,8 @@ function ReadQuestion() {
             }
             setTitle(Object.values(questions[questionId][0])[0]);
             setText(Object.values(questions[questionId][1])[0]);
+            setQuestionPhoto(Object.values(questions[questionId][5]).join(''));
+            console.log(questionPhoto);
 
             const tagsp = document.querySelector("#tags");
             for (let i=0; i < Object.values(questions[questionId][2])[0].length; i++) {
@@ -153,6 +156,7 @@ function ReadQuestion() {
                 <p>text : {text}</p>
                 <p id="tags">tags: </p>
                 <p>publier le : {date}</p>
+                <img src={questionPhoto} alt="Photo"/>
                 <p>reponses : {responses}</p>
                 <button onClick={deletQuestion}>supprimer</button>
             </div>
@@ -166,6 +170,7 @@ function ReadQuestion() {
                 <p>text : {text}</p>
                 <p id="tags">tags: </p>
                 <p>publier le : {date}</p>
+                <img src={questionPhoto} alt="Photo"/>
                 <p>reponses : {responses}</p>
             </div>
         )

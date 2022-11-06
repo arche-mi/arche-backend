@@ -32,8 +32,6 @@ function Home() {
         } catch (error) {
             console.log(error);
         }
-
-        console.log(user.metadata.lastSignInTime)
         
         let list = document.getElementById("qs");
         if (list.textContent != "") { list.textContent = "" };
