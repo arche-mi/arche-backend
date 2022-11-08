@@ -45,6 +45,7 @@ function ReadQuestion() {
     const [date, setDate] = useState();
     const [questionPhoto, setQuestionPhoto] = useState(); 
     const [responses, setResponses] = useState("");
+    const [userAnswer, setUserAnswer] = useState();
 
      // State to store uploaded file
     //const [file, setFile] = useState("");
@@ -61,14 +62,28 @@ function ReadQuestion() {
     const fetchUserName = async () => {
         try {        
           const q = query(collection(db, "users"), where("uid", "==", userid));
-          const doc = await getDocs(q);
-          const data = doc.docs[0].data();
+          const docs = await getDocs(q);
+          const data = docs.docs[0].data();
         
           setName(data.name);
         } catch (err) {
           console.error(err);
         }
     }; 
+
+    const getUserAnswer = async (id) => {
+        try {        
+            const q = query(collection(db, "users"), where("uid", "==", id));
+            const doc = await getDocs(q);
+            const data = doc.docs[0].data();
+
+            return data.name;
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+
 
     const fetchUserQuestions = async () => {
         let questions = null;        
@@ -107,20 +122,33 @@ function ReadQuestion() {
                 ul.appendChild(li);
                 tags_resp.appendChild(ul);
             }      
-            // const resp_resp = document.querySelector("#resp");
-            // console.log(Object.values(questions[questionId][3])[0][0][0].text)
-            // for (let i=0; i <= Object.keys(Object.values(questions[questionId][3])[0]).pop(); i++) {
-            //     const fetchResponseTime = Object.values(questions[questionId][3])[0][3][0].toDate();
-            //     const response_date = firebaseTimeToDayMonthYearAndHourMinutes(fetchResponseTime);
-            //     console.log(response_date)
+            const resp_resp = document.querySelector("#resp");
+            for (let i=0; i <= Object.keys(Object.values(questions[questionId][3])[0]).pop(); i++) {
+                const response_date = firebaseTimeToDayMonthYearAndHourMinutes(Object.values(questions[questionId][3])[0][i][3].toDate());
+                const fetchUserAnswer = getUserAnswer(Object.values(questions[questionId][3])[0][i][2].user_answer);
+                const printAddress = async () => {
+                    const userAnswer = await fetchUserAnswer;                    
+                    console.log(userAnswer)
+                };
+                printAddress()
 
-            //     let ul = document.createElement("ul");
-            //     let li = document.createElement("li");
-            //     li.innerText = Object.values(questions[questionId][3])[0][i][0].text;
-            //     ul.appendChild(li);
-            //     li.innerText = response_date;
-            //     resp_resp.appendChild(ul);
-            // }          
+                let ul = document.createElement("ul");
+                let li = document.createElement("li");
+                li.innerText = Object.values(questions[questionId][3])[0][i][0].text;
+                ul.appendChild(li);
+                li = document.createElement("li");
+                li.innerText = "reponse du: " + response_date;
+                ul.appendChild(li);
+
+                let a = document.createElement("a");
+                let linkText = document.createTextNode(userAnswer);
+                a.appendChild(linkText);
+                ul.appendChild(a);
+                // a.title = "more";
+                a.href = `/user?${Object.values(questions[questionId][3])[0][i][2].user_answer}#${user?.uid}`;
+                
+                resp_resp.appendChild(ul);
+            }          
 
             const currentTime = Date.now();
             const fetchTime = questions[questionId][4].toDate();           
