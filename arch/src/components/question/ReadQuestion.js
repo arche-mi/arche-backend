@@ -98,14 +98,29 @@ function ReadQuestion() {
                 setResponses(userFetchResponses)
              }
             
-            const resp = document.querySelector("#resp");
+            //les renders
+            const tags_resp = document.querySelector("#tags");
             for (let i=0; i < Object.values(questions[questionId][2])[0].length; i++) {
                 let ul = document.createElement("ul");
                 let li = document.createElement("li");
                 li.innerText = Object.values(questions[questionId][2])[0][i];
                 ul.appendChild(li);
-                resp.appendChild(ul);
-            }          
+                tags_resp.appendChild(ul);
+            }      
+            // const resp_resp = document.querySelector("#resp");
+            // console.log(Object.values(questions[questionId][3])[0][0][0].text)
+            // for (let i=0; i <= Object.keys(Object.values(questions[questionId][3])[0]).pop(); i++) {
+            //     const fetchResponseTime = Object.values(questions[questionId][3])[0][3][0].toDate();
+            //     const response_date = firebaseTimeToDayMonthYearAndHourMinutes(fetchResponseTime);
+            //     console.log(response_date)
+
+            //     let ul = document.createElement("ul");
+            //     let li = document.createElement("li");
+            //     li.innerText = Object.values(questions[questionId][3])[0][i][0].text;
+            //     ul.appendChild(li);
+            //     li.innerText = response_date;
+            //     resp_resp.appendChild(ul);
+            // }          
 
             const currentTime = Date.now();
             const fetchTime = questions[questionId][4].toDate();           
@@ -268,7 +283,7 @@ function ReadQuestion() {
                 <p id="tags">tags: </p>
                 <p>publier le : {date}</p>
                 <img src={questionPhoto} alt="Photo"/>
-                <p id='resp'>reponses : </p>
+                <p id="resp">reponses : </p>
 
                 <div>
                     <label>
@@ -296,7 +311,7 @@ function ReadQuestion() {
                 <p id="tags">tags: </p>
                 <p>publier le : {date}</p>
                 <img src={questionPhoto} alt="Photo"/>
-                <p id='resp'>reponses : </p>
+                <p id="resp">reponses : </p>
 
                 <div>
                     <label>
