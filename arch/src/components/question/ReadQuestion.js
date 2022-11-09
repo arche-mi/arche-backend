@@ -127,27 +127,25 @@ function ReadQuestion() {
                 const response_date = firebaseTimeToDayMonthYearAndHourMinutes(Object.values(questions[questionId][3])[0][i][3].toDate());
                 const fetchUserAnswer = getUserAnswer(Object.values(questions[questionId][3])[0][i][2].user_answer);
                 const printAddress = async () => {
-                    const userAnswer = await fetchUserAnswer;                    
-                    console.log(userAnswer)
+                    const userAnswer = await fetchUserAnswer;                                                
+
+                    let ul = document.createElement("ul");
+                    let li = document.createElement("li");
+                    li.innerText = Object.values(questions[questionId][3])[0][i][0].text;
+                    ul.appendChild(li);
+                    li = document.createElement("li");
+                    li.innerText = "reponse du: " + response_date;
+                    ul.appendChild(li);
+
+                    let a = document.createElement("a");
+                    let linkText = document.createTextNode(userAnswer);
+                    a.appendChild(linkText);
+                    ul.appendChild(a);
+                    // a.title = "more";
+                    a.href = `/user?${Object.values(questions[questionId][3])[0][i][2].user_answer}#${user?.uid}`;
+                    resp_resp.appendChild(ul);
                 };
                 printAddress()
-
-                let ul = document.createElement("ul");
-                let li = document.createElement("li");
-                li.innerText = Object.values(questions[questionId][3])[0][i][0].text;
-                ul.appendChild(li);
-                li = document.createElement("li");
-                li.innerText = "reponse du: " + response_date;
-                ul.appendChild(li);
-
-                let a = document.createElement("a");
-                let linkText = document.createTextNode(userAnswer);
-                a.appendChild(linkText);
-                ul.appendChild(a);
-                // a.title = "more";
-                a.href = `/user?${Object.values(questions[questionId][3])[0][i][2].user_answer}#${user?.uid}`;
-                
-                resp_resp.appendChild(ul);
             }          
 
             const currentTime = Date.now();

@@ -62,7 +62,8 @@ function Home() {
                 ul.appendChild(li);
                 
                 li = document.createElement("li");
-                li.innerText = Object.keys(Object.values(item[0][prop][3])).pop() + " reponses";
+                console.log((Object.values(item[0][prop][3].responses)).length)
+                li.innerText = (Object.values(item[0][prop][3].responses)).length + " reponses";
                 ul.appendChild(li);
 
 
