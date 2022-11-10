@@ -3,6 +3,7 @@ import { auth,db } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { query, collection, getDocs, where, doc } from "firebase/firestore";
+import { async } from "@firebase/util";
 
 
 
@@ -12,6 +13,22 @@ function Home() {
     const [photo, setPhoto] = useState();
     const [name, setName] = useState("");
 
+    function corMonth(m) {
+        let finalMonth = null;
+        const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        month.forEach((i) => {
+            if (m == month.indexOf(i)) {
+                finalMonth = i;
+            }
+        })
+        return finalMonth
+    }
+
+    const firebaseTimeToDayMonthYearAndHourMinutes = async (time) => {
+        const questionTime = time.getHours()+':'+time.getMinutes();
+        const questionDate = time.getDate()+' '+corMonth(time.getMonth())+', '+time.getFullYear();
+        return questionDate+' a '+questionTime;
+    }
 
     // Fetch users Questions
     const fetchUsersQuestions = async () => {
@@ -72,6 +89,13 @@ function Home() {
                 ul.appendChild(a);
                 // a.title = "more";
                 a.href = `/question?${+prop}!${item[2]}#${user?.uid}`;
+
+                const fetchTime = questions[questions.indexOf(item)][0][0][4].toDate();
+                console.log(fetchTime)
+                const date = firebaseTimeToDayMonthYearAndHourMinutes(fetchTime);
+                li = document.createElement("li");
+                li.innerText = date;
+                ul.appendChild(li);
 
                 list.appendChild(ul);
             }
