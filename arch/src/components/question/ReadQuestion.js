@@ -115,6 +115,7 @@ function ReadQuestion() {
             
             //les renders
             const tags_resp = document.querySelector("#tags");
+            if (tags_resp.textContent != "") { tags_resp.textContent = "" };
             for (let i=0; i < Object.values(questions[questionId][2])[0].length; i++) {
                 let ul = document.createElement("ul");
                 let li = document.createElement("li");
@@ -122,7 +123,10 @@ function ReadQuestion() {
                 ul.appendChild(li);
                 tags_resp.appendChild(ul);
             }      
+
+            //render des reponses
             const resp_resp = document.querySelector("#resp");
+            if (resp_resp.textContent != "") { resp_resp.textContent = "" };
             for (let i=0; i <= Object.keys(Object.values(questions[questionId][3])[0]).pop(); i++) {
                 const response_date = firebaseTimeToDayMonthYearAndHourMinutes(Object.values(questions[questionId][3])[0][i][3].toDate());
                 const fetchUserAnswer = getUserAnswer(Object.values(questions[questionId][3])[0][i][2].user_answer);
@@ -132,10 +136,20 @@ function ReadQuestion() {
                     let ul = document.createElement("ul");
                     let li = document.createElement("li");
                     li.innerText = Object.values(questions[questionId][3])[0][i][0].text;
-                    ul.appendChild(li);
+                    ul.appendChild(li);                                   
+
+                    let aPhoto = document.createElement("a");
+                    let img = document.createElement("img")
+                    img.src = Object.values(questions[questionId][3])[0][i][4];
+                    console.log(Object.values(questions[questionId][3])[0][i][4])
+                    aPhoto.href = Object.values(questions[questionId][3])[0][i][4];
+                    aPhoto.appendChild(img)
+                    ul.appendChild(aPhoto);
+                    // a.title = "more";
+
                     li = document.createElement("li");
                     li.innerText = "reponse du: " + response_date;
-                    ul.appendChild(li);
+                    ul.appendChild(li);     
 
                     let a = document.createElement("a");
                     let linkText = document.createTextNode(userAnswer);
@@ -143,6 +157,7 @@ function ReadQuestion() {
                     ul.appendChild(a);
                     // a.title = "more";
                     a.href = `/user?${Object.values(questions[questionId][3])[0][i][2].user_answer}#${user?.uid}`;
+
                     resp_resp.appendChild(ul);
                 };
                 printAddress()
@@ -208,7 +223,10 @@ function ReadQuestion() {
             await updateDoc(userDocByUsername, {
                 questions: questions
             });
-            window.location.reload();
+            // window.location.reload();
+            const response_text = document.querySelector("#response_text");
+            response_text.value = '';
+            fetchUserQuestions();
         } catch (error) {
             console.log(error);
         }

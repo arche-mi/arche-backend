@@ -72,7 +72,7 @@ function Dashboard() {
             ul.appendChild(li);
             
             li = document.createElement("li");
-            li.innerText = Object.keys(Object.values(questions[i][3])).pop() + " reponses";
+            li.innerText = (Object.values(questions[i][3].responses)).length + " reponses";
             ul.appendChild(li);
 
 
