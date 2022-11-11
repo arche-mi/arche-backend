@@ -9,6 +9,7 @@ import ReadQuestion from "./components/question/ReadQuestion";
 import Feedback from "./components/feedback/Feedback"
 import Donation from "./components/donation/Donation";
 import Users from "./components/users/Users"
+import Blog from "./components/blog/Blog"
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
       <Router>
         <Routes>
           <Route exact path="/" element={<Home />} />   
+          <Route exact path="/blog" element={<Blog />} />   
           <Route exact path="/landing" element={<Landing />} />   
           <Route exact path="/sign" element={<Sign />} />
           <Route exact path="/user" element={<Dashboard />} />

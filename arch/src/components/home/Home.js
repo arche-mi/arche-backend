@@ -125,6 +125,9 @@ function Home() {
     function switchToDonation() {
         window.location.href = `/donation?${user.displayName}`;
     }
+    function switchToBlog() {
+        window.location.href = `/blog#${user.uid}`;
+    }
 
 
     useEffect(() => {
@@ -148,6 +151,7 @@ function Home() {
             <p id="qs"></p>
 
             <h1><button onClick={switchToDonation}>Faire un don !</button></h1>
+            <h1><button onClick={switchToBlog}>blog</button></h1>
         </div>
     )
 }
