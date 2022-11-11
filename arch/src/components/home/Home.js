@@ -84,7 +84,7 @@ function Home() {
 
 
                 let a = document.createElement("a");
-                let linkText = document.createTextNode("voir plus");
+                let linkText = document.createTextNode("voir");
                 a.appendChild(linkText);
                 ul.appendChild(a);
                 // a.title = "more";
@@ -94,9 +94,11 @@ function Home() {
                 console.log(fetchTime)
                 const date = firebaseTimeToDayMonthYearAndHourMinutes(fetchTime);
                 li = document.createElement("li");
-                li.innerText = date;
-                ul.appendChild(li);
-
+                date.then((value) => {
+                    li.innerText = "posee le: " + value;
+                    ul.appendChild(li); 
+                });
+                
                 list.appendChild(ul);
             }
         })
@@ -117,7 +119,9 @@ function Home() {
     function switchToProfile() {
         window.location = `/user?${name}#${user?.uid}`;
     }
-
+    function switchToUsers() {
+        window.location = `/users`;
+    }
     function switchToDonation() {
         window.location.href = `/donation?${user.displayName}`;
     }
@@ -134,6 +138,7 @@ function Home() {
     return (
         <div>
             <h1>Header</h1>
+            <button onClick={switchToUsers}>tous les utilisateurs</button><br></br>
             <button onClick={switchToProfile}>vers ton profil {name}</button>
             <p>Home ,Ya tout ici normalement</p>
 

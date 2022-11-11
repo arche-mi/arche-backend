@@ -8,6 +8,7 @@ import CreateQuestion from "./components/question/CreateQuestion";
 import ReadQuestion from "./components/question/ReadQuestion";
 import Feedback from "./components/feedback/Feedback"
 import Donation from "./components/donation/Donation";
+import Users from "./components/users/Users"
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <Route exact path="/landing" element={<Landing />} />   
           <Route exact path="/sign" element={<Sign />} />
           <Route exact path="/user" element={<Dashboard />} />
+          <Route exact path="/users" element={<Users />} />
           <Route exact path="/question/new" element={<CreateQuestion />} />
           <Route exact path="/question" element={<ReadQuestion />} />
           <Route exact path="/feedback" element={<Feedback />} />

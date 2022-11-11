@@ -20,7 +20,7 @@ function Dashboard() {
     const [university, setUniversity] = useState();
     const [filiere, setFiliere] = useState();
     const [level, setLevel] = useState();
-    const [sexe, setSexe] = useState();
+    const [sexe, setSexe] = useState();    
 
 
     let hrefName = null;
@@ -31,6 +31,25 @@ function Dashboard() {
     } catch (err) {
         console.log(err);
     }
+
+
+    function corMonth(m) {
+        let finalMonth = null;
+        const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        month.forEach((i) => {
+            if (m == month.indexOf(i)) {
+                finalMonth = i;
+            }
+        })
+        return finalMonth
+    }
+
+    const firebaseTimeToDayMonthYearAndHourMinutes = async (time) => {
+        const questionTime = time.getHours()+':'+time.getMinutes();
+        const questionDate = time.getDate()+' '+corMonth(time.getMonth())+', '+time.getFullYear();
+        return questionDate+' a '+questionTime;
+    }
+
     
     // Fetch user Questions
     const fetchUserQuestions = async () => {
@@ -75,9 +94,16 @@ function Dashboard() {
             li.innerText = (Object.values(questions[i][3].responses)).length + " reponses";
             ul.appendChild(li);
 
+            li = document.createElement("li");
+            const fetchTime = questions[i][4].toDate();
+            const date = firebaseTimeToDayMonthYearAndHourMinutes(fetchTime);
+            date.then((value) => {
+                li.innerText = "posee le: " + value;
+                ul.appendChild(li);
+            });
 
             let a = document.createElement("a");
-            let linkText = document.createTextNode("voir plus");
+            let linkText = document.createTextNode("voir");
             a.appendChild(linkText);
             ul.appendChild(a);
             // a.title = "more";
@@ -136,7 +162,8 @@ function Dashboard() {
                 // alert(err.message);
             }
         }
-        window.location.reload();
+        fetchUserInfo();
+        // window.location.reload();
     }
 
 
