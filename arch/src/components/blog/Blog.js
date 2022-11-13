@@ -3,13 +3,15 @@ import React, { useEffect, useState } from "react";
 import { auth,db } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { query, collection, getDocs, where, doc } from "firebase/firestore";
+import { query, collection, getDocs, where } from "firebase/firestore";
+import { doc, updateDoc} from "firebase/firestore";
 
 
 function Blog() {
     const [user, loading] = useAuthState(auth);
     const navigate = useNavigate();
-    const [blogData, setBlogData] = useState();
+    const [blogData, setBlogData] = useState();   
+ 
 
     let userid = null;
     try {
@@ -19,12 +21,63 @@ function Blog() {
     }
 
 
-    const fetchBlogs = async () => {
+    const updateLike = async (it, id) => {
+        let userwholike = it.userWhoAlreadyLike;
+        if (userwholike.includes(userid)) {
+            let newuserwholike = [];
+            userwholike.forEach((item) => {
+                if (item != userid) {
+                    newuserwholike.push(item)
+                }
+            });
+            const article_id = String(id+1);
+            const likes = parseInt(it.likes)-1;
+            try {
+                const blogDoc = doc(db, "blog", article_id);
+                await updateDoc(blogDoc, {
+                    likes: likes,
+                    userWhoAlreadyLike: newuserwholike
+                });
+                fetchBlogs();
+            } catch (error) {
+                console.log(error)
+            }
+        } else {
+            const article_id = String(id+1);
+            const likes = parseInt(it.likes)+1;
+            userwholike.push(userid)
+            try {
+                const blogDoc = doc(db, "blog", article_id);
+                await updateDoc(blogDoc, {
+                    likes: likes,
+                    userWhoAlreadyLike: userwholike
+                });
+                fetchBlogs();
+            } catch (error) {
+                console.log(error)
+            }
+        }        
+    }
+
+    const updateView = async (it, id) => {
+        const article_id = String(id+1);
+        const views = parseInt(it.views)+1;
         try {
+            const blogDoc = doc(db, "blog", article_id);
+            await updateDoc(blogDoc, {
+                views: views
+            });
+        } catch (error) {
+            console.log(error)
+        }        
+    }
+
+    const fetchBlogs = async () => {
+        try {            
             const q = query(collection(db, "blog"));
-            const doc = await getDocs(q);
-            const data = doc.docs;
-            setBlogData(data);
+            const doct = await getDocs(q);
+            const data = doct.docs;
+            setBlogData(data);            
 
             let blog_area = document.querySelector("#blog_area");
             if (blog_area.textContent != "") { blog_area.textContent = "" };
@@ -49,13 +102,20 @@ function Blog() {
                 ul.appendChild(li);
 
                 let button = document.createElement("button");
-                button.onclick = newLike(userid, data.indexOf(item), blogData);
+                button.onclick = function() {updateLike(item.data(), data.indexOf(item))};
                 button.innerHTML = "j'aime";
                 ul.appendChild(button)
 
                 li = document.createElement("li");                
                 li.innerText = item.data().likes + " likes";
-                ul.appendChild(li);                
+                ul.appendChild(li);  
+
+                // let view =  parseInt(item.data().views) + 1;
+                // updateView(item.data(), data.indexOf(item));
+                
+                // li = document.createElement("li");                
+                // li.innerText = view + " vues";
+                // ul.appendChild(li);  
                            
                 blog_area.appendChild(ul);
             })
@@ -65,16 +125,6 @@ function Blog() {
         }
     }
 
-    function newLike(userid, article_id, data) {
-        let like = 0;
-        data.forEach((item) => {
-            if (data.indexOf(item) === article_id) {
-                like = parseInt(data[article_id].data().likes);
-            }
-        })
-        console.log(like)
-
-    }
 
     useEffect(() => {
         if (loading) return;
