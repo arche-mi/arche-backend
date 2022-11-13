@@ -114,7 +114,7 @@ function Blog() {
                 // updateView(item.data(), data.indexOf(item));
                 
                 // li = document.createElement("li");                
-                // li.innerText = view + " vues";
+                // li.innerText = view + " interaction";
                 // ul.appendChild(li);  
                            
                 blog_area.appendChild(ul);
