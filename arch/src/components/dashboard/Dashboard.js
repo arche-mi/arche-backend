@@ -21,6 +21,7 @@ function Dashboard() {
     const [filiere, setFiliere] = useState();
     const [level, setLevel] = useState();
     const [sexe, setSexe] = useState();    
+    const [userData, setData] = useState();
 
 
     let hrefName = null;
@@ -112,7 +113,32 @@ function Dashboard() {
             list.appendChild(ul);
         }
 
-    }
+    };
+
+
+    // Fetch user responses
+    const fetchUserResponses = async () => {
+        try {
+            const q = query(collection(db, "users"));
+            const doc = await getDocs(q);
+            const data = doc.docs;
+
+            //render des reponses from /readquestions
+            const resp_resp = document.querySelector("#rs");
+            if (resp_resp.textContent != "") { resp_resp.textContent = "" };
+
+            let questions = [];
+            let responses = [];
+            let finalResponses = [];
+            data.forEach((item) => {
+                questions.push(item.data().questions)
+            });
+            console.log(questions);
+            
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     // Fetch username by uid
     const fetchUserInfo = async () => {
@@ -120,6 +146,7 @@ function Dashboard() {
             const q = query(collection(db, "users"), where("uid", "==", userid));
             const doc = await getDocs(q);
             const data = doc.docs[0].data();
+            setData(data);
 
             setName(data.name);            
             setCreationTime(data.creationTime.split(',')[1].split('GMT'));
@@ -179,6 +206,7 @@ function Dashboard() {
 
         fetchUserInfo();            
         fetchUserQuestions();
+        fetchUserResponses();
     }, [user, loading]);
       
     console.log(userid+':'+user?.uid)
@@ -199,6 +227,9 @@ function Dashboard() {
 
                 <h1>les question's de {name}</h1>
                 <div id="qs"></div>
+
+                <h1>les reponses de {name}</h1>
+                <div id="rs"></div>
                 
             </div>
         )    
@@ -220,6 +251,9 @@ function Dashboard() {
 
                 <h1>Mes Question's</h1>
                 <div id="qs"></div>
+
+                <h1>Mes reponses</h1>
+                <div id="rs"></div>
     
                 <h2>Message</h2>
                 <p>{message}</p>

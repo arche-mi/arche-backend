@@ -141,7 +141,7 @@ function ReadQuestion() {
                     let aPhoto = document.createElement("a");
                     let img = document.createElement("img")
                     img.src = Object.values(questions[questionId][3])[0][i][4];
-                    console.log(Object.values(questions[questionId][3])[0][i][4])
+                    console.log(Object.values(questions[questionId][3])[0][i][4] + "image ou pas si vide");
                     aPhoto.href = Object.values(questions[questionId][3])[0][i][4];
                     aPhoto.appendChild(img)
                     ul.appendChild(aPhoto);
@@ -212,8 +212,10 @@ function ReadQuestion() {
 
 
     const updateResponses = async () => {
-        let questions = null;        
+        let questions = null;   
+        let userWhoresponsesResponses = [];     
         try {
+            // update user who ask questions
             const q = query(collection(db, "users"), where("uid", "==", userid));
             const doct = await getDocs(q);
             const data = doct.docs[0].data();
@@ -223,9 +225,23 @@ function ReadQuestion() {
             await updateDoc(userDocByUsername, {
                 questions: questions
             });
-            // window.location.reload();
             const response_text = document.querySelector("#response_text");
             response_text.value = '';
+
+             // update user who ask questions
+            const qcu = query(collection(db, "users"), where("uid", "==", user?.uid));
+            const doctcu = await getDocs(qcu);
+            const datacu = doctcu.docs[0].data();
+            userWhoresponsesResponses = datacu.responses;
+            const responseId = Object.keys(userWhoresponsesResponses).length;
+            userWhoresponsesResponses[responseId] = responses;
+            console.log(responses)
+            const userDocByUsernameCu = doc(db, "users", datacu.name);
+            await updateDoc(userDocByUsernameCu, {
+                responses: userWhoresponsesResponses
+            });
+
+
             fetchUserQuestions();
         } catch (error) {
             console.log(error);
@@ -250,8 +266,8 @@ function ReadQuestion() {
                         key = 0;
                     }
                     console.log(`On a deja ${key} reponses`);
-                    responses[key] = [{text:response_text}, {user:userid}, {user_answer:user?.uid}, date, fileUrl];
-
+                    responses[key] = [{text:response_text}, {user:userid}, {user_answer:user?.uid}, date, fileUrl, questionId];
+                    setResponses(responses);
                     updateResponses();                    
                 }            
     
