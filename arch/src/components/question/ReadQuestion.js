@@ -234,7 +234,7 @@ function ReadQuestion() {
             const datacu = doctcu.docs[0].data();
             userWhoresponsesResponses = datacu.responses;
             const responseId = Object.keys(userWhoresponsesResponses).length;
-            userWhoresponsesResponses[responseId] = responses;
+            userWhoresponsesResponses= responses;
             console.log(responses)
             const userDocByUsernameCu = doc(db, "users", datacu.name);
             await updateDoc(userDocByUsernameCu, {
