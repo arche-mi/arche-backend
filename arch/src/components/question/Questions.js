@@ -94,7 +94,6 @@ function Questions() {
                 a.href = `/question?${+prop}!${item[2]}#${user?.uid}`;
 
                 const fetchTime = questions[questions.indexOf(item)][0][0][4].toDate();
-                console.log(fetchTime)
                 const date = firebaseTimeToDayMonthYearAndHourMinutes(fetchTime);
                 li = document.createElement("li");
                 date.then((value) => {

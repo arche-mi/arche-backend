@@ -57,49 +57,50 @@ function Home() {
             
             for (const prop in item[0]) {
 
-                let ul = document.createElement("ul");
+                if ((Object.values(item[0][prop][3].responses)).length >= 2) {
+                    let ul = document.createElement("ul");
 
-                let usernamelink = document.createElement("a");
-                let usernamelinktext = document.createTextNode(item[1]);                
-                usernamelink.appendChild(usernamelinktext);
-                ul.appendChild(usernamelink);
-                // a.title = "more";
-                usernamelink.href = `/user?${item[1]}#${item[2]}`;
+                    let usernamelink = document.createElement("a");
+                    let usernamelinktext = document.createTextNode(item[1]);                
+                    usernamelink.appendChild(usernamelinktext);
+                    ul.appendChild(usernamelink);
+                    // a.title = "more";
+                    usernamelink.href = `/user?${item[1]}#${item[2]}`;
 
-                let li = document.createElement("li");                
-                li.innerText = Object.values(item[0][prop][0]);
-                ul.appendChild(li);
+                    let li = document.createElement("li");                
+                    li.innerText = Object.values(item[0][prop][0]);
+                    ul.appendChild(li);
 
-                li = document.createElement("li");
-                li.innerText = Object.values(item[0][prop][1]);
-                ul.appendChild(li);
-                
-                li = document.createElement("li");
-                li.innerText = Object.values(item[0][prop][2])
-                ul.appendChild(li);
-                
-                li = document.createElement("li");
-                li.innerText = (Object.values(item[0][prop][3].responses)).length + " reponses";
-                ul.appendChild(li);
+                    li = document.createElement("li");
+                    li.innerText = Object.values(item[0][prop][1]);
+                    ul.appendChild(li);
+                    
+                    li = document.createElement("li");
+                    li.innerText = Object.values(item[0][prop][2])
+                    ul.appendChild(li);
+                    
+                    li = document.createElement("li");
+                    li.innerText = (Object.values(item[0][prop][3].responses)).length + " reponses";
+                    ul.appendChild(li);
 
 
-                let a = document.createElement("a");
-                let linkText = document.createTextNode("voir");
-                a.appendChild(linkText);
-                ul.appendChild(a);
-                // a.title = "more";
-                a.href = `/question?${+prop}!${item[2]}#${user?.uid}`;
+                    let a = document.createElement("a");
+                    let linkText = document.createTextNode("voir");
+                    a.appendChild(linkText);
+                    ul.appendChild(a);
+                    // a.title = "more";
+                    a.href = `/question?${+prop}!${item[2]}#${user?.uid}`;
 
-                const fetchTime = questions[questions.indexOf(item)][0][0][4].toDate();
-                console.log(fetchTime)
-                const date = firebaseTimeToDayMonthYearAndHourMinutes(fetchTime);
-                li = document.createElement("li");
-                date.then((value) => {
-                    li.innerText = "posee le: " + value;
-                    ul.appendChild(li); 
-                });
-                
-                list.appendChild(ul);
+                    const fetchTime = questions[questions.indexOf(item)][0][0][4].toDate();
+                    const date = firebaseTimeToDayMonthYearAndHourMinutes(fetchTime);
+                    li = document.createElement("li");
+                    date.then((value) => {
+                        li.innerText = "posee le: " + value;
+                        ul.appendChild(li); 
+                    });
+                    
+                    list.appendChild(ul);
+                }                
             }
         })
 
@@ -152,7 +153,7 @@ function Home() {
 
             <h2>Question's</h2>
             <a href="/question/new">Poser une question ici</a>
-            <h3>Tout les questions</h3>
+            <h3>Top questions</h3>
             <p id="qs"></p>
 
             <h1><button onClick={switchToDonation}>Faire un don !</button></h1>
