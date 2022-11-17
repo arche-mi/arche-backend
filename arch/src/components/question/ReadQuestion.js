@@ -44,7 +44,7 @@ function ReadQuestion() {
     const [tags, setTags] = useState();
     const [date, setDate] = useState();
     const [questionPhoto, setQuestionPhoto] = useState(); 
-    const [responses, setResponses] = useState("");
+    let [responses, setResponses] = useState("");
     const [userAnswer, setUserAnswer] = useState();
 
      // State to store uploaded file
@@ -213,7 +213,6 @@ function ReadQuestion() {
 
     const updateResponses = async () => {
         let questions = null;   
-        let userWhoresponsesResponses = [];     
         try {
             // update user who ask questions
             const q = query(collection(db, "users"), where("uid", "==", userid));
@@ -232,15 +231,11 @@ function ReadQuestion() {
             const qcu = query(collection(db, "users"), where("uid", "==", user?.uid));
             const doctcu = await getDocs(qcu);
             const datacu = doctcu.docs[0].data();
-            userWhoresponsesResponses = datacu.responses;
-            const responseId = Object.keys(userWhoresponsesResponses).length;
-            userWhoresponsesResponses= responses;
             console.log(responses)
             const userDocByUsernameCu = doc(db, "users", datacu.name);
             await updateDoc(userDocByUsernameCu, {
-                responses: userWhoresponsesResponses
+                responses: responses
             });
-
 
             fetchUserQuestions();
         } catch (error) {
@@ -251,7 +246,10 @@ function ReadQuestion() {
 
 
     const createNewResponses = async () => {
-        console.log(responses)
+        console.log(typeof(responses))
+        if (responses.length === 0) {
+            responses = {}
+        }
         if (isReady) {
             try {       
                 const response_text = document.querySelector('#response_text').value;
