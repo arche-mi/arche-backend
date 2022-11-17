@@ -7,7 +7,7 @@ import { async } from "@firebase/util";
 
 
 
-function Home() {
+function Questions() {
     const [user, loading] = useAuthState(auth);
     const navigate = useNavigate();
     const [photo, setPhoto] = useState();
@@ -48,14 +48,17 @@ function Home() {
                         
         } catch (error) {
             console.log(error);
-        }
-        
+        }            
+
+
         let list = document.getElementById("qs");
         if (list.textContent != "") { list.textContent = "" };
-
+        
+        let questions_count = 0;
         questions.forEach((item) => {
             
             for (const prop in item[0]) {
+                questions_count++;
 
                 let ul = document.createElement("ul");
 
@@ -101,8 +104,14 @@ function Home() {
                 
                 list.appendChild(ul);
             }
-        })
+        });
 
+
+        let questions_count_text = document.getElementById("questions_count");
+        if (questions_count_text.textContent != "") { questions_count_text.textContent = "" };
+        let questions_count_p = document.createElement("p");
+        questions_count_p.innerText = questions_count + " questions";
+        questions_count_text.appendChild(questions_count_p)
     }
 
     // Fetch username by uid
@@ -115,22 +124,6 @@ function Home() {
             //console.error(err);
         }
     }; 
-
-    function switchToProfile() {
-        window.location = `/user?${name}#${user?.uid}`;
-    }
-    function switchToUsers() {
-        window.location = `/users`;
-    }
-    function switchToDonation() {
-        window.location.href = `/donation?${user.displayName}`;
-    }
-    function switchToBlog() {
-        window.location.href = `/blog#${user.uid}`;
-    }
-    function switchToQuestions() {
-        window.location.href = `/questions`;
-    }
     
 
 
@@ -144,21 +137,15 @@ function Home() {
 
     return (
         <div>
-            <h1>Header</h1>
-            <button onClick={switchToQuestions}>tous les questions</button><br></br>
-            <button onClick={switchToUsers}>tous les utilisateurs</button><br></br>
-            <button onClick={switchToProfile}>vers ton profil {name}</button>
-            <p>Home ,Ya tout ici normalement</p>
+            <h1>All questions</h1>
 
-            <h2>Question's</h2>
             <a href="/question/new">Poser une question ici</a>
             <h3>Tout les questions</h3>
+            <p id="questions_count"></p>
             <p id="qs"></p>
 
-            <h1><button onClick={switchToDonation}>Faire un don !</button></h1>
-            <h1><button onClick={switchToBlog}>blog</button></h1>
         </div>
     )
 }
 
-export default Home;
+export default Questions;

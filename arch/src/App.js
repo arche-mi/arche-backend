@@ -8,8 +8,9 @@ import CreateQuestion from "./components/question/CreateQuestion";
 import ReadQuestion from "./components/question/ReadQuestion";
 import Feedback from "./components/feedback/Feedback"
 import Donation from "./components/donation/Donation";
-import Users from "./components/users/Users"
-import Blog from "./components/blog/Blog"
+import Users from "./components/users/Users";
+import Blog from "./components/blog/Blog";
+import Questions from "./components/question/Questions";
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <Route exact path="/user" element={<Dashboard />} />
           <Route exact path="/users" element={<Users />} />
           <Route exact path="/question/new" element={<CreateQuestion />} />
+          <Route exact path="/questions" element={<Questions />} />
           <Route exact path="/question" element={<ReadQuestion />} />
           <Route exact path="/feedback" element={<Feedback />} />
           <Route exact path="/donation" element={<Donation />} />
