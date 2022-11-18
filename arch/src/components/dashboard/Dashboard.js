@@ -139,13 +139,13 @@ function Dashboard() {
                 // Pour les questions d'Id non incremente
                 if (responses[i]) {        
                     let li = document.createElement("li");
-                                        
+
                     let a = document.createElement("a");
                     let linkText = document.createTextNode(`${responses[i][0].text}`);
                     a.appendChild(linkText);
                     ul.appendChild(a);
                     // a.title = "more";
-                    a.href = `/question?${+responses[i][5]}!${user?.uid}#${responses[i][1].user}`;
+                    a.href = `/question?${+responses[i][5]}!${responses[i][1].user}#${user?.uid}`;
                                 
                     li = document.createElement("li");
                     const fetchTime = responses[i][3].toDate();
