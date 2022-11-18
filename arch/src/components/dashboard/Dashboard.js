@@ -74,7 +74,6 @@ function Dashboard() {
         if (list.textContent != "") { list.textContent = "" };
 
         let count = parseInt(Object.keys(questions).at(-1));
-        console.log(count)
 
         for (let i = 0; i <= count; i++) {
             let ul = document.createElement("ul");
@@ -121,14 +120,44 @@ function Dashboard() {
     // Fetch user responses
     const fetchUserResponses = async () => {
         try {
-            
-            const responses = userData.responses;
+            const q = query(collection(db, "users"), where("uid", "==", userid));
+            const doc = await getDocs(q);
+            const data = doc.docs[0].data();
+
+            const responses = data.responses;
 
             //render des reponses from /readquestions
             const resp_resp = document.querySelector("#rs");
             if (resp_resp.textContent != "") { resp_resp.textContent = "" };
    
             console.log(responses);
+            let count_for_responses = parseInt(Object.keys(responses).at(-1));
+
+            for (let i = 0; i <= count_for_responses; i++) {
+                let ul = document.createElement("ul");
+                
+                // Pour les questions d'Id non incremente
+                if (responses[i]) {        
+                    let li = document.createElement("li");
+                                        
+                    let a = document.createElement("a");
+                    let linkText = document.createTextNode(`${responses[i][0].text}`);
+                    a.appendChild(linkText);
+                    ul.appendChild(a);
+                    // a.title = "more";
+                    a.href = `/question?${+responses[i][5]}!${user?.uid}#${responses[i][1].user}`;
+                                
+                    li = document.createElement("li");
+                    const fetchTime = responses[i][3].toDate();
+                    const date = firebaseTimeToDayMonthYearAndHourMinutes(fetchTime);
+                    date.then((value) => {
+                        li.innerText = "posee le: " + value;
+                        ul.appendChild(li);
+                    });                   
+
+                    resp_resp.appendChild(ul);
+                };
+            };
             
         } catch (error) {
             console.log(error);
