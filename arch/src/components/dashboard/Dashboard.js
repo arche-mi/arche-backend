@@ -73,46 +73,48 @@ function Dashboard() {
         let list = document.getElementById("qs");
         if (list.textContent != "") { list.textContent = "" };
 
-        for (let i = 0; i <= Object.keys(questions).pop(); i++) {
+        let count = parseInt(Object.keys(questions).at(-1));
+        console.log(count)
+
+        for (let i = 0; i <= count; i++) {
             let ul = document.createElement("ul");
-
+            
             // Pour les questions d'Id non incremente
-            if (!questions[i]) i++;
-
-            let li = document.createElement("li");
-            li.innerText = Object.values(questions[i][0])[0];
-            ul.appendChild(li);
-
-            li = document.createElement("li");
-            li.innerText = Object.values(questions[i][1])[0];  
-            ul.appendChild(li);
-            
-            li = document.createElement("li");
-            li.innerText = Object.values(questions[i][2])[0];               
-            ul.appendChild(li);
-            
-            li = document.createElement("li");
-            li.innerText = (Object.values(questions[i][3].responses)).length + " reponses";
-            ul.appendChild(li);
-
-            li = document.createElement("li");
-            const fetchTime = questions[i][4].toDate();
-            const date = firebaseTimeToDayMonthYearAndHourMinutes(fetchTime);
-            date.then((value) => {
-                li.innerText = "posee le: " + value;
+            if (questions[i]) {            
+                let li = document.createElement("li");
+                li.innerText = Object.values(questions[i][0])[0];
                 ul.appendChild(li);
-            });
 
-            let a = document.createElement("a");
-            let linkText = document.createTextNode("voir");
-            a.appendChild(linkText);
-            ul.appendChild(a);
-            // a.title = "more";
-            a.href = `/question?${+i}!${userid}#${user?.uid}`;
+                li = document.createElement("li");
+                li.innerText = Object.values(questions[i][1])[0];  
+                ul.appendChild(li);
+                
+                li = document.createElement("li");
+                li.innerText = Object.values(questions[i][2])[0];               
+                ul.appendChild(li);
+                
+                li = document.createElement("li");
+                li.innerText = (Object.values(questions[i][3].responses)).length + " reponses";
+                ul.appendChild(li);
 
-            list.appendChild(ul);
+                li = document.createElement("li");
+                const fetchTime = questions[i][4].toDate();
+                const date = firebaseTimeToDayMonthYearAndHourMinutes(fetchTime);
+                date.then((value) => {
+                    li.innerText = "posee le: " + value;
+                    ul.appendChild(li);
+                });
+
+                let a = document.createElement("a");
+                let linkText = document.createTextNode("voir");
+                a.appendChild(linkText);
+                ul.appendChild(a);
+                // a.title = "more";
+                a.href = `/question?${+i}!${userid}#${user?.uid}`;
+
+                list.appendChild(ul);
+            };
         }
-
     };
 
 

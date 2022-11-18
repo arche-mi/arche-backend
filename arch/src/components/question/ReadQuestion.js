@@ -176,7 +176,7 @@ function ReadQuestion() {
     }
     
 
-    const deletQuestion = async () => {
+    const deleteQuestion = async () => {
         console.log(questionId);
         let questions = {};        
         try {
@@ -356,7 +356,7 @@ function ReadQuestion() {
                     <button onClick={createNewResponses}>repondre</button>
                 </div>
 
-                <button onClick={deletQuestion}>supprimer la question</button>
+                <button onClick={deleteQuestion}>supprimer la question</button>
             </div>
         )
     } else {
