@@ -70,13 +70,12 @@ function CreateQuestion() {
                     return false;
                 } else {               
                     const date = new Date();
-                    console.log(questions);
-                    let key = Object.keys(questions).length;
+                    let key = parseInt(Object.keys(questions).at(-1))+1;
                     if (isEmpty(questions)) {
                         setQuestions({});
                         key = 0;
                     }
-                    console.log(`On a deja ${key} questions`);
+                    console.log(`On a deja ${Object.keys(questions).length} questions`);
                     questions[key] = [{title:title}, {text:text}, {tags:tags.split(',')}, {responses:responses}, date, fileUrl];
     
                     console.log(name);

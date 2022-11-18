@@ -119,21 +119,14 @@ function Dashboard() {
     // Fetch user responses
     const fetchUserResponses = async () => {
         try {
-            const q = query(collection(db, "users"));
-            const doc = await getDocs(q);
-            const data = doc.docs;
+            
+            const responses = userData.responses;
 
             //render des reponses from /readquestions
             const resp_resp = document.querySelector("#rs");
             if (resp_resp.textContent != "") { resp_resp.textContent = "" };
-
-            let questions = [];
-            let responses = [];
-            let finalResponses = [];
-            data.forEach((item) => {
-                questions.push(item.data().questions)
-            });
-            console.log(questions);
+   
+            console.log(responses);
             
         } catch (error) {
             console.log(error);
