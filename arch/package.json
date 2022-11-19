@@ -1,6 +1,6 @@
 {
   "name": "arch",
-  "version": "1.0",
+  "version": "beta",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
