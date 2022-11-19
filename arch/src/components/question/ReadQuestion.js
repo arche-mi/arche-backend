@@ -8,6 +8,8 @@ import storage from "../../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { async, isEmpty } from "@firebase/util";
 
+import Header from "../header/Header";
+import Footer from "../footer/Footer";
 
 
 // External fonctions
@@ -362,6 +364,8 @@ function ReadQuestion() {
     } else {
         return (
             <div>
+                <Header />
+
                 <button onClick={switchToProfile}>{name}</button>
                 <h3>Question</h3>
                 <p>titre : {title}</p>
@@ -384,6 +388,7 @@ function ReadQuestion() {
                     <button onClick={createNewResponses}>repondre</button>
                 </div>
 
+                <Footer />
             </div>
         )
     }

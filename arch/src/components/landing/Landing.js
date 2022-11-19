@@ -17,7 +17,7 @@ function Home() {
     return (
         <div>
             <p>Bienvenu sur le forum</p>
-            <a href="/Sign">commencer</a><br></br>
+            <a href="/sign">commencer</a><br></br>
         </div>
     )
 }

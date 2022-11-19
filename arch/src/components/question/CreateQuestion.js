@@ -8,6 +8,8 @@ import { isEmpty } from "@firebase/util";
 import storage from "../../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
+import Header from "../header/Header";
+import Footer from "../footer/Footer";
 
 
 function sleep(ms) {
@@ -150,6 +152,8 @@ function CreateQuestion() {
     
     return (
         <div>
+            <Header />
+
             <h2>Poser une question?</h2>
                 <label>
                     Titre:
@@ -169,6 +173,8 @@ function CreateQuestion() {
                     <p>{percent} "%"</p>
                 </label>
                 <button onClick={createNewQuestion}>Poser</button>
+
+                <Footer />
         </div>
     )
 }

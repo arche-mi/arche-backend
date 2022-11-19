@@ -5,6 +5,8 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { query, collection, getDocs, where, doc } from "firebase/firestore";
 import { async } from "@firebase/util";
 
+import Header from "../header/Header";
+import Footer from "../footer/Footer";
 
 
 function Unanswered() {
@@ -128,6 +130,8 @@ function Unanswered() {
 
     return (
         <div>
+            <Header />
+
             <h1>Non repondu</h1>
 
             <h2>Question's</h2>
@@ -135,6 +139,7 @@ function Unanswered() {
             <h3>les questions sans reponses sont ici</h3>
             <p id="qs"></p>
 
+            <Footer />
         </div>
     )
 }

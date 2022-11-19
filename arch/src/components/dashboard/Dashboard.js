@@ -5,7 +5,9 @@ import { useNavigate } from "react-router-dom";
 import { query, collection, getDocs, where } from "firebase/firestore";
 import { doc, updateDoc} from "firebase/firestore";
 import "./dashboard.css";
-import { async } from "@firebase/util";
+
+import Header from "../header/Header";
+import Footer from "../footer/Footer";
 
 
 function Dashboard() {
@@ -260,8 +262,9 @@ function Dashboard() {
     } else {
         return (
             <div>
+                <Header />
+
                 <h1>Bio</h1>
-                <a href="/">Arch</a><br></br>
                 <img src={photo} alt="Photo"/>
                 <p>{name}</p>
                 <h1>Info</h1>               
@@ -282,6 +285,8 @@ function Dashboard() {
                 <h2>Message</h2>
                 <p>{message}</p>
                 <button onClick={switchToFeedback}>feedback (nous laisser un message)</button>
+
+                <Footer />
             </div>
         )
     }

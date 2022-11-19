@@ -5,6 +5,8 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { query, collection, getDocs, where, doc } from "firebase/firestore";
 import { async } from "@firebase/util";
 
+import Header from "../header/Header";
+import Footer from "../footer/Footer";
 
 
 function Questions() {
@@ -136,6 +138,8 @@ function Questions() {
 
     return (
         <div>
+            <Header />
+
             <h1>All questions</h1>
 
             <a href="/question/new">Poser une question ici</a>
@@ -143,6 +147,7 @@ function Questions() {
             <p id="questions_count"></p>
             <p id="qs"></p>
 
+            <Footer />
         </div>
     )
 }

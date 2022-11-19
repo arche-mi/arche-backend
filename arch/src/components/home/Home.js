@@ -5,6 +5,8 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { query, collection, getDocs, where, doc } from "firebase/firestore";
 import { async } from "@firebase/util";
 
+import Header from "../header/Header";
+import Footer from "../footer/Footer";
 
 
 function Home() {
@@ -122,13 +124,7 @@ function Home() {
     }
     function switchToUsers() {
         window.location = `/users`;
-    }
-    function switchToDonation() {
-        window.location.href = `/donation?${user.displayName}`;
-    }
-    function switchToBlog() {
-        window.location.href = `/blog#${user.uid}`;
-    }
+    }    
     function switchToQuestions() {
         window.location.href = `/questions`;
     }
@@ -148,7 +144,8 @@ function Home() {
 
     return (
         <div>
-            <h1>Header</h1>
+            <Header />
+
             <button onClick={switchToQuestions}>tous les questions</button><br></br>
             <button onClick={switchToUnanswered}>tous les questions non repondu</button><br></br>
             <button onClick={switchToUsers}>tous les utilisateurs</button><br></br>
@@ -158,10 +155,9 @@ function Home() {
             <h2>Question's</h2>
             <a href="/question/new">Poser une question ici</a>
             <h3>Top questions</h3>
-            <p id="qs"></p>
+            <p id="qs"></p>            
 
-            <h1><button onClick={switchToDonation}>Faire un don !</button></h1>
-            <h1><button onClick={switchToBlog}>blog</button></h1>
+            <Footer />
         </div>
     )
 }

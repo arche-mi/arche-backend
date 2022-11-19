@@ -7,6 +7,10 @@ import { doc, updateDoc} from "firebase/firestore";
 import { isEmpty } from "@firebase/util";
 
 
+import Header from "../header/Header";
+import Footer from "../footer/Footer";
+
+
 function Feedback() {
     const [user, loading] = useAuthState(auth);
     const navigate = useNavigate();
@@ -67,6 +71,8 @@ function Feedback() {
     
     return (
         <div>
+            <Header />
+
             <h2>Bienvenue {name}</h2>
             <p>Feedback</p>
             <label>
@@ -77,6 +83,8 @@ function Feedback() {
             <br></br>
 
             <button onClick={seeFeedback}>Voir mes Feedback</button>
+
+            <Footer />
         </div>
     )
 }

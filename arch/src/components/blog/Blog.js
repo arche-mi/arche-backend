@@ -7,6 +7,9 @@ import { query, collection, getDocs, where } from "firebase/firestore";
 import { doc, updateDoc} from "firebase/firestore";
 import "./blog.css";
 
+import Header from "../header/Header";
+import Footer from "../footer/Footer";
+
 
 function Blog() {
     const [user, loading] = useAuthState(auth);
@@ -147,10 +150,14 @@ function Blog() {
     }, [user, loading]);
 
 
-    return (
+    return (        
         <div>
+            <Header />
+
             <h1>Blog</h1>
             <div id="blog_area"></div>
+
+            <Footer />
         </div>
     )
 }
