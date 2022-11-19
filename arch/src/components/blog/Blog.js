@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { query, collection, getDocs, where } from "firebase/firestore";
 import { doc, updateDoc} from "firebase/firestore";
+import "./blog.css";
 
 
 function Blog() {
@@ -82,33 +83,45 @@ function Blog() {
             let blog_area = document.querySelector("#blog_area");
             if (blog_area.textContent != "") { blog_area.textContent = "" };
             
-            data.forEach((item) => {
+            data
+            .slice()
+            .reverse()
+            .forEach(item => {
                 let ul = document.createElement("ul");
 
-                let li = document.createElement("li");                
-                li.innerText = item.data().title.toUpperCase();
-                ul.appendChild(li);  
+                let li_title = document.createElement("li");                
+                li_title.classList.add('title');
+                li_title.innerText = item.data().title.toUpperCase();
+                ul.appendChild(li_title);  
 
-                let file = document.createElement("img")
+                let li_date = document.createElement("li");
+                li_date.classList.add('date');
+                li_date = document.createElement("li");                
+                li_date.innerText = item.data().date;
+                ul.appendChild(li_date);
+                
+                let li_content = document.createElement("li");
+                li_content.classList.add('content');
+                li_content = document.createElement("li");                
+                li_content.innerText = item.data().content;
+                ul.appendChild(li_content);
+
+                let file = document.createElement("img");
+                file.classList.add('title');
                 file.src = item.data().file;
-                ul.appendChild(file);               
-
-                li = document.createElement("li");                
-                li.innerText = item.data().content;
-                ul.appendChild(li);
-
-                li = document.createElement("li");                
-                li.innerText = item.data().date;
-                ul.appendChild(li);
+                ul.appendChild(file);                               
 
                 let button = document.createElement("button");
+                button.classList.add('like_bnt');
                 button.onclick = function() {updateLike(item.data(), data.indexOf(item))};
                 button.innerHTML = "j'aime";
                 ul.appendChild(button)
 
-                li = document.createElement("li");                
-                li.innerText = item.data().likes + " likes";
-                ul.appendChild(li);  
+                let li_like = document.createElement('li');
+                li_like = document.createElement("li");              
+                li_like.classList.add('like');
+                li_like.innerText = item.data().likes + " likes";
+                ul.appendChild(li_like);  
 
                 // let view =  parseInt(item.data().views) + 1;
                 // updateView(item.data(), data.indexOf(item));
@@ -118,7 +131,7 @@ function Blog() {
                 // ul.appendChild(li);  
                            
                 blog_area.appendChild(ul);
-            })
+            });  
             
         } catch (error) {
             console.log(error)            
