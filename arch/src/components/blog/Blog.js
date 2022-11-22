@@ -1,9 +1,8 @@
-import { async } from "@firebase/util";
 import React, { useEffect, useState } from "react";
 import { auth,db } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { query, collection, getDocs, where } from "firebase/firestore";
+import { query, collection, getDocs } from "firebase/firestore";
 import { doc, updateDoc} from "firebase/firestore";
 import "./blog.css";
 
@@ -150,15 +149,15 @@ function Blog() {
     }, [user, loading]);
 
 
-    return (        
-        <div>
+    return (      
+        <>
             <Header />
 
-            <h1>Blog</h1>
-            <div id="blog_area"></div>
+                <h1>Blog</h1>
+                <div id="blog_area"></div>
 
             <Footer />
-        </div>
+        </>
     )
 }
 

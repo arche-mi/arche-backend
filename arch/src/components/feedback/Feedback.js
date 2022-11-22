@@ -4,20 +4,17 @@ import { useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { query, collection, getDocs, where } from "firebase/firestore";
 import { doc, updateDoc} from "firebase/firestore";
-import { isEmpty } from "@firebase/util";
-
 
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
 
 
 function Feedback() {
-    const [user, loading] = useAuthState(auth);
     const navigate = useNavigate();
+    const [user, loading] = useAuthState(auth);
     const [name, setName] = useState();
-    const [questions, setQuestions] = useState();
-
     const hrefName = window.location.href.split('?')[1];
+
 
     const fetchUserName = async () => {
         try {        
@@ -54,7 +51,7 @@ function Feedback() {
     };
 
     const seeFeedback = async () => {
-        alert("Passez Premium si vous voulez plus");
+        alert("Section en meintenance !!!");
     };
 
 
@@ -70,7 +67,7 @@ function Feedback() {
 
     
     return (
-        <div>
+        <>
             <Header />
 
             <h2>Bienvenue {name}</h2>
@@ -85,7 +82,7 @@ function Feedback() {
             <button onClick={seeFeedback}>Voir mes Feedback</button>
 
             <Footer />
-        </div>
+        </>
     )
 }
 

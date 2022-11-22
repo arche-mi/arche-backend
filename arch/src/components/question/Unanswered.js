@@ -3,7 +3,6 @@ import { auth,db } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { query, collection, getDocs, where, doc } from "firebase/firestore";
-import { async } from "@firebase/util";
 
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
@@ -14,6 +13,7 @@ function Unanswered() {
     const navigate = useNavigate();
     const [photo, setPhoto] = useState();
     const [name, setName] = useState("");
+
 
     function corMonth(m) {
         let finalMonth = null;
@@ -32,6 +32,7 @@ function Unanswered() {
         return questionDate+' a '+questionTime;
     }
 
+
     // Fetch users Questions
     const fetchUsersQuestions = async () => {
         let questions = [];
@@ -46,7 +47,6 @@ function Unanswered() {
                 const tempQuestions = [item.data().questions, item.data().name, item.data().uid]
                 questions.push(tempQuestions);
             })
-            //await sleep(1000);
                         
         } catch (error) {
             console.log(error);
@@ -113,9 +113,8 @@ function Unanswered() {
         try {
             setName(user.displayName);
             setPhoto(user.photoURL);
-            //console.log(user);
         } catch (err) {
-            //console.error(err);
+            console.error(err);
         }
     }; 
 
@@ -129,7 +128,7 @@ function Unanswered() {
     }, [user, loading]);
 
     return (
-        <div>
+        <>
             <Header />
 
             <h1>Non repondu</h1>
@@ -140,7 +139,7 @@ function Unanswered() {
             <p id="qs"></p>
 
             <Footer />
-        </div>
+        </>
     )
 }
 

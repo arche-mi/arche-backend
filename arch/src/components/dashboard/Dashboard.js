@@ -11,7 +11,6 @@ import Footer from "../footer/Footer";
 
 
 function Dashboard() {
-    let isUser = true;
     const [user, loading] = useAuthState(auth);
     const navigate = useNavigate();
     const [lastSeen, setLastSeen]= useState();
@@ -54,15 +53,14 @@ function Dashboard() {
     }
 
     
+
     // Fetch user Questions
     const fetchUserQuestions = async () => {
         let questions = null;
         try {
             const q = query(collection(db, "users"), where("uid", "==", userid));
             const doc = await getDocs(q);
-            const data = doc.docs[0].data();
-            //await sleep(1000);
-            
+            const data = doc.docs[0].data();        
             if (!data.questions) {
                 questions = {};
             } else {
@@ -125,10 +123,8 @@ function Dashboard() {
             const q = query(collection(db, "users"), where("uid", "==", userid));
             const doc = await getDocs(q);
             const data = doc.docs[0].data();
-
             const responses = data.responses;
 
-            //render des reponses from /readquestions
             const resp_resp = document.querySelector("#rs");
             if (resp_resp.textContent != "") { resp_resp.textContent = "" };
    
@@ -184,7 +180,7 @@ function Dashboard() {
             setLevel(data.level);
             setSexe(data.sexe);
         } catch (err) {
-            //console.error(err);
+            console.error(err);
         }
     }; 
 
@@ -211,12 +207,10 @@ function Dashboard() {
                     sexe: nsx,
                 });
             } catch (err) {
-                console.error(err);
-                // alert(err.message);
+                console.error(err);               
             }
         }
-        fetchUserInfo();
-        // window.location.reload();
+        fetchUserInfo();        
     }
 
 
@@ -238,7 +232,9 @@ function Dashboard() {
     console.log(userid+':'+user?.uid)
     if (userid != user?.uid) {
         return (
-            <div>
+            <>
+                <Header />
+
                 <h1>Bio</h1>
                 <a href="/">Arch</a><br></br>
                 <img src={photo} alt="Photo"/>
@@ -256,12 +252,13 @@ function Dashboard() {
 
                 <h1>les reponses de {name}</h1>
                 <div id="rs"></div>
-                
-            </div>
+
+                <Footer />                
+            </>
         )    
     } else {
         return (
-            <div>
+            <>
                 <Header />
 
                 <h1>Bio</h1>
@@ -287,7 +284,7 @@ function Dashboard() {
                 <button onClick={switchToFeedback}>feedback (nous laisser un message)</button>
 
                 <Footer />
-            </div>
+            </>
         )
     }
 

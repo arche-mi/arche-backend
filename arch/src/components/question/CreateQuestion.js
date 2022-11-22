@@ -12,20 +12,13 @@ import Header from "../header/Header";
 import Footer from "../footer/Footer";
 
 
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-
 function CreateQuestion() {
     const [user, loading] = useAuthState(auth);
     const navigate = useNavigate();
     const [name, setName] = useState();
     const [questions, setQuestions] = useState();
 
-    // State to store uploaded file
-    //const [file, setFile] = useState("");
     const [fileUrl, setUrl] = useState("");
-    // progress
     const [percent, setPercent] = useState(0);
     const [isReady, setIsready] = useState(true);
 
@@ -42,13 +35,12 @@ function CreateQuestion() {
         }
     }; 
     
+
     const fetchUserQuestions = async () => {
         try {
             const q = query(collection(db, "users"), where("uid", "==", user?.uid));
             const doc = await getDocs(q);
             const data = doc.docs[0].data();
-            //await sleep(1000);
-            
             if (!data.questions) {
                 const questions = {};                
                 data.questions = questions;
@@ -96,17 +88,10 @@ function CreateQuestion() {
         }        
     };
 
-    // Handles input change event and updates state
-    // function handleChange(event) {
-    //     setFile();
-    //     handleUpload();
-    // }
 
     const handleUpload = async (event) => {
         const file = event.target.files[0];
         if (!file) {
-            // alert("Please choose a file first!")
-            console.log('not file');
             return false;
         }
      
@@ -151,10 +136,11 @@ function CreateQuestion() {
 
     
     return (
-        <div>
+        <>
+
             <Header />
 
-            <h2>Poser une question?</h2>
+                <h2>Poser une question?</h2>
                 <label>
                     Titre:
                     <input type="text" id="title" name="title" />
@@ -174,8 +160,9 @@ function CreateQuestion() {
                 </label>
                 <button onClick={createNewQuestion}>Poser</button>
 
-                <Footer />
-        </div>
+            <Footer />
+
+        </>
     )
 }
 

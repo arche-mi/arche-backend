@@ -3,7 +3,6 @@ import { auth,db } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { query, collection, getDocs, where, doc } from "firebase/firestore";
-import { async } from "@firebase/util";
 
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
@@ -14,6 +13,7 @@ function Home() {
     const navigate = useNavigate();
     const [photo, setPhoto] = useState();
     const [name, setName] = useState("");
+
 
     function corMonth(m) {
         let finalMonth = null;
@@ -32,6 +32,7 @@ function Home() {
         return questionDate+' a '+questionTime;
     }
 
+
     // Fetch users Questions
     const fetchUsersQuestions = async () => {
         let questions = [];
@@ -45,9 +46,7 @@ function Home() {
                 }
                 const tempQuestions = [item.data().questions, item.data().name, item.data().uid]
                 questions.push(tempQuestions);
-            })
-            //await sleep(1000);
-                        
+            })       
         } catch (error) {
             console.log(error);
         }
@@ -108,14 +107,14 @@ function Home() {
 
     }
 
+
     // Fetch username by uid
     const fetchUserInfo = async () => {
         try {
             setName(user.displayName);
             setPhoto(user.photoURL);
-            //console.log(user);
         } catch (err) {
-            //console.error(err);
+            console.error(err);
         }
     }; 
 
@@ -143,7 +142,7 @@ function Home() {
     }, [user, loading]);
 
     return (
-        <div>
+        <>
             <Header />
 
             <button onClick={switchToQuestions}>tous les questions</button><br></br>
@@ -158,7 +157,7 @@ function Home() {
             <p id="qs"></p>            
 
             <Footer />
-        </div>
+        </>
     )
 }
 

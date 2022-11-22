@@ -15,10 +15,9 @@ function Home() {
     });
 
     return (
-        <div>
-            <p>Bienvenu sur le forum</p>
-            <a href="/sign">commencer</a><br></br>
-        </div>
+        <>
+            landing
+        </>
     )
 }
 

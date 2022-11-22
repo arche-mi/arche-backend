@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { auth,db } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { query, collection, getDocs, where, doc } from "firebase/firestore";
-import { async } from "@firebase/util";
+import { query, collection, getDocs } from "firebase/firestore";
 
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
@@ -65,14 +64,14 @@ function Users() {
 
 
     return (
-        <div>
+        <>
             <Header />
 
             <h1>Tous les users</h1>
             <div id="users"></div>
 
             <Footer />
-        </div>
+        </>
     )
 }
 

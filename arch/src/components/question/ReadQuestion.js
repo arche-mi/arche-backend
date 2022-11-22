@@ -6,16 +6,10 @@ import { query, collection, getDocs, where } from "firebase/firestore";
 import { doc, updateDoc} from "firebase/firestore";
 import storage from "../../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { async, isEmpty } from "@firebase/util";
 
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
 
-
-// External fonctions
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
 
 function corMonth(m) {
     let finalMonth = null;
@@ -35,8 +29,6 @@ function firebaseTimeToDayMonthYearAndHourMinutes(time) {
 }
 
 
-
-// React fonction
 function ReadQuestion() {
     const [name, setName] = useState();
     const [user, loading] = useAuthState(auth);
@@ -47,19 +39,15 @@ function ReadQuestion() {
     const [date, setDate] = useState();
     const [questionPhoto, setQuestionPhoto] = useState(); 
     let [responses, setResponses] = useState("");
-    const [userAnswer, setUserAnswer] = useState();
-
-     // State to store uploaded file
-    //const [file, setFile] = useState("");
+    
     const [fileUrl, setUrl] = useState("");
-    // progress
     const [percent, setPercent] = useState(0);
     const [isReady, setIsready] = useState(true);
-
 
     const questionId = window.location.href.split('?')[1].split('!')[0];
     const userid = window.location.href.split('!')[1].split('#')[0];
     console.log(questionId+' : '+userid);
+
 
     const fetchUserName = async () => {
         try {        
@@ -86,15 +74,13 @@ function ReadQuestion() {
     }
 
 
-
     const fetchUserQuestions = async () => {
         let questions = null;        
         try {
             const q = query(collection(db, "users"), where("uid", "==", userid));
             const doct = await getDocs(q);
             const data = doct.docs[0].data();
-            //await sleep(1000);
-            
+
             if (!data.questions) {
                 questions = {};
             } else {
@@ -104,17 +90,18 @@ function ReadQuestion() {
             setText(Object.values(questions[questionId][1])[0]);
             setQuestionPhoto(Object.values(questions[questionId][5]).join(''));
 
-             // Fetch users responses
-             let emptyRespData = {};
-             const userFetchResponses = Object.values(questions[questionId][3])[0];
-             console.log(userFetchResponses)
-             console.log(Object.keys(userFetchResponses).pop())
-             if (isEmpty(userFetchResponses)) {
-                 setResponses(emptyRespData);
+            // Fetch users responses
+            let emptyRespData = {};
+            const userFetchResponses = Object.values(questions[questionId][3])[0];
+            console.log(userFetchResponses)
+            console.log(Object.keys(userFetchResponses).pop())
+            if (isEmpty(userFetchResponses)) {
+                setResponses(emptyRespData);
             } else {
                 setResponses(userFetchResponses)
-             }
+            }
             
+
             //les renders
             const tags_resp = document.querySelector("#tags");
             if (tags_resp.textContent != "") { tags_resp.textContent = "" };
@@ -171,9 +158,6 @@ function ReadQuestion() {
 
         } catch (error) {
             console.log(error);
-
-            //alert('tu nes pas a ta place ...');
-            //window.location = `/`
         }
     }
     
@@ -185,8 +169,7 @@ function ReadQuestion() {
             const q = query(collection(db, "users"), where("uid", "==", user?.uid));
             const doct = await getDocs(q);
             const data = doct.docs[0].data();
-            //await sleep(1000);
-            
+
             if (!data.questions) {
                 questions = {};
             } else {
@@ -216,6 +199,7 @@ function ReadQuestion() {
     const updateResponses = async () => {
         let questions = null;   
         try {
+
             // update user who ask questions
             const q = query(collection(db, "users"), where("uid", "==", userid));
             const doct = await getDocs(q);
@@ -229,7 +213,7 @@ function ReadQuestion() {
             const response_text = document.querySelector("#response_text");
             response_text.value = '';
 
-             // update user who ask questions
+            // update user who ask questions
             const qcu = query(collection(db, "users"), where("uid", "==", user?.uid));
             const doctcu = await getDocs(qcu);
             const datacu = doctcu.docs[0].data();
@@ -326,7 +310,6 @@ function ReadQuestion() {
 
     useEffect(() => {
         if (loading) return;
-        //if (!user) return navigate("/sign");
         if (!questionId) return navigate("/sign");
         
         fetchUserName();
@@ -335,7 +318,9 @@ function ReadQuestion() {
 
     if (userid === user?.uid) {
         return (
-            <div>
+            <>
+                <Header />
+
                 <button onClick={switchToProfile}>{name}</button>
                 <h3>Question</h3>
                 <p>titre : {title}</p>
@@ -359,11 +344,13 @@ function ReadQuestion() {
                 </div>
 
                 <button onClick={deleteQuestion}>supprimer la question</button>
-            </div>
+
+                <Footer />
+            </>
         )
     } else {
         return (
-            <div>
+            <>
                 <Header />
 
                 <button onClick={switchToProfile}>{name}</button>
@@ -389,7 +376,7 @@ function ReadQuestion() {
                 </div>
 
                 <Footer />
-            </div>
+            </>
         )
     }
 

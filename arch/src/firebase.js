@@ -56,7 +56,6 @@ const signInWithGoogle = async () => {
     console.log("sign sucess");
   } catch (err) {
     console.error(err);
-    // alert(err.message);
   }
 };
 
@@ -65,21 +64,10 @@ const signInWithGoogle = async () => {
 const storage = getStorage(app);
 export default storage;
 
-
-// Forgot password
-const sendPasswordReset = async (email) => {
-  try {
-    await sendPasswordResetEmail(auth, email);
-    alert("Password reset link sent!");
-  } catch (err) {
-    console.error(err);
-    alert(err.message);
-  }
-};
-
 // Logout
 const logout = () => {
   signOut(auth);
 };
 
-export { auth, db, signInWithGoogle, sendPasswordReset, logout };
+
+export { auth, db, signInWithGoogle, logout };

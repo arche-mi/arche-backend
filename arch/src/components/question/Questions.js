@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { auth,db } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { query, collection, getDocs, where, doc } from "firebase/firestore";
-import { async } from "@firebase/util";
+import { query, collection, getDocs } from "firebase/firestore";
 
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
@@ -14,6 +13,7 @@ function Questions() {
     const navigate = useNavigate();
     const [photo, setPhoto] = useState();
     const [name, setName] = useState("");
+
 
     function corMonth(m) {
         let finalMonth = null;
@@ -26,11 +26,13 @@ function Questions() {
         return finalMonth
     }
 
+
     const firebaseTimeToDayMonthYearAndHourMinutes = async (time) => {
         const questionTime = time.getHours()+':'+time.getMinutes();
         const questionDate = time.getDate()+' '+corMonth(time.getMonth())+', '+time.getFullYear();
         return questionDate+' a '+questionTime;
     }
+
 
     // Fetch users Questions
     const fetchUsersQuestions = async () => {
@@ -45,9 +47,7 @@ function Questions() {
                 }
                 const tempQuestions = [item.data().questions, item.data().name, item.data().uid]
                 questions.push(tempQuestions);
-            })
-            //await sleep(1000);
-                        
+            })               
         } catch (error) {
             console.log(error);
         }            
@@ -107,7 +107,6 @@ function Questions() {
             }
         });
 
-
         let questions_count_text = document.getElementById("questions_count");
         if (questions_count_text.textContent != "") { questions_count_text.textContent = "" };
         let questions_count_p = document.createElement("p");
@@ -115,14 +114,14 @@ function Questions() {
         questions_count_text.appendChild(questions_count_p)
     }
 
+
     // Fetch username by uid
     const fetchUserInfo = async () => {
         try {
             setName(user.displayName);
             setPhoto(user.photoURL);
-            //console.log(user);
         } catch (err) {
-            //console.error(err);
+            console.error(err);
         }
     }; 
     
@@ -137,7 +136,7 @@ function Questions() {
     }, [user, loading]);
 
     return (
-        <div>
+        <>
             <Header />
 
             <h1>All questions</h1>
@@ -148,7 +147,7 @@ function Questions() {
             <p id="qs"></p>
 
             <Footer />
-        </div>
+        </>
     )
 }
 

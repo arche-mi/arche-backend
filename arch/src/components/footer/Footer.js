@@ -13,11 +13,9 @@ function Footer() {
     }
 
     return (
-        <div>
-            <h1>Footer ici</h1>
-            <h1><button onClick={switchToBlog}>blog</button></h1>
-            {/* <h1><button onClick={switchToDonation}>Faire un don !</button></h1> */}
-        </div>
+        <>
+            <button onClick={switchToBlog}>blog</button>
+        </>
     )
 }
 
