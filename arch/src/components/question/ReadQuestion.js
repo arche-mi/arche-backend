@@ -6,6 +6,7 @@ import { query, collection, getDocs, where } from "firebase/firestore";
 import { doc, updateDoc} from "firebase/firestore";
 import storage from "../../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { isEmpty } from "@firebase/util";
 
 import Header from "../header/Header";
 import Footer from "../footer/Footer";

@@ -9,6 +9,10 @@ function Home() {
     const navigate = useNavigate();
 
 
+    function switchTosign() {
+        window.location.href = "/sign";
+    }
+
     useEffect(() => {
         if (loading) return;
         if (user) navigate("/");
@@ -16,7 +20,7 @@ function Home() {
 
     return (
         <>
-            landing
+            <button onClick={switchTosign}>Commencer</button>
         </>
     )
 }
