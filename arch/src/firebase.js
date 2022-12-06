@@ -6,7 +6,9 @@ import { initializeApp } from "firebase/app";
 import { GoogleAuthProvider, getAuth, signInWithPopup, sendPasswordResetEmail, signOut, } from "firebase/auth";
 import { getFirestore, query, getDocs, collection, where, addDoc, doc, setDoc } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
-
+import { onSnapshot } from "firebase/firestore"; 
+import { enableIndexedDbPersistence } from "firebase/firestore"; 
+import { disableNetwork } from "firebase/firestore"; 
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -63,6 +65,40 @@ const signInWithGoogle = async () => {
 // Firebase storage reference
 const storage = getStorage(app);
 export default storage;
+
+
+// Local Storage
+enableIndexedDbPersistence(db)
+  .catch((err) => {
+      if (err.code === 'failed-precondition') {
+          // Multiple tabs open, persistence can only be enabled
+          // in one tab at a a time.
+          // ...
+      } else if (err.code === 'unimplemented') {
+          // The current browser does not support all of the
+          // features required to enable persistence
+          // ...
+      }
+  });
+// Subsequent queries will use persistence, if it was enabled successfully
+
+
+const q = query(collection(db, "users"), where("uid", "==", "userid"));
+onSnapshot(q, { includeMetadataChanges: true }, (snapshot) => {
+    snapshot.docChanges().forEach((change) => {
+        console.log("change");
+
+        const source = snapshot.metadata.fromCache ? "local cache" : "server";
+        console.log("Data came from " + source);
+    });
+});
+
+
+const stopNetworkAcces = async () => {
+		await disableNetwork(db);
+		console.log("Network disabled!");
+}
+
 
 // Logout
 const logout = () => {
