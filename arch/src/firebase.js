@@ -9,6 +9,8 @@ import { getStorage } from "firebase/storage";
 import { onSnapshot } from "firebase/firestore"; 
 import { enableIndexedDbPersistence } from "firebase/firestore"; 
 import { disableNetwork } from "firebase/firestore"; 
+import { enableNetwork } from "firebase/firestore"; 
+
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -94,9 +96,19 @@ onSnapshot(q, { includeMetadataChanges: true }, (snapshot) => {
 });
 
 
+
+// disable user connexion to firebase
 const stopNetworkAcces = async () => {
 		await disableNetwork(db);
 		console.log("Network disabled!");
+}
+
+// enable user connexion to firebase
+const activeNetworkAcces = async () => {
+    await enableNetwork(db);  
+    console.log("Network enable");
+    // Do online actions
+    // ...
 }
 
 
@@ -106,4 +118,4 @@ const logout = () => {
 };
 
 
-export { auth, db, signInWithGoogle, logout };
+export { auth, db, signInWithGoogle, logout, activeNetworkAcces, stopNetworkAcces };

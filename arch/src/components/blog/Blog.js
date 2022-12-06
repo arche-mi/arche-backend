@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { auth,db } from "../../firebase";
+import { auth,db,stopNetworkAcces } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { query, collection, getDocs } from "firebase/firestore";
@@ -145,7 +145,8 @@ function Blog() {
         if (loading) return;
         if (!user) navigate("/landing");
 
-        fetchBlogs();    
+        fetchBlogs();   
+        stopNetworkAcces(); 
     }, [user, loading]);
 
 
