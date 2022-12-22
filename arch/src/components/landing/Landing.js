@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../firebase";
+import { auth, stopNetworkAcces } from "../../firebase";
 
 
 function Home() {
@@ -16,6 +16,11 @@ function Home() {
     useEffect(() => {
         if (loading) return;
         if (user) navigate("/");
+
+        setTimeout(() => { 
+            stopNetworkAcces();
+        }, 1000);
+
     });
 
     return (

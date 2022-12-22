@@ -146,7 +146,10 @@ function Blog() {
         if (!user) navigate("/landing");
 
         fetchBlogs();   
-        stopNetworkAcces(); 
+        setTimeout(() => { 
+            stopNetworkAcces();
+        }, 1000);
+        
     }, [user, loading]);
 
 

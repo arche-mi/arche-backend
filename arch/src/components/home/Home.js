@@ -144,7 +144,7 @@ function Home() {
         
         setTimeout(() => { 
             stopNetworkAcces();
-        }, 5000);
+        }, 1000);
 
     }, [user, loading]);
 

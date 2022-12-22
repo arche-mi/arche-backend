@@ -229,7 +229,10 @@ function Dashboard() {
         fetchUserInfo();            
         fetchUserQuestions();
         fetchUserResponses();
-        stopNetworkAcces();
+        setTimeout(() => { 
+            stopNetworkAcces();
+        }, 1000);
+        
     }, [user, loading]);
       
     console.log(userid+':'+user?.uid)

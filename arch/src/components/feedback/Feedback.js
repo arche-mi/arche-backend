@@ -65,7 +65,11 @@ function Feedback() {
         if (user.displayName != hrefName) { return navigate("/sign") };
 
         fetchUserName();
-        stopNetworkAcces();
+
+        setTimeout(() => { 
+            stopNetworkAcces();
+        }, 1000);
+       
     }, [user, loading]);
 
     
