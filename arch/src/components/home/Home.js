@@ -142,7 +142,9 @@ function Home() {
         fetchUserInfo();
         fetchUsersQuestions();
         
-        stopNetworkAcces();
+        setTimeout(() => { 
+            stopNetworkAcces();
+        }, 5000);
 
     }, [user, loading]);
 
