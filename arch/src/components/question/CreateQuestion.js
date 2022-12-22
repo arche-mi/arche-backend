@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { auth,db } from "../../firebase";
+import { auth,db,stopNetworkAcces,activeNetworkAcces } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { query, collection, getDocs, where } from "firebase/firestore";
@@ -74,9 +74,11 @@ function CreateQuestion() {
     
                     console.log(name);
                     const userDocByUsername = doc(db, "users", name);
+                    activeNetworkAcces();
                     await updateDoc(userDocByUsername, {
                         questions: questions
                     });
+                    stopNetworkAcces();
                     window.location = `/question?${+key}!${user?.uid}#${user?.uid}`;
                 }            
     
@@ -132,6 +134,7 @@ function CreateQuestion() {
 
        fetchUserName();
        fetchUserQuestions();
+       stopNetworkAcces();
     }, [user, loading]);
 
     

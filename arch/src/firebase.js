@@ -6,6 +6,10 @@ import { initializeApp } from "firebase/app";
 import { GoogleAuthProvider, getAuth, signInWithPopup, sendPasswordResetEmail, signOut, } from "firebase/auth";
 import { getFirestore, query, getDocs, collection, where, addDoc, doc, setDoc } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
+import { onSnapshot } from "firebase/firestore"; 
+import { enableIndexedDbPersistence } from "firebase/firestore"; 
+import { disableNetwork } from "firebase/firestore"; 
+import { enableNetwork } from "firebase/firestore"; 
 
 
 // Your web app's Firebase configuration
@@ -60,9 +64,95 @@ const signInWithGoogle = async () => {
 };
 
 
+// Load State
+// function loadState(page, pstate) {
+
+//   let state = [];
+
+//   // Get state from LocalStorage
+//   function getSavedState() {
+//     if (localStorage.getItem('state')) {
+//         state = JSON.parse(localStorage.state);       
+//         state.forEach((item) => {
+//           if (item[0] == page && item[1] == pstate) {
+//             return true
+//           }
+//         })
+//         return false
+//     } else {
+//         state = [];
+//         return 1
+//     }
+//   }
+
+//   // Update state to LocalStorage
+//   function updateState() {
+//     const ss = [page,pstate]
+//     state.push(ss);
+//     localStorage.setItem('state', JSON.stringify(state));
+//   }
+  
+
+//   updateState();    
+//   const state_one = getSavedState();
+//   if (state_one == 0) {
+//     console.log(state + "stop");
+//     return false;
+//   } else {
+//     console.log(state + "go");
+//     return true;
+//   }
+
+// }
+
+
 // Firebase storage reference
 const storage = getStorage(app);
 export default storage;
+
+
+// Local Storage
+enableIndexedDbPersistence(db)
+  .catch((err) => {
+      if (err.code === 'failed-precondition') {
+          // Multiple tabs open, persistence can only be enabled
+          // in one tab at a a time.
+          // ...
+      } else if (err.code === 'unimplemented') {
+          // The current browser does not support all of the
+          // features required to enable persistence
+          // ...
+      }
+  });
+// Subsequent queries will use persistence, if it was enabled successfully
+
+
+const q = query(collection(db, "users"), where("uid", "==", "userid"));
+onSnapshot(q, { includeMetadataChanges: true }, (snapshot) => {
+    snapshot.docChanges().forEach((change) => {
+        console.log("change");
+
+        const source = snapshot.metadata.fromCache ? "local cache" : "server";
+        console.log("Data came from " + source);
+    });
+});
+
+
+
+// disable user connexion to firebase
+const stopNetworkAcces = async () => {
+		await disableNetwork(db);
+		console.log("Network disabled!");
+}
+
+// enable user connexion to firebase
+const activeNetworkAcces = async () => {
+    await enableNetwork(db);  
+    console.log("Network enable");
+    // Do online actions
+    // ...
+}
+
 
 // Logout
 const logout = () => {
@@ -70,4 +160,4 @@ const logout = () => {
 };
 
 
-export { auth, db, signInWithGoogle, logout };
+export { auth, db, signInWithGoogle, logout, activeNetworkAcces, stopNetworkAcces };

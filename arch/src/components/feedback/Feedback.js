@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { auth,db } from "../../firebase";
+import { auth,db,stopNetworkAcces,activeNetworkAcces } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { query, collection, getDocs, where } from "firebase/firestore";
@@ -43,10 +43,12 @@ function Feedback() {
         console.log(currentFeedback);
 
         const userDocByUsername = doc(db, "users", name);
+        activeNetworkAcces();
         await updateDoc(userDocByUsername, {
             feedback: currentFeedback
         });
         alert("Merci pour votre reponse !!!");
+        stopNetworkAcces();
         window.location.reload()
     };
 
@@ -63,6 +65,11 @@ function Feedback() {
         if (user.displayName != hrefName) { return navigate("/sign") };
 
         fetchUserName();
+
+        setTimeout(() => { 
+            stopNetworkAcces();
+        }, 1000);
+       
     }, [user, loading]);
 
     

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { auth,db } from "../../firebase";
+import { auth,db,stopNetworkAcces } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { query, collection, getDocs, where } from "firebase/firestore";
@@ -315,6 +315,11 @@ function ReadQuestion() {
         
         fetchUserName();
         fetchUserQuestions();
+
+        setTimeout(() => { 
+            stopNetworkAcces();
+        }, 1000);
+        
     }, [user, loading]);
 
     if (userid === user?.uid) {

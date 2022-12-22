@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { auth,db } from "../../firebase";
+import { auth,db,stopNetworkAcces } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { query, collection, getDocs, where, doc } from "firebase/firestore";
 
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
+
 
 
 function Home() {
@@ -130,15 +131,21 @@ function Home() {
     function switchToUnanswered() {
         window.location.href = `/unanswered`;
     }
-    
-
+            
 
     useEffect(() => {
         if (loading) return;
+        
+
         if (!user) navigate("/landing");
 
         fetchUserInfo();
         fetchUsersQuestions();
+        
+        setTimeout(() => { 
+            stopNetworkAcces();
+        }, 1000);
+
     }, [user, loading]);
 
     return (

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { auth,db } from "../../firebase";
+import { auth,db,stopNetworkAcces,activeNetworkAcces } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import { query, collection, getDocs, where } from "firebase/firestore";
@@ -199,6 +199,7 @@ function Dashboard() {
             setLevel(nlv);
             setSexe(nsx);
             try {
+                activeNetworkAcces();
                 const userDocByUsername = doc(db, "users", name);
                 await updateDoc(userDocByUsername, {
                     university: nun,
@@ -210,7 +211,8 @@ function Dashboard() {
                 console.error(err);               
             }
         }
-        fetchUserInfo();        
+        fetchUserInfo();
+        stopNetworkAcces();
     }
 
 
@@ -227,6 +229,10 @@ function Dashboard() {
         fetchUserInfo();            
         fetchUserQuestions();
         fetchUserResponses();
+        setTimeout(() => { 
+            stopNetworkAcces();
+        }, 1000);
+        
     }, [user, loading]);
       
     console.log(userid+':'+user?.uid)

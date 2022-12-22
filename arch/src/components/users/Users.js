@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { auth,db } from "../../firebase";
+import { auth,db,stopNetworkAcces } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { query, collection, getDocs } from "firebase/firestore";
@@ -33,7 +33,7 @@ function Users() {
                 usernamelink.appendChild(usernamelinktext);
                 ul.appendChild(usernamelink);
                 // a.title = "more";
-                usernamelink.href = `/user?${item.data().uid}#${user.uid}`;
+                usernamelink.href = `/user?${item.data().name}#${item.data().uid}`;
 
                 let li = document.createElement("li");                
                 li.innerText = item.data().university;
@@ -44,8 +44,14 @@ function Users() {
                 ul.appendChild(li);
 
                 li = document.createElement("li");                
-                li.innerText = parseInt(Object.keys(item.data().questions).pop())+1 + " questions";
-                ul.appendChild(li);
+                try {
+                    li.innerText = parseInt(Object.keys(item.data().questions).pop())+1 + " questions";
+                    ul.appendChild(li);                    
+                } catch (error) {
+                    console.log(error);
+                    li.innerText = 0 + " questions";
+                    ul.appendChild(li);                    
+                }
                            
                 users_div.appendChild(ul);
             })
@@ -59,7 +65,22 @@ function Users() {
         if (loading) return;
         if (!user) navigate("/landing");
 
-        fetchUsers();    
+        fetchUsers();
+
+        setTimeout(() => { 
+            stopNetworkAcces();
+        }, 1000);    
+        
+        // const state = loadState("home",0);
+        // if (state == true) {
+        //     setTimeout(() => { 
+        //         stopNetworkAcces();
+        //     }, 4000);
+        // } else {
+        //     stopNetworkAcces();            
+        // }
+
+
     }, [user, loading]);
 
 
