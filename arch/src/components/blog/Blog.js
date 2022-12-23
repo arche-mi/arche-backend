@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { auth,db,stopNetworkAcces } from "../../firebase";
+import { activeNetworkAcces, auth,db,stopNetworkAcces } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { query, collection, getDocs } from "firebase/firestore";
@@ -37,11 +37,13 @@ function Blog() {
             const likes = parseInt(it.likes)-1;
             try {
                 const blogDoc = doc(db, "blog", article_id);
+                activeNetworkAcces();
                 await updateDoc(blogDoc, {
                     likes: likes,
                     userWhoAlreadyLike: newuserwholike
                 });
                 fetchBlogs();
+                // stopNetworkAcces();
             } catch (error) {
                 console.log(error)
             }
@@ -138,6 +140,7 @@ function Blog() {
         } catch (error) {
             console.log(error)            
         }
+
     }
 
 
@@ -146,9 +149,10 @@ function Blog() {
         if (!user) navigate("/landing");
 
         fetchBlogs();   
-        setTimeout(() => { 
+        setTimeout(() => {
+            // to be review cause issue
             stopNetworkAcces();
-        }, 1000);
+        }, 2000);
         
     }, [user, loading]);
 
