@@ -14,6 +14,8 @@ function Home() {
     const navigate = useNavigate();
     const [photo, setPhoto] = useState();
     const [name, setName] = useState("");
+    const [userid, setUid] = useState("");
+
 
 
     function corMonth(m) {
@@ -45,7 +47,7 @@ function Home() {
                 if (!item.data().questions) {
                     item.data().questions = {};
                 }
-                const tempQuestions = [item.data().questions, item.data().name, item.data().uid]
+                const tempQuestions = [item.data().questions, item.data().name, item.data().uid, item.data().userPhoto]
                 questions.push(tempQuestions);
             })       
         } catch (error) {
@@ -61,6 +63,14 @@ function Home() {
 
                 if ((Object.values(item[0][prop][3].responses)).length >= 2) {
                     let ul = document.createElement("ul");
+
+                    let img = document.createElement("img")
+                    try {
+                        img.src = item[3];
+                    } catch (error) {
+                        img.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJFfdPAfeJKYiwglp2z9IjDwphJAqEgyAsUv9nfcDLPVXRPzL2B0pLAvUoyVf4QTzoyso&usqp=CAU";                    
+                    }
+                    ul.appendChild(img);
 
                     let usernamelink = document.createElement("a");
                     let usernamelinktext = document.createTextNode(item[1]);                
@@ -105,13 +115,17 @@ function Home() {
                 }                
             }
         })
-
+        
+        setTimeout(() => { 
+            stopNetworkAcces();
+        }, 1000);
     }
 
 
     // Fetch username by uid
     const fetchUserInfo = async () => {
         try {
+            setUid(user.uid)
             setName(user.displayName);
             setPhoto(user.photoURL);
         } catch (err) {
@@ -131,6 +145,9 @@ function Home() {
     function switchToUnanswered() {
         window.location.href = `/unanswered`;
     }
+    function switchToTopQuestions() {
+        window.location.href = `/`;
+    }  
             
 
     useEffect(() => {
@@ -140,22 +157,19 @@ function Home() {
         if (!user) navigate("/landing");
 
         fetchUserInfo();
-        fetchUsersQuestions();
-        
-        setTimeout(() => { 
-            stopNetworkAcces();
-        }, 1000);
+        fetchUsersQuestions();        
 
     }, [user, loading]);
 
     return (
         <>
             <Header />
+            <button onClick={switchToProfile}>vers ton profil {name}</button>
 
+            <button onClick={switchToTopQuestions}>top questions</button><br></br>
             <button onClick={switchToQuestions}>tous les questions</button><br></br>
             <button onClick={switchToUnanswered}>tous les questions non repondu</button><br></br>
             <button onClick={switchToUsers}>tous les utilisateurs</button><br></br>
-            <button onClick={switchToProfile}>vers ton profil {name}</button>
             <p>Home ,Ya tout ici normalement</p>
 
             <h2>Question's</h2>

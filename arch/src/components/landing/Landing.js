@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, stopNetworkAcces } from "../../firebase";
+import Header from "../header/Header";
+import Footer from "../footer/Footer";
 
 
 function Home() {
@@ -15,7 +17,7 @@ function Home() {
 
     useEffect(() => {
         if (loading) return;
-        if (user) navigate("/");
+        // if (user) navigate("/");
 
         setTimeout(() => { 
             stopNetworkAcces();
@@ -25,6 +27,7 @@ function Home() {
 
     return (
         <>
+            <Header />
             <button onClick={switchTosign}>Commencer</button>
         </>
     )

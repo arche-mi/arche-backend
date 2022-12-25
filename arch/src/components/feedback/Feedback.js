@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { auth,db,stopNetworkAcces,activeNetworkAcces } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { query, collection, getDocs, where } from "firebase/firestore";
+import { query, collection, getDocs, getDoc, where } from "firebase/firestore";
 import { doc, updateDoc} from "firebase/firestore";
+import { isEmpty } from "@firebase/util";
 
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
@@ -47,6 +48,28 @@ function Feedback() {
         await updateDoc(userDocByUsername, {
             feedback: currentFeedback
         });
+
+        // send to admin also
+        try {
+            const docRef = doc(db, "admin", "feedback");
+            const docSnap = await getDoc(docRef);
+            const data = docSnap.data();
+            let newFeedback = data.feedbacks;
+            let key = parseInt(Object.keys(newFeedback).at(-1))+1;
+            if (isEmpty(newFeedback)) {
+                newFeedback = {}
+                key = 0;
+            }
+            console.log(`On a deja ${Object.keys(newFeedback).length} newFeedback`);
+            newFeedback[key] = [user?.uid, feed];    
+            await updateDoc(docRef, {
+                feedbacks: newFeedback
+            });
+            
+        } catch (error) {
+            console.log(error);
+        }
+
         alert("Merci pour votre reponse !!!");
         stopNetworkAcces();
         window.location.reload()
@@ -62,13 +85,9 @@ function Feedback() {
         if (!user) return navigate("/sign");
 
         if (!hrefName) return navigate("/sign");
-        if (user.displayName != hrefName) { return navigate("/sign") };
+        // if (user.displayName != hrefName) { return navigate("/sign") };
 
-        fetchUserName();
-
-        setTimeout(() => { 
-            stopNetworkAcces();
-        }, 1000);
+        fetchUserName();     
        
     }, [user, loading]);
 
@@ -86,7 +105,7 @@ function Feedback() {
 
             <br></br>
 
-            <button onClick={seeFeedback}>Voir mes Feedback</button>
+            {/* <button onClick={seeFeedback}>Voir mes Feedback</button> */}
 
             <Footer />
         </>
