@@ -44,7 +44,7 @@ function Unanswered() {
                 if (!item.data().questions) {
                     item.data().questions = {};
                 }
-                const tempQuestions = [item.data().questions, item.data().name, item.data().uid]
+                const tempQuestions = [item.data().questions, item.data().name, item.data().uid, item.data().userPhoto]
                 questions.push(tempQuestions);
             })
                         
@@ -61,6 +61,14 @@ function Unanswered() {
 
                 if ((Object.values(item[0][prop][3].responses)).length === 0) {
                     let ul = document.createElement("ul");
+
+                    let img = document.createElement("img")
+                    try {
+                        img.src = item[3];
+                    } catch (error) {
+                        img.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJFfdPAfeJKYiwglp2z9IjDwphJAqEgyAsUv9nfcDLPVXRPzL2B0pLAvUoyVf4QTzoyso&usqp=CAU";                    
+                    }
+                    ul.appendChild(img);
 
                     let usernamelink = document.createElement("a");
                     let usernamelinktext = document.createTextNode(item[1]);                

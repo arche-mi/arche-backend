@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { auth,db,stopNetworkAcces } from "../../firebase";
+import { activeNetworkAcces, auth,db,stopNetworkAcces } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { query, collection, getDocs, where } from "firebase/firestore";
-import { doc, updateDoc} from "firebase/firestore";
+import { doc, getDoc, updateDoc} from "firebase/firestore";
 import storage from "../../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { isEmpty } from "@firebase/util";
@@ -303,6 +303,31 @@ function ReadQuestion() {
         ); 
     }
 
+
+    const signalQuestion = async () => {
+        activeNetworkAcces();
+        try {
+            const docRef = doc(db, "admin", "signal");
+            const docSnap = await getDoc(docRef);
+            const data = docSnap.data();
+            let newSignal = data.signales;
+            let key = parseInt(Object.keys(newSignal).at(-1))+1;
+            if (isEmpty(newSignal)) {
+                newSignal = {}
+                key = 0;
+            }
+            console.log(`On a deja ${Object.keys(newSignal).length} newSignal`);
+            newSignal[key] = [userid, questionId];    
+            await updateDoc(docRef, {
+                signales: newSignal
+            });
+           
+            
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     
 
     function switchToProfile() {
@@ -379,6 +404,9 @@ function ReadQuestion() {
                         <p>{percent} "%"</p>
                     </label>
                     <button onClick={createNewResponses}>repondre</button>
+
+                    <button onClick={signalQuestion}>signaler</button>
+
                 </div>
 
                 <Footer />

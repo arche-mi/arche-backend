@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { auth,db,stopNetworkAcces,activeNetworkAcces } from "../../firebase";
+import { auth,db,stopNetworkAcces,activeNetworkAcces, logout } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import { query, collection, getDocs, where } from "firebase/firestore";
@@ -173,7 +173,14 @@ function Dashboard() {
             setName(data.name);            
             setCreationTime(data.creationTime.split(',')[1].split('GMT'));
             setLastSeen(data.lastSeenTime.split(',')[1].split('GMT'));
-            setPhoto(data.userPhoto);
+            let userPhotoFetch = 0;
+            try {
+                userPhotoFetch = data.userPhoto;
+                console.log(userPhotoFetch);
+            } catch (error) {
+                userPhotoFetch = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJFfdPAfeJKYiwglp2z9IjDwphJAqEgyAsUv9nfcDLPVXRPzL2B0pLAvUoyVf4QTzoyso&usqp=CAU";
+            }
+            setPhoto(userPhotoFetch);
             setMessage(data.message);
             setUniversity(data.university);
             setFiliere(data.filiere);
@@ -182,6 +189,7 @@ function Dashboard() {
         } catch (err) {
             console.error(err);
         }
+        stopNetworkAcces();
     }; 
 
 
@@ -229,9 +237,9 @@ function Dashboard() {
         fetchUserInfo();            
         fetchUserQuestions();
         fetchUserResponses();
-        setTimeout(() => { 
-            stopNetworkAcces();
-        }, 1000);
+        // setTimeout(() => { 
+        //     stopNetworkAcces();
+        // }, 1000);
         
     }, [user, loading]);
       
@@ -288,6 +296,7 @@ function Dashboard() {
                 <h2>Message</h2>
                 <p>{message}</p>
                 <button onClick={switchToFeedback}>feedback (nous laisser un message)</button>
+                <button onClick={logout}>Se deconnecter</button>
 
                 <Footer />
             </>

@@ -152,6 +152,8 @@ function Users() {
                         users_div.appendChild(ul);
                 
                 })
+
+            stopNetworkAcces();
                                 
         } catch (error) {
             console.log(error);
@@ -164,9 +166,9 @@ function Users() {
 
         fetchUsers();
 
-        setTimeout(() => { 
-            stopNetworkAcces();
-        }, 1000);    
+        // setTimeout(() => { 
+        //     stopNetworkAcces();
+        // }, 1000);    
         
         // const state = loadState("home",0);
         // if (state == true) {
@@ -186,7 +188,7 @@ function Users() {
             <Header />
 
             <h1>Tous les users</h1>
-            <button onClick={fetchUsers}>first users</button>
+            <button onClick={fetchUsers}>last users</button>
             <button onClick={fetchUsersByQuestions}>questions</button>
             <div id="users"></div>
 

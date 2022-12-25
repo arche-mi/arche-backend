@@ -62,13 +62,9 @@ function Feedback() {
         if (!user) return navigate("/sign");
 
         if (!hrefName) return navigate("/sign");
-        if (user.displayName != hrefName) { return navigate("/sign") };
+        // if (user.displayName != hrefName) { return navigate("/sign") };
 
-        fetchUserName();
-
-        setTimeout(() => { 
-            stopNetworkAcces();
-        }, 1000);
+        fetchUserName();     
        
     }, [user, loading]);
 
@@ -86,7 +82,7 @@ function Feedback() {
 
             <br></br>
 
-            <button onClick={seeFeedback}>Voir mes Feedback</button>
+            {/* <button onClick={seeFeedback}>Voir mes Feedback</button> */}
 
             <Footer />
         </>
