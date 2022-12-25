@@ -321,7 +321,7 @@ function ReadQuestion() {
             await updateDoc(docRef, {
                 signales: newSignal
             });
-           
+            alert("signal envoyer merci !!!");
             
         } catch (error) {
             console.log(error);
