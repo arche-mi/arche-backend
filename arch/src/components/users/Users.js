@@ -166,20 +166,6 @@ function Users() {
 
         fetchUsers();
 
-        // setTimeout(() => { 
-        //     stopNetworkAcces();
-        // }, 1000);    
-        
-        // const state = loadState("home",0);
-        // if (state == true) {
-        //     setTimeout(() => { 
-        //         stopNetworkAcces();
-        //     }, 4000);
-        // } else {
-        //     stopNetworkAcces();            
-        // }
-
-
     }, [user, loading]);
 
 

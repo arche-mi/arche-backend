@@ -120,6 +120,8 @@ function Questions() {
         let questions_count_p = document.createElement("p");
         questions_count_p.innerText = questions_count + " questions";
         questions_count_text.appendChild(questions_count_p)
+
+        stopNetworkAcces();
     }
 
 
@@ -141,10 +143,6 @@ function Questions() {
 
         fetchUserInfo();
         fetchUsersQuestions();
-
-        setTimeout(() => { 
-            stopNetworkAcces();
-        }, 1000);
 
     }, [user, loading]);
 

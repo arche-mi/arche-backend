@@ -160,6 +160,7 @@ function ReadQuestion() {
         } catch (error) {
             console.log(error);
         }
+        stopNetworkAcces();
     }
     
 
@@ -340,10 +341,6 @@ function ReadQuestion() {
         
         fetchUserName();
         fetchUserQuestions();
-
-        setTimeout(() => { 
-            stopNetworkAcces();
-        }, 1000);
         
     }, [user, loading]);
 
