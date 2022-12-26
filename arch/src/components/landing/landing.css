@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=NTR&family=Poppins:wght@400;500;600&display=swap');
+body {
+    background-color: #E5E5E5;
+}
+.btn-primary {
+    background: #5170d5d5;
+    border: none;
+    border-radius: 5px;
+    padding: 2px 30px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 42px;
+    color: #FBFCFF;
+}
+.btn-primary:hover {
+    cursor: pointer;
+    background-color: rgba(81, 111, 213, 0.99);
+}
+.btn-secondary {
+    background-color: white;
+    color: black;
+    border: 1px solid green;
+    padding: 7px 14px;
+    border-radius: 7px;
+}
+
+
+main {
+    background-color: white;
+    border-radius: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 15px;
+    padding: 20px 125px;
+    min-height: 90vh;
+}
+
+#landing-content h1 {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 46px;
+    line-height: 54px;
+    color: #000000;
+}
+
+#landing-content p {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 30px;
+    color: #000000;
+}
+
+#landing-svg img {
+    width: 492px;
+    height: 306px;
+}
+
+
+
+@media (max-width:1150px) { 
+   main {
+    display: grid;
+    justify-content: center;
+    text-align: center;
+   }
+   #landing-content h1 {
+    font-size: 35px;
+   }
+   #landing-content p {
+    margin: 20px 5px;
+   }
+   #landing-svg {
+    display: grid;
+    justify-content: center;
+   }
+}
+@media (max-width:768px) { 
+    
+    #landing-content p {
+        font-size: 20px;
+        margin-left: 25px;
+        margin-right: 25px;
+        margin-bottom: 20px;
+    }
+}
+@media (max-width:655px) { 
+   main {
+    display: grid;
+    justify-content: center;
+   }
+   #landing-content {
+    text-align: left;
+   }
+   #landing-content h1 {
+    margin-left: 25px;
+   }
+   #landing-content button {
+    margin-left: 25px;
+   }
+   #landing-svg img {
+        margin-top: 20px;
+        width: 408px;
+        height: 254px;
+   }
+}
+@media (max-width:570px) {    
+   #landing-content h1 {    
+    max-width: 300px;
+    padding: 0 30px;
+   }
+   #landing-content p {
+    max-width: 400px;
+    padding: 0 30px;
+   }
+   #landing-content button {
+    margin:  0 55px;
+   }
+}    
+@media (max-width:440px) {       
+    #landing-svg img {
+        width: 366px;
+        height: 234px;
+    }
+    main {
+        max-width: 300px;
+    }
+}    
+@media (max-width:440px) {
+    main {
+        margin: 5px 3px;
+    }    
+    #landing-svg img {
+        width: 370px;
+        height: 214px;
+    }
+    main {
+        max-width: 300px;
+    }
+}    

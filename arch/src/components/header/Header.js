@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth,db,stopNetworkAcces,activeNetworkAcces, logout } from "../../firebase";
 import { query, collection, getDocs, where } from "firebase/firestore";
+import "./header.css";
+
 
 function Header() {
     const [user, loading] = useAuthState(auth);
@@ -37,6 +39,10 @@ function Header() {
         // stopNetworkAcces();
     }; 
 
+    function switchToSign() {
+        window.location.href = '/sign';
+    }
+
     useEffect(() => {
         if (loading) return;     
 
@@ -47,15 +53,29 @@ function Header() {
     if (!user) {
         return (
             <>        
-                <a href="/">Arch</a>
-                <a href="/sign">Login</a>
+            <header>
+                <section id="logo">
+                    <h3 id="arche">Arche</h3>
+                    <p id="beta">Beta</p>
+                </section>
+                <section id="header-btn">
+                    <button onClick={switchToSign} type="button" class="btn-primary" id="login-btn">Login</button>
+                </section>
+            </header>
             </>
         )
     } else {
         return (
-            <>        
-                <a href="/">Arch</a>
-                <img src={photo} alt="Photo"/>
+            <>     
+            <header>                   
+                <section id="logo">
+                    <h3 id="arche">Arche</h3>
+                    <p id="beta">Beta</p>
+                </section>
+                <section id="img-btn">
+                    <img src={photo} alt="Photo"/>
+                </section>
+            </header>
             </>
         )
     };
