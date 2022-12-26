@@ -234,9 +234,9 @@ function Dashboard() {
         if (!user) { return navigate("/sign") };
         if (!hrefName) return navigate("/sign");
 
-        fetchUserInfo();            
         fetchUserQuestions();
         fetchUserResponses();
+        fetchUserInfo();            
         // setTimeout(() => { 
         //     stopNetworkAcces();
         // }, 1000);

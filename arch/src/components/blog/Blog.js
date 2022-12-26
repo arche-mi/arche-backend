@@ -140,7 +140,7 @@ function Blog() {
         } catch (error) {
             console.log(error)            
         }
-
+        stopNetworkAcces();
     }
 
 
@@ -148,11 +148,7 @@ function Blog() {
         if (loading) return;
         if (!user) navigate("/landing");
 
-        fetchBlogs();   
-        setTimeout(() => {
-            // to be review cause issue
-            stopNetworkAcces();
-        }, 2000);
+        fetchBlogs();       
         
     }, [user, loading]);
 

@@ -113,7 +113,7 @@ function Unanswered() {
                 }                
             }
         })
-
+        stopNetworkAcces();
     }
 
     // Fetch username by uid
@@ -133,10 +133,6 @@ function Unanswered() {
 
         fetchUserInfo();
         fetchUsersQuestions();
-
-        setTimeout(() => { 
-            stopNetworkAcces();
-        }, 1000);
         
     }, [user, loading]);
 

@@ -32,7 +32,7 @@ function Feedback() {
 
     const sendFeedback = async () => {
         const feed = document.querySelector("#feed").value;
-        if (feed === '') { alert("remplir le champ"); return false }
+        if (feed === '') { alert("Merci de remplir le champ"); return false }
 
         const q = query(collection(db, "users"), where("uid", "==", user?.uid));
         const doct = await getDocs(q);
@@ -75,10 +75,6 @@ function Feedback() {
         window.location.reload()
     };
 
-    const seeFeedback = async () => {
-        alert("Section en meintenance !!!");
-    };
-
 
     useEffect(() => {
         if (loading) return;
@@ -104,8 +100,6 @@ function Feedback() {
             <button onClick={sendFeedback}>Envoyer</button>
 
             <br></br>
-
-            {/* <button onClick={seeFeedback}>Voir mes Feedback</button> */}
 
             <Footer />
         </>

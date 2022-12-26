@@ -64,52 +64,9 @@ const signInWithGoogle = async () => {
 };
 
 
-// Load State
-// function loadState(page, pstate) {
-
-//   let state = [];
-
-//   // Get state from LocalStorage
-//   function getSavedState() {
-//     if (localStorage.getItem('state')) {
-//         state = JSON.parse(localStorage.state);       
-//         state.forEach((item) => {
-//           if (item[0] == page && item[1] == pstate) {
-//             return true
-//           }
-//         })
-//         return false
-//     } else {
-//         state = [];
-//         return 1
-//     }
-//   }
-
-//   // Update state to LocalStorage
-//   function updateState() {
-//     const ss = [page,pstate]
-//     state.push(ss);
-//     localStorage.setItem('state', JSON.stringify(state));
-//   }
-  
-
-//   updateState();    
-//   const state_one = getSavedState();
-//   if (state_one == 0) {
-//     console.log(state + "stop");
-//     return false;
-//   } else {
-//     console.log(state + "go");
-//     return true;
-//   }
-
-// }
-
-
 // Firebase storage reference
 const storage = getStorage(app);
 export default storage;
-
 
 // Local Storage
 enableIndexedDbPersistence(db)
@@ -125,8 +82,6 @@ enableIndexedDbPersistence(db)
       }
   });
 // Subsequent queries will use persistence, if it was enabled successfully
-
-
 const q = query(collection(db, "users"), where("uid", "==", "userid"));
 onSnapshot(q, { includeMetadataChanges: true }, (snapshot) => {
     snapshot.docChanges().forEach((change) => {
@@ -136,7 +91,6 @@ onSnapshot(q, { includeMetadataChanges: true }, (snapshot) => {
         console.log("Data came from " + source);
     });
 });
-
 
 
 // disable user connexion to firebase
