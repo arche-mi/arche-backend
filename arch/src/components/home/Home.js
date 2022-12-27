@@ -148,6 +148,9 @@ function Home() {
     function switchToTopQuestions() {
         window.location.href = `/`;
     }  
+    function switchToTopLibrairie() {
+        window.location.href = `/librairie#${name}`
+    }
             
 
     useEffect(() => {
@@ -166,6 +169,7 @@ function Home() {
             <Header />
             <button onClick={switchToProfile}>vers ton profil {name}</button>
 
+            <button onClick={switchToTopLibrairie}>librairie</button><br></br>
             <button onClick={switchToTopQuestions}>top questions</button><br></br>
             <button onClick={switchToQuestions}>tous les questions</button><br></br>
             <button onClick={switchToUnanswered}>tous les questions non repondu</button><br></br>
