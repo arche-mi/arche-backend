@@ -8,7 +8,7 @@ function Header() {
     const [photo, setPhoto] = useState();    
     const [userData, setData] = useState();
 
-    const userid = null;
+    let userid = null;
     try {
         userid = window.location.href.split('#')[1];
     } catch (err) {

@@ -12,6 +12,7 @@ import Users from "./components/users/Users";
 import Blog from "./components/blog/Blog";
 import Questions from "./components/question/Questions";
 import Unanswered from "./components/question/Unanswered";
+import Librairie from "./components/librairie/Librairie";
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
           <Route exact path="/unanswered" element={<Unanswered />} />
           <Route exact path="/feedback" element={<Feedback />} />
           <Route exact path="/donation" element={<Donation />} />
+          <Route exact path="/librairie" element={<Librairie />} />
         </Routes>
       </Router>
     </div>
