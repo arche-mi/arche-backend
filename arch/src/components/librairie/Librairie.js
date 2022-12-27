@@ -99,6 +99,110 @@ function Librairie() {
     }
 
 
+    
+    const fetchFavoris = async () => {
+        try {            
+            const q = query(collection(db, "librairie"));
+            const doct = await getDocs(q);
+            const data = doct.docs;
+            setlibrairieData(data);            
+            
+            const quser = query(collection(db, "users"), where("uid", "==", user?.uid));
+            const doctuser = await getDocs(quser);
+            const datauser = doctuser.docs[0].data();
+            let currentDoc = datauser.docs;
+
+            let lib_area = document.querySelector("#lib-area");
+            if (lib_area.textContent != "") { lib_area.textContent = "" };
+            
+            data
+            .slice()
+            .reverse()
+            .forEach(item => {
+
+                if (currentDoc.includes(item.data().title.toLowerCase())) {
+                    let ul = document.createElement("ul");
+    
+                    let li_level = document.createElement("li");                
+                    li_level.classList.add('title');
+                    li_level.innerText = item.data().level;
+                    ul.appendChild(li_level);  
+    
+                    let doclink = document.createElement("a");
+                    let doclinktext = document.createTextNode(item.data().title);                
+                    doclink.appendChild(doclinktext);
+                    ul.appendChild(doclink);
+                    // a.title = "more";
+                    doclink.href = `${item.data().ref}`;
+                                                  
+    
+                    let button = document.createElement("button");
+                    button.classList.add('fav_bnt');
+                    button.onclick = function() {updateLike(item.data(), item.data().title)};
+                    button.innerHTML = "ajouter aux favoris";
+                    ul.appendChild(button)
+    
+                    lib_area.appendChild(ul);                    
+                }
+               
+            });  
+            
+        } catch (error) {
+            console.log(error)            
+        }
+        stopNetworkAcces();
+    }
+
+    const fetchLevel = async (level) => {
+        try {            
+            const q = query(collection(db, "librairie"));
+            const doct = await getDocs(q);
+            const data = doct.docs;
+            setlibrairieData(data);            
+
+            let lib_area = document.querySelector("#lib-area");
+            if (lib_area.textContent != "") { lib_area.textContent = "" };
+            
+            data
+            .slice()
+            .reverse()
+            .forEach(item => {
+
+                if (item.data().level == level) {
+                    let ul = document.createElement("ul");
+    
+                    let li_level = document.createElement("li");                
+                    li_level.classList.add('title');
+                    li_level.innerText = item.data().level;
+                    ul.appendChild(li_level);  
+    
+                    let doclink = document.createElement("a");
+                    let doclinktext = document.createTextNode(item.data().title);                
+                    doclink.appendChild(doclinktext);
+                    ul.appendChild(doclink);
+                    // a.title = "more";
+                    doclink.href = `${item.data().ref}`;
+                                                  
+    
+                    let button = document.createElement("button");
+                    button.classList.add('fav_bnt');
+                    button.onclick = function() {updateLike(item.data(), item.data().title)};
+                    button.innerHTML = "ajouter aux favoris";
+                    ul.appendChild(button)
+    
+                    lib_area.appendChild(ul);                    
+                }
+               
+            });  
+            
+        } catch (error) {
+            console.log(error)            
+        }
+        stopNetworkAcces();
+    }
+   
+
+
     const fetchLibrairie = async () => {
         try {            
             const q = query(collection(db, "librairie"));
@@ -146,6 +250,14 @@ function Librairie() {
     }
 
 
+    function fetchLicence() {
+        fetchLevel("licence");
+    }
+    function fetchMaster() {
+        fetchLevel("master 1");
+    }
+
+
     useEffect(() => {
         if (loading) return;
         if (!user) navigate("/landing");
@@ -160,6 +272,10 @@ function Librairie() {
         <Header />
 
         <h1>Librairie</h1>
+        <button onClick={fetchLibrairie}>Tout</button>
+        <button onClick={fetchMaster}>Master</button>
+        <button onClick={fetchLicence}>Licence</button>
+        <button onClick={fetchFavoris}>Favoris</button>
         <div id="lib-area"></div>
 
         <Footer />
