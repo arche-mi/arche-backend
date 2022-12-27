@@ -7,6 +7,7 @@ import { doc, getDoc, updateDoc} from "firebase/firestore";
 import storage from "../../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { isEmpty } from "@firebase/util";
+import './librairie.css';
 
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
@@ -139,6 +140,7 @@ function Librairie() {
     
                     let button = document.createElement("button");
                     button.classList.add('fav_bnt');
+                    button.classList.add('fav_bnt_red');
                     button.onclick = function() {updateLike(item.data(), item.data().title)};
                     button.innerHTML = "retirer des favoris";
                     ul.appendChild(button)
@@ -192,6 +194,7 @@ function Librairie() {
     
                     let button = document.createElement("button");
                     button.classList.add('fav_bnt');
+                    button.classList.add('fav_bnt_red');
                     button.onclick = function() {updateLike(item.data(), item.data().title)};
                     button.innerHTML = "retirer des favoris";
                     ul.appendChild(button)
@@ -272,6 +275,7 @@ function Librairie() {
     
                     let button = document.createElement("button");
                     button.classList.add('fav_bnt');
+                    button.classList.add('fav_bnt_red');
                     button.onclick = function() {updateLike(item.data(), item.data().title)};
                     button.innerHTML = "retirer des favoris";
                     ul.appendChild(button)
