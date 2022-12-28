@@ -176,7 +176,7 @@ function Librairie() {
             .reverse()
             .forEach(item => {
 
-                if (item.data().level == level && currentDoc.includes(item.data().title.toLowerCase())) {
+                if ((item.data().level).split(' ')[0] == level && currentDoc.includes(item.data().title.toLowerCase())) {
                     let ul = document.createElement("ul");
     
                     let li_level = document.createElement("li");                
@@ -201,7 +201,7 @@ function Librairie() {
     
                     lib_area.appendChild(ul);                    
                 }
-                if (item.data().level == level && !currentDoc.includes(item.data().title.toLowerCase())) {
+                if ((item.data().level).split(' ')[0] == level && !currentDoc.includes(item.data().title.toLowerCase())) {
                     let ul = document.createElement("ul");
     
                     let li_level = document.createElement("li");                
@@ -315,10 +315,10 @@ function Librairie() {
 
 
     function fetchLicence() {
-        fetchLevel("licence");
+        fetchLevel("Licence");
     }
     function fetchMaster() {
-        fetchLevel("master 1");
+        fetchLevel("Master");
     }
 
 
