@@ -28,6 +28,7 @@ const db = getFirestore(app);
 const googleProvider = new GoogleAuthProvider();
 const msg = "Bienvenue sur l'arche";
 const feedback = [];
+const docs = [];
 const university = 'ufhb';
 const filiere = "Math Info";
 const level = 'Inconnu';
@@ -48,6 +49,7 @@ const signInWithGoogle = async () => {
         email: user.email,
         message: msg,
         feedback: feedback,
+        docs: docs,
         creationTime: user.metadata.creationTime,
         lastSeenTime: user.metadata.lastSignInTime,
         userPhoto: user.photoURL,

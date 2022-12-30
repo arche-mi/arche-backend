@@ -65,11 +65,8 @@ function Home() {
                     let ul = document.createElement("ul");
 
                     let img = document.createElement("img")
-                    try {
-                        img.src = item[3];
-                    } catch (error) {
-                        img.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJFfdPAfeJKYiwglp2z9IjDwphJAqEgyAsUv9nfcDLPVXRPzL2B0pLAvUoyVf4QTzoyso&usqp=CAU";                    
-                    }
+                    img.setAttribute('referrerpolicy', 'no-referrer');
+                    img.src = item[3];                  
                     ul.appendChild(img);
 
                     let usernamelink = document.createElement("a");
@@ -148,6 +145,9 @@ function Home() {
     function switchToTopQuestions() {
         window.location.href = `/`;
     }  
+    function switchToTopLibrairie() {
+        window.location.href = `/librairie#${name}`
+    }
             
 
     useEffect(() => {
@@ -166,6 +166,7 @@ function Home() {
             <Header />
             <button onClick={switchToProfile}>vers ton profil {name}</button>
 
+            <button onClick={switchToTopLibrairie}>librairie</button><br></br>
             <button onClick={switchToTopQuestions}>top questions</button><br></br>
             <button onClick={switchToQuestions}>tous les questions</button><br></br>
             <button onClick={switchToUnanswered}>tous les questions non repondu</button><br></br>
