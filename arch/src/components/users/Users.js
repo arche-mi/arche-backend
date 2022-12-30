@@ -117,11 +117,8 @@ function Users() {
                         let ul = document.createElement("ul");
 
                         let img = document.createElement("img")
-                        try {
-                            img.src = item.data().userPhoto;                    
-                        } catch (error) {
-                            img.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJFfdPAfeJKYiwglp2z9IjDwphJAqEgyAsUv9nfcDLPVXRPzL2B0pLAvUoyVf4QTzoyso&usqp=CAU";                    
-                        }
+                        img.setAttribute('referrerpolicy', 'no-referrer');
+                        img.src = item.data().userPhoto;                    
                         ul.appendChild(img);
 
                         let usernamelink = document.createElement("a");

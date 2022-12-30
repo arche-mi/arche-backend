@@ -23,13 +23,9 @@ function Header() {
             const doc = await getDocs(q);
             const data = doc.docs[0].data();
             setData(data);
-            let userPhotoFetch = 0;
-            try {
-                userPhotoFetch = data.userPhoto;
-                console.log(userPhotoFetch);
-            } catch (error) {
-                userPhotoFetch = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJFfdPAfeJKYiwglp2z9IjDwphJAqEgyAsUv9nfcDLPVXRPzL2B0pLAvUoyVf4QTzoyso&usqp=CAU";
-            }
+            let userPhotoFetch = 0;                
+            userPhotoFetch = data.userPhoto;
+            console.log(userPhotoFetch);
             setPhoto(userPhotoFetch);
         } catch (err) {
             console.error(err);
@@ -55,7 +51,7 @@ function Header() {
         return (
             <>        
                 <a href="/">Arch</a>
-                <img src={photo} alt="Photo"/>
+                <img referrerpolicy="no-referrer" src={photo} alt="Photo"/>
             </>
         )
     };

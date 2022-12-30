@@ -251,7 +251,7 @@ function Dashboard() {
 
                 <h1>Bio</h1>
                 <a href="/">Arch</a><br></br>
-                <img src={photo} alt="Photo"/>
+                <img referrerpolicy="no-referrer" src={photo} alt="Photo"/>
                 <p>{name}</p>
                 <h1>Info</h1>
                 <h3>universite : </h3><p id="university">{university}</p>
@@ -276,7 +276,7 @@ function Dashboard() {
                 <Header />
 
                 <h1>Bio</h1>
-                <img src={photo} alt="Photo"/>
+                <img referrerpolicy="no-referrer"  src={photo} alt="Photo"/>
                 <p>{name}</p>
                 <h1>Info</h1>               
                 <h3>universite : </h3><p id="university" contenteditable="true">{university}</p>
