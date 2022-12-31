@@ -8,9 +8,10 @@ import "./dashboard.css";
 
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
-
+import LoadingSpinner from "../loadSpinner/LoadingSpinner";
 
 function Dashboard() {
+    const [isLoading, setIsLoading] = useState(false);
     const [user, loading] = useAuthState(auth);
     const navigate = useNavigate();
     const [lastSeen, setLastSeen]= useState();
@@ -58,6 +59,7 @@ function Dashboard() {
     const fetchUserQuestions = async () => {
         let questions = null;
         try {
+            setIsLoading(true);
             const q = query(collection(db, "users"), where("uid", "==", userid));
             const doc = await getDocs(q);
             const data = doc.docs[0].data();        
@@ -114,12 +116,14 @@ function Dashboard() {
                 list.appendChild(ul);
             };
         }
+        setIsLoading(false);
     };
 
 
     // Fetch user responses
     const fetchUserResponses = async () => {
         try {
+            setIsLoading(true);
             const q = query(collection(db, "users"), where("uid", "==", userid));
             const doc = await getDocs(q);
             const data = doc.docs[0].data();
@@ -160,6 +164,7 @@ function Dashboard() {
         } catch (error) {
             console.log(error);
         }
+        setIsLoading(false);
     };
 
     // Fetch username by uid
@@ -174,12 +179,7 @@ function Dashboard() {
             setCreationTime(data.creationTime.split(',')[1].split('GMT'));
             setLastSeen(data.lastSeenTime.split(',')[1].split('GMT'));
             let userPhotoFetch = 0;
-            try {
-                userPhotoFetch = data.userPhoto;
-                console.log(userPhotoFetch);
-            } catch (error) {
-                userPhotoFetch = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJFfdPAfeJKYiwglp2z9IjDwphJAqEgyAsUv9nfcDLPVXRPzL2B0pLAvUoyVf4QTzoyso&usqp=CAU";
-            }
+            userPhotoFetch = data.userPhoto;            
             setPhoto(userPhotoFetch);
             setMessage(data.message);
             setUniversity(data.university);
@@ -262,9 +262,11 @@ function Dashboard() {
                 <p>Inscrit le : {creationTime}</p>
 
                 <h1>les question's de {name}</h1>
+                {isLoading ? <LoadingSpinner /> : fetchUserQuestions}
                 <div id="qs"></div>
 
                 <h1>les reponses de {name}</h1>
+                {isLoading ? <LoadingSpinner /> : fetchUserResponses}
                 <div id="rs"></div>
 
                 <Footer />                
@@ -288,9 +290,11 @@ function Dashboard() {
                 <button onClick={updateUserProfile}>Enregistrer les modification</button>
 
                 <h1>Mes Question's</h1>
+                {isLoading ? <LoadingSpinner /> : fetchUserQuestions}
                 <div id="qs"></div>
 
                 <h1>Mes reponses</h1>
+                {isLoading ? <LoadingSpinner /> : fetchUserResponses}
                 <div id="rs"></div>
     
                 <h2>Message</h2>

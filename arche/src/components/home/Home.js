@@ -6,10 +6,11 @@ import { query, collection, getDocs, where, doc } from "firebase/firestore";
 
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
-
+import LoadingSpinner from "../loadSpinner/LoadingSpinner";
 
 
 function Home() {
+    const [isLoading, setIsLoading] = useState(false);
     const [user, loading] = useAuthState(auth);
     const navigate = useNavigate();
     const [photo, setPhoto] = useState();
@@ -40,6 +41,7 @@ function Home() {
     const fetchUsersQuestions = async () => {
         let questions = [];
         try {
+            setIsLoading(true);
             const q = query(collection(db, "users"));
             const doc = await getDocs(q);
             const data = doc.docs;
@@ -112,7 +114,7 @@ function Home() {
                 }                
             }
         })
-        
+        setIsLoading(false);
         setTimeout(() => { 
             stopNetworkAcces();
         }, 1000);
@@ -151,8 +153,7 @@ function Home() {
             
 
     useEffect(() => {
-        if (loading) return;
-        
+        if (loading) return;        
 
         if (!user) navigate("/landing");
 
@@ -177,6 +178,7 @@ function Home() {
             <a href="/question/new">Poser une question ici</a>
             <h3>Top questions</h3>
             <p id="qs"></p>            
+            {isLoading ? <LoadingSpinner /> : fetchUsersQuestions}
 
             <Footer />
         </>
