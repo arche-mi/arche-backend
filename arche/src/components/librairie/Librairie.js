@@ -11,10 +11,11 @@ import './librairie.css';
 
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
-
+import LoadingSpinner from "../loadSpinner/LoadingSpinner";
 
 
 function Librairie() {
+    const [isLoading, setIsLoading] = useState(false);
     const [user, loading] = useAuthState(auth);
     const navigate = useNavigate();
     const [librairieData, setlibrairieData] = useState();   
@@ -104,6 +105,7 @@ function Librairie() {
     
     const fetchFavoris = async () => {
         try {            
+            setIsLoading(true);
             const q = query(collection(db, "librairie"));
             const doct = await getDocs(q);
             const data = doct.docs;
@@ -153,11 +155,13 @@ function Librairie() {
         } catch (error) {
             console.log(error)            
         }
+        setIsLoading(false);
         stopNetworkAcces();
     }
 
     const fetchLevel = async (level) => {
-        try {            
+        try {     
+            setIsLoading(true);       
             const q = query(collection(db, "librairie"));
             const doct = await getDocs(q);
             const data = doct.docs;
@@ -231,13 +235,15 @@ function Librairie() {
         } catch (error) {
             console.log(error)            
         }
+        setIsLoading(false);
         stopNetworkAcces();
     }
    
 
 
     const fetchLibrairie = async () => {
-        try {            
+        try {          
+            setIsLoading(true);  
             const q = query(collection(db, "librairie"));
             const doct = await getDocs(q);
             const data = doct.docs;
@@ -310,6 +316,7 @@ function Librairie() {
         } catch (error) {
             console.log(error)            
         }
+        setIsLoading(false);
         stopNetworkAcces();
     }
 
@@ -340,8 +347,8 @@ function Librairie() {
         <button onClick={fetchMaster}>Master</button>
         <button onClick={fetchLicence}>Licence</button>
         <button onClick={fetchFavoris}>Favoris</button>
+        {isLoading ? <LoadingSpinner /> : fetchLibrairie}
         <div id="lib-area"></div>
-
         <Footer />
         </>
     )

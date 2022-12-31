@@ -400,7 +400,7 @@ function ReadQuestion() {
                     <label>
                         Photo:
                         <input type="file" accept="/image/*" onChange={handleUpload}/>
-                        <p>{percent} "%"</p>
+                        <p>{percent} %</p>
                     </label>
                     <button onClick={createNewResponses}>repondre</button>
 

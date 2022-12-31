@@ -6,16 +6,15 @@ import { query, collection, getDocs, where, doc } from "firebase/firestore";
 
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
+import LoadingSpinner from "../loadSpinner/LoadingSpinner";
 
 
-
-function Home() {
+function Unanswered() {
+    const [isLoading, setIsLoading] = useState(false);
     const [user, loading] = useAuthState(auth);
     const navigate = useNavigate();
     const [photo, setPhoto] = useState();
     const [name, setName] = useState("");
-    const [userid, setUid] = useState("");
-
 
 
     function corMonth(m) {
@@ -40,6 +39,7 @@ function Home() {
     const fetchUsersQuestions = async () => {
         let questions = [];
         try {
+            setIsLoading(true); 
             const q = query(collection(db, "users"));
             const doc = await getDocs(q);
             const data = doc.docs;
@@ -49,7 +49,8 @@ function Home() {
                 }
                 const tempQuestions = [item.data().questions, item.data().name, item.data().uid, item.data().userPhoto]
                 questions.push(tempQuestions);
-            })       
+            })
+                        
         } catch (error) {
             console.log(error);
         }
@@ -61,12 +62,15 @@ function Home() {
             
             for (const prop in item[0]) {
 
-                if ((Object.values(item[0][prop][3].responses)).length >= 2) {
+                if ((Object.values(item[0][prop][3].responses)).length === 0) {
                     let ul = document.createElement("ul");
 
                     let img = document.createElement("img")
-                    img.setAttribute('referrerpolicy', 'no-referrer');
-                    img.src = item[3];                  
+                    try {
+                        img.src = item[3];
+                    } catch (error) {
+                        img.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJFfdPAfeJKYiwglp2z9IjDwphJAqEgyAsUv9nfcDLPVXRPzL2B0pLAvUoyVf4QTzoyso&usqp=CAU";                    
+                    }
                     ul.appendChild(img);
 
                     let usernamelink = document.createElement("a");
@@ -112,17 +116,13 @@ function Home() {
                 }                
             }
         })
-        
-        setTimeout(() => { 
-            stopNetworkAcces();
-        }, 1000);
+        setIsLoading(false);
+        stopNetworkAcces();
     }
-
 
     // Fetch username by uid
     const fetchUserInfo = async () => {
         try {
-            setUid(user.uid)
             setName(user.displayName);
             setPhoto(user.photoURL);
         } catch (err) {
@@ -130,57 +130,31 @@ function Home() {
         }
     }; 
 
-    function switchToProfile() {
-        window.location = `/user?${name}#${user?.uid}`;
-    }
-    function switchToUsers() {
-        window.location = `/users`;
-    }    
-    function switchToQuestions() {
-        window.location.href = `/questions`;
-    }
-    function switchToUnanswered() {
-        window.location.href = `/unanswered`;
-    }
-    function switchToTopQuestions() {
-        window.location.href = `/`;
-    }  
-    function switchToTopLibrairie() {
-        window.location.href = `/librairie#${name}`
-    }
-            
 
     useEffect(() => {
         if (loading) return;
-        
-
         if (!user) navigate("/landing");
 
         fetchUserInfo();
-        fetchUsersQuestions();        
-
+        fetchUsersQuestions();
+        
     }, [user, loading]);
 
     return (
         <>
             <Header />
-            <button onClick={switchToProfile}>vers ton profil {name}</button>
 
-            <button onClick={switchToTopLibrairie}>librairie</button><br></br>
-            <button onClick={switchToTopQuestions}>top questions</button><br></br>
-            <button onClick={switchToQuestions}>tous les questions</button><br></br>
-            <button onClick={switchToUnanswered}>tous les questions non repondu</button><br></br>
-            <button onClick={switchToUsers}>tous les utilisateurs</button><br></br>
-            <p>Home ,Ya tout ici normalement</p>
+            <h1>Non repondu</h1>
 
             <h2>Question's</h2>
             <a href="/question/new">Poser une question ici</a>
-            <h3>Top questions</h3>
-            <p id="qs"></p>            
+            <h3>les questions sans reponses sont ici</h3>
+            {isLoading ? <LoadingSpinner /> : fetchUsersQuestions}
+            <p id="qs"></p>
 
             <Footer />
         </>
     )
 }
 
-export default Home;
+export default Unanswered;
