@@ -7,6 +7,7 @@ import { query, collection, getDocs } from "firebase/firestore";
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
 import { async } from "@firebase/util";
+import LoadingSpinner from "../loadSpinner/LoadingSpinner";
 
 
 function sort(items){
@@ -24,12 +25,14 @@ function sort(items){
 }
 
 function Users() {
+    const [isLoading, setIsLoading] = useState(false);
     const [user, loading] = useAuthState(auth);
     const navigate = useNavigate();
 
     
     const fetchUsersByQuestions = async () => {
         try {
+            setIsLoading(true); 
             const q = query(collection(db, "users"));
             const doc = await getDocs(q);
             const data = doc.docs;
@@ -50,7 +53,7 @@ function Users() {
             })
 
             console.log(userData);
-            // filtre user data by most index 1 of userData arr witch is questions numbers
+            // filtre user data by most index[1] of userData arr witch is questions numbers
             const userDataSorted = sort(userData);
             console.log(userDataSorted);
 
@@ -61,12 +64,9 @@ function Users() {
                             
                         let ul = document.createElement("ul");
 
-                        let img = document.createElement("img")
-                        try {
-                            img.src = item.data().userPhoto;                    
-                        } catch (error) {
-                            img.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJFfdPAfeJKYiwglp2z9IjDwphJAqEgyAsUv9nfcDLPVXRPzL2B0pLAvUoyVf4QTzoyso&usqp=CAU";                    
-                        }
+                        let img = document.createElement("img");
+                        img.setAttribute('referrerpolicy', 'no-referrer');
+                        img.src = item.data().userPhoto;                               
                         ul.appendChild(img);
 
                         let usernamelink = document.createElement("a");
@@ -101,10 +101,12 @@ function Users() {
         } catch (error) {
             console.log(error);
         }
+        setIsLoading(false);
     }
 
     const fetchUsers = async () => {
         try {
+            setIsLoading(true); 
             const q = query(collection(db, "users"));
             const doc = await getDocs(q);
             const data = doc.docs;
@@ -151,7 +153,7 @@ function Users() {
                 })
 
             stopNetworkAcces();
-                                
+            setIsLoading(false);
         } catch (error) {
             console.log(error);
         }
@@ -173,8 +175,8 @@ function Users() {
             <h1>Tous les users</h1>
             <button onClick={fetchUsers}>last users</button>
             <button onClick={fetchUsersByQuestions}>questions</button>
+            {isLoading ? <LoadingSpinner /> : fetchUsersByQuestions}
             <div id="users"></div>
-
             <Footer />
         </>
     )

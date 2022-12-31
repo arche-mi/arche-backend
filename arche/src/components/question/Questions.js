@@ -6,9 +6,11 @@ import { query, collection, getDocs } from "firebase/firestore";
 
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
+import LoadingSpinner from "../loadSpinner/LoadingSpinner";
 
 
 function Questions() {
+    const [isLoading, setIsLoading] = useState(false);
     const [user, loading] = useAuthState(auth);
     const navigate = useNavigate();
     const [photo, setPhoto] = useState();
@@ -38,6 +40,7 @@ function Questions() {
     const fetchUsersQuestions = async () => {
         let questions = [];
         try {
+            setIsLoading(true);  
             const q = query(collection(db, "users"));
             const doc = await getDocs(q);
             const data = doc.docs;
@@ -65,11 +68,8 @@ function Questions() {
                 let ul = document.createElement("ul");
 
                 let img = document.createElement("img")
-                try {
-                    img.src = item[3];
-                } catch (error) {
-                    img.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJFfdPAfeJKYiwglp2z9IjDwphJAqEgyAsUv9nfcDLPVXRPzL2B0pLAvUoyVf4QTzoyso&usqp=CAU";                    
-                }
+                img.setAttribute('referrerpolicy', 'no-referrer');
+                img.src = item[3];              
                 ul.appendChild(img);
 
                 let usernamelink = document.createElement("a");
@@ -121,6 +121,7 @@ function Questions() {
         questions_count_p.innerText = questions_count + " questions";
         questions_count_text.appendChild(questions_count_p)
 
+        setIsLoading(false);
         stopNetworkAcces();
     }
 
@@ -155,8 +156,8 @@ function Questions() {
             <a href="/question/new">Poser une question ici</a>
             <h3>Tout les questions</h3>
             <p id="questions_count"></p>
+            {isLoading ? <LoadingSpinner /> : fetchUsersQuestions}
             <p id="qs"></p>
-
             <Footer />
         </>
     )
