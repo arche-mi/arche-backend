@@ -4,9 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { query, collection, getDocs, where } from "firebase/firestore";
 import { doc, getDoc, updateDoc} from "firebase/firestore";
-import storage from "../../firebase";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { isEmpty } from "@firebase/util";
 import './librairie.css';
 
 import Header from "../header/Header";

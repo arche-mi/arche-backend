@@ -13,7 +13,7 @@ import Blog from "./components/blog/Blog";
 import Questions from "./components/question/Questions";
 import Unanswered from "./components/question/Unanswered";
 import Librairie from "./components/librairie/Librairie";
-
+import Badges from "./components/badges/Badge";
 
 function App() {
   return (
@@ -33,6 +33,7 @@ function App() {
           <Route exact path="/feedback" element={<Feedback />} />
           <Route exact path="/donation" element={<Donation />} />
           <Route exact path="/librairie" element={<Librairie />} />
+          <Route exact path="/badges" element={<Badges />} />
         </Routes>
       </Router>
     </div>

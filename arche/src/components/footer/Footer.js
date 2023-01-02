@@ -11,10 +11,14 @@ function Footer() {
     function switchToBlog() {
         window.location.href = `/blog#${user.uid}`;
     }
+    function switchToBadges() {
+        window.location.href = `/badges#${user.uid}`;
+    }
 
     return (
         <>
             <button onClick={switchToBlog}>blog</button>
+            <button onClick={switchToBadges}>badges</button>
         </>
     )
 }
