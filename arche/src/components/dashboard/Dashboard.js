@@ -25,8 +25,7 @@ function Dashboard() {
     const [level, setLevel] = useState();
     const [sexe, setSexe] = useState();    
     const [userData, setData] = useState();
-
-
+  
     let hrefName = null;
     let userid = null;
     try {
@@ -359,7 +358,7 @@ function Dashboard() {
 
                 <h1>Badges</h1>
                 {isLoading ? <LoadingSpinner /> : fetchBadges}
-                <div id="badges_area"></div>
+                <div id="badges_area"></div>                
 
                 <h1>Mes Question's</h1>
                 {isLoading ? <LoadingSpinner /> : fetchUserQuestions}
