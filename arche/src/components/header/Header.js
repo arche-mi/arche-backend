@@ -38,6 +38,12 @@ function Header() {
     function switchToSign() {
         window.location.href = '/sign';
     }
+    function switchToProfile() {
+        window.location = `/user?${user?.uid}#${user?.uid}`;
+    }
+    function switchToHome() {
+        window.location = `/`;
+    }
 
     useEffect(() => {
         if (loading) return;     
@@ -51,7 +57,7 @@ function Header() {
             <>        
             <header>
                 <section id="logo">
-                    <h3 id="arche">Arche</h3>
+                    <h3 onClick={switchToHome} id="arche">Arche</h3>
                     <p id="beta">Beta</p>
                 </section>
                 <section id="header-btn">
@@ -66,17 +72,13 @@ function Header() {
             <>     
             <header>                   
                 <section id="logo">
-                    <h3 id="arche">Arche</h3>
+                    <h3 onClick={switchToHome} id="arche">Arche</h3>
                     <p id="beta">Beta</p>
                 </section>
                 <section id="img-btn">
-                    <img src={photo} alt="Photo"/>
+                    <img onClick={switchToProfile} src={photo} alt="Photo"/>
                 </section>
-            </header>
-                             
-                <a href="/">Arch</a>
-                <img referrerpolicy="no-referrer" src={photo} alt="Photo"/>
-
+            </header>                                     
             </>
         )
     };

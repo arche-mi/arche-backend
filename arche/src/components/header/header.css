@@ -40,7 +40,9 @@ header {
     display: flex;
     gap: 10px;
 }
-
+#logo h3:hover {
+    cursor: pointer;
+}
 #header-btn {
     display: flex;
     justify-content: center;
@@ -79,10 +81,13 @@ header {
     font-size: 1rem;
 }
 
-#img-btn img {
+#img-btn img {    
     width: 40px;
     height: 40px;
     border-radius: 20px;
+}
+#img-btn img:hover {
+    cursor: pointer;
 }
 
 
