@@ -10,12 +10,14 @@ import { onSnapshot } from "firebase/firestore";
 import { enableIndexedDbPersistence } from "firebase/firestore"; 
 import { disableNetwork } from "firebase/firestore"; 
 import { enableNetwork } from "firebase/firestore"; 
+import Badges from "./components/badges/Badge";
 
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyAgdtfoY06kNC78khTFpvRzyFTW3nzJxO4",
   authDomain: "arch-39e60.firebaseapp.com",
+  databaseURL: "https://arch-39e60-default-rtdb.firebaseio.com",
   projectId: "arch-39e60",
   storageBucket: "arch-39e60.appspot.com",
   messagingSenderId: "36281085157",
@@ -28,8 +30,7 @@ const db = getFirestore(app);
 const googleProvider = new GoogleAuthProvider();
 const msg = "Bienvenue sur l'arche";
 const feedback = [];
-const badges = [];
-const docs = [];
+const documents = [];
 const university = 'ufhb';
 const filiere = "Math Info";
 const level = 'Inconnu';
@@ -50,8 +51,8 @@ const signInWithGoogle = async () => {
         email: user.email,
         message: msg,
         feedback: feedback,
-        badges: badges,
-        docs: docs,
+        badges: [`Bienvenue&${user.metadata.creationTime}`],
+        docs: documents,
         creationTime: user.metadata.creationTime,
         lastSeenTime: user.metadata.lastSignInTime,
         userPhoto: user.photoURL,

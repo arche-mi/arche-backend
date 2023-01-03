@@ -35,6 +35,10 @@ function Badges() {
             const doctuser = await getDocs(quser);
             const datauser = doctuser.docs[0].data();
             let userBadges = datauser.badges;    
+            let currentUserBadges = [];
+            userBadges.forEach(ub => {
+                currentUserBadges.push(ub.split('&')[0])
+            })
 
             let badges_area = document.querySelector("#badges_area");
             if (badges_area.hasChildNodes != "") { badges_area.textContent = "" };
@@ -56,7 +60,7 @@ function Badges() {
             
             let ul = document.createElement("ul");
             allBadges.forEach(badge => {
-                if (userBadges.includes(badge[3])) {
+                if (currentUserBadges.includes(badge[3])) {
                     let file = document.createElement("img");
                     file.classList.add('img_is');
                     file.src = badge[1];
