@@ -160,7 +160,7 @@ function ReadQuestion() {
         } catch (error) {
             console.log(error);
         }
-        stopNetworkAcces();
+        // stopNetworkAcces();
     }
     
 
@@ -200,15 +200,15 @@ function ReadQuestion() {
 
     const updateResponses = async () => {
         let questions = null;   
-        try {
-
-            // update user who ask questions
+        try {            
+            // update questions
             const q = query(collection(db, "users"), where("uid", "==", userid));
             const doct = await getDocs(q);
             const data = doct.docs[0].data();
             questions = data.questions;
             questions[questionId][3] = {responses:responses};
             const userDocByUsername = doc(db, "users", name);
+            console.log("update start new");
             await updateDoc(userDocByUsername, {
                 questions: questions
             });
@@ -224,7 +224,7 @@ function ReadQuestion() {
             await updateDoc(userDocByUsernameCu, {
                 responses: responses
             });
-
+            console.log("update done");
             fetchUserQuestions();
         } catch (error) {
             console.log(error);
@@ -398,7 +398,7 @@ function ReadQuestion() {
                     <label>
                         Photo:
                         <input type="file" accept="/image/*" onChange={handleUpload}/>
-                        <p>{percent} "%"</p>
+                        <p>{percent} %</p>
                     </label>
                     <button onClick={createNewResponses}>repondre</button>
 

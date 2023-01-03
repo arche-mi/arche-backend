@@ -6,10 +6,11 @@ import { query, collection, getDocs, where, doc } from "firebase/firestore";
 
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
-
+import LoadingSpinner from "../loadSpinner/LoadingSpinner";
 
 
 function Home() {
+    const [isLoading, setIsLoading] = useState(false);
     const [user, loading] = useAuthState(auth);
     const navigate = useNavigate();
     const [photo, setPhoto] = useState();
@@ -40,6 +41,7 @@ function Home() {
     const fetchUsersQuestions = async () => {
         let questions = [];
         try {
+            setIsLoading(true);
             const q = query(collection(db, "users"));
             const doc = await getDocs(q);
             const data = doc.docs;
@@ -65,11 +67,8 @@ function Home() {
                     let ul = document.createElement("ul");
 
                     let img = document.createElement("img")
-                    try {
-                        img.src = item[3];
-                    } catch (error) {
-                        img.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJFfdPAfeJKYiwglp2z9IjDwphJAqEgyAsUv9nfcDLPVXRPzL2B0pLAvUoyVf4QTzoyso&usqp=CAU";                    
-                    }
+                    img.setAttribute('referrerpolicy', 'no-referrer');
+                    img.src = item[3];                  
                     ul.appendChild(img);
 
                     let usernamelink = document.createElement("a");
@@ -115,7 +114,7 @@ function Home() {
                 }                
             }
         })
-        
+        setIsLoading(false);
         setTimeout(() => { 
             stopNetworkAcces();
         }, 1000);
@@ -148,11 +147,13 @@ function Home() {
     function switchToTopQuestions() {
         window.location.href = `/`;
     }  
+    function switchToTopLibrairie() {
+        window.location.href = `/librairie#${name}`
+    }
             
 
     useEffect(() => {
-        if (loading) return;
-        
+        if (loading) return;        
 
         if (!user) navigate("/landing");
 
@@ -166,6 +167,7 @@ function Home() {
             <Header />
             <button onClick={switchToProfile}>vers ton profil {name}</button>
 
+            <button onClick={switchToTopLibrairie}>librairie</button><br></br>
             <button onClick={switchToTopQuestions}>top questions</button><br></br>
             <button onClick={switchToQuestions}>tous les questions</button><br></br>
             <button onClick={switchToUnanswered}>tous les questions non repondu</button><br></br>
@@ -176,6 +178,7 @@ function Home() {
             <a href="/question/new">Poser une question ici</a>
             <h3>Top questions</h3>
             <p id="qs"></p>            
+            {isLoading ? <LoadingSpinner /> : fetchUsersQuestions}
 
             <Footer />
         </>

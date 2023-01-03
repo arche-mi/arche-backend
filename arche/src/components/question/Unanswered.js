@@ -6,9 +6,11 @@ import { query, collection, getDocs, where, doc } from "firebase/firestore";
 
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
+import LoadingSpinner from "../loadSpinner/LoadingSpinner";
 
 
 function Unanswered() {
+    const [isLoading, setIsLoading] = useState(false);
     const [user, loading] = useAuthState(auth);
     const navigate = useNavigate();
     const [photo, setPhoto] = useState();
@@ -37,6 +39,7 @@ function Unanswered() {
     const fetchUsersQuestions = async () => {
         let questions = [];
         try {
+            setIsLoading(true); 
             const q = query(collection(db, "users"));
             const doc = await getDocs(q);
             const data = doc.docs;
@@ -113,6 +116,7 @@ function Unanswered() {
                 }                
             }
         })
+        setIsLoading(false);
         stopNetworkAcces();
     }
 
@@ -145,6 +149,7 @@ function Unanswered() {
             <h2>Question's</h2>
             <a href="/question/new">Poser une question ici</a>
             <h3>les questions sans reponses sont ici</h3>
+            {isLoading ? <LoadingSpinner /> : fetchUsersQuestions}
             <p id="qs"></p>
 
             <Footer />

@@ -8,9 +8,11 @@ import "./blog.css";
 
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
+import LoadingSpinner from "../loadSpinner/LoadingSpinner";
 
 
 function Blog() {
+    const [isLoading, setIsLoading] = useState(false);
     const [user, loading] = useAuthState(auth);
     const navigate = useNavigate();
     const [blogData, setBlogData] = useState();   
@@ -25,6 +27,7 @@ function Blog() {
 
 
     const updateLike = async (it, id) => {
+        activeNetworkAcces();
         let userwholike = it.userWhoAlreadyLike;
         if (userwholike.includes(userid)) {
             let newuserwholike = [];
@@ -37,7 +40,6 @@ function Blog() {
             const likes = parseInt(it.likes)-1;
             try {
                 const blogDoc = doc(db, "blog", article_id);
-                activeNetworkAcces();
                 await updateDoc(blogDoc, {
                     likes: likes,
                     userWhoAlreadyLike: newuserwholike
@@ -79,6 +81,7 @@ function Blog() {
 
     const fetchBlogs = async () => {
         try {            
+            setIsLoading(true); 
             const q = query(collection(db, "blog"));
             const doct = await getDocs(q);
             const data = doct.docs;
@@ -140,6 +143,7 @@ function Blog() {
         } catch (error) {
             console.log(error)            
         }
+        setIsLoading(false);
         stopNetworkAcces();
     }
 
@@ -158,6 +162,7 @@ function Blog() {
             <Header />
 
                 <h1>Blog</h1>
+                {isLoading ? <LoadingSpinner /> : fetchBlogs}
                 <div id="blog_area"></div>
 
             <Footer />

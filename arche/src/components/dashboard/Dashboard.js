@@ -8,9 +8,11 @@ import "./dashboard.css";
 
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
-
+import LoadingSpinner from "../loadSpinner/LoadingSpinner";
+import { async } from "@firebase/util";
 
 function Dashboard() {
+    const [isLoading, setIsLoading] = useState(false);
     const [user, loading] = useAuthState(auth);
     const navigate = useNavigate();
     const [lastSeen, setLastSeen]= useState();
@@ -23,8 +25,7 @@ function Dashboard() {
     const [level, setLevel] = useState();
     const [sexe, setSexe] = useState();    
     const [userData, setData] = useState();
-
-
+  
     let hrefName = null;
     let userid = null;
     try {
@@ -52,12 +53,75 @@ function Dashboard() {
         return questionDate+' a '+questionTime;
     }
 
+    const showBadge = async (badge) => {
+        console.log(badge);
+    }
+
+
+    const fetchBadges = async () => {
+        try {          
+            setIsLoading(true);  
+            const q = query(collection(db, "badges"));
+            const doct = await getDocs(q);
+            const data = doct.docs;
+
+            const quser = query(collection(db, "users"), where("uid", "==", userid));
+            const doctuser = await getDocs(quser);
+            const datauser = doctuser.docs[0].data();
+            let userBadges = datauser.badges;    
+            let currentUserBadges = [];
+            userBadges.forEach(ub => {
+                currentUserBadges.push(ub.split('&')[0])
+            })
+
+            let badges_area = document.querySelector("#badges_area");
+            if (badges_area.hasChildNodes != "") { badges_area.textContent = "" };
+                        
+            // Fetch all badges by type
+            function fetcher(data, arr, type) {
+                data.forEach(item => {
+                    if (item.data().type == type) {
+                        arr.push([item.data().type, item.data().ref, item.data().description, item.data().title])
+                    }
+                });                
+            };
+            let allBadges = [];
+            fetcher(data, allBadges, 'commune');
+            fetcher(data, allBadges, 'rare');
+            fetcher(data, allBadges, 'legendaire');          
+            
+            let ul = document.createElement("ul");
+            allBadges.forEach(badge => {
+                if (currentUserBadges.includes(badge[3])) {
+                    let div = document.createElement("div");
+                    div.classList.add('is');
+
+                    let file = document.createElement("img");
+                    file.classList.add('img');
+                    file.src = badge[1];
+                    file.onclick = function() {showBadge(badge)};
+                    div.appendChild(file);
+
+                    ul.appendChild(div);
+
+                }
+            })
+            badges_area.appendChild(ul);
+            
+        } catch (error) {
+            console.log(error)            
+        }
+        stopNetworkAcces();
+        setIsLoading(false);
+    } 
+
     
 
     // Fetch user Questions
     const fetchUserQuestions = async () => {
         let questions = null;
         try {
+            setIsLoading(true);
             const q = query(collection(db, "users"), where("uid", "==", userid));
             const doc = await getDocs(q);
             const data = doc.docs[0].data();        
@@ -114,12 +178,14 @@ function Dashboard() {
                 list.appendChild(ul);
             };
         }
+        setIsLoading(false);
     };
 
 
     // Fetch user responses
     const fetchUserResponses = async () => {
         try {
+            setIsLoading(true);
             const q = query(collection(db, "users"), where("uid", "==", userid));
             const doc = await getDocs(q);
             const data = doc.docs[0].data();
@@ -160,6 +226,7 @@ function Dashboard() {
         } catch (error) {
             console.log(error);
         }
+        setIsLoading(false);
     };
 
     // Fetch username by uid
@@ -174,12 +241,7 @@ function Dashboard() {
             setCreationTime(data.creationTime.split(',')[1].split('GMT'));
             setLastSeen(data.lastSeenTime.split(',')[1].split('GMT'));
             let userPhotoFetch = 0;
-            try {
-                userPhotoFetch = data.userPhoto;
-                console.log(userPhotoFetch);
-            } catch (error) {
-                userPhotoFetch = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJFfdPAfeJKYiwglp2z9IjDwphJAqEgyAsUv9nfcDLPVXRPzL2B0pLAvUoyVf4QTzoyso&usqp=CAU";
-            }
+            userPhotoFetch = data.userPhoto;            
             setPhoto(userPhotoFetch);
             setMessage(data.message);
             setUniversity(data.university);
@@ -236,7 +298,8 @@ function Dashboard() {
 
         fetchUserQuestions();
         fetchUserResponses();
-        fetchUserInfo();            
+        fetchUserInfo();     
+        fetchBadges();       
         // setTimeout(() => { 
         //     stopNetworkAcces();
         // }, 1000);
@@ -251,7 +314,7 @@ function Dashboard() {
 
                 <h1>Bio</h1>
                 <a href="/">Arch</a><br></br>
-                <img src={photo} alt="Photo"/>
+                <img referrerpolicy="no-referrer" src={photo} alt="Photo"/>
                 <p>{name}</p>
                 <h1>Info</h1>
                 <h3>universite : </h3><p id="university">{university}</p>
@@ -261,10 +324,16 @@ function Dashboard() {
                 <p>Derniere connexion : {lastSeen}</p>
                 <p>Inscrit le : {creationTime}</p>
 
+                <h1>Badges de {name}</h1>
+                {isLoading ? <LoadingSpinner /> : fetchBadges}
+                <div id="badges_area"></div>
+
                 <h1>les question's de {name}</h1>
+                {isLoading ? <LoadingSpinner /> : fetchUserQuestions}
                 <div id="qs"></div>
 
                 <h1>les reponses de {name}</h1>
+                {isLoading ? <LoadingSpinner /> : fetchUserResponses}
                 <div id="rs"></div>
 
                 <Footer />                
@@ -276,7 +345,7 @@ function Dashboard() {
                 <Header />
 
                 <h1>Bio</h1>
-                <img src={photo} alt="Photo"/>
+                <img referrerpolicy="no-referrer"  src={photo} alt="Photo"/>
                 <p>{name}</p>
                 <h1>Info</h1>               
                 <h3>universite : </h3><p id="university" contenteditable="true">{university}</p>
@@ -287,10 +356,16 @@ function Dashboard() {
                 <h3>Inscrit le : {creationTime}</h3>                
                 <button onClick={updateUserProfile}>Enregistrer les modification</button>
 
+                <h1>Badges</h1>
+                {isLoading ? <LoadingSpinner /> : fetchBadges}
+                <div id="badges_area"></div>                
+
                 <h1>Mes Question's</h1>
+                {isLoading ? <LoadingSpinner /> : fetchUserQuestions}
                 <div id="qs"></div>
 
                 <h1>Mes reponses</h1>
+                {isLoading ? <LoadingSpinner /> : fetchUserResponses}
                 <div id="rs"></div>
     
                 <h2>Message</h2>
