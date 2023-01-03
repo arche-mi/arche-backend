@@ -61,15 +61,62 @@ function Badges() {
             let ul = document.createElement("ul");
             allBadges.forEach(badge => {
                 if (currentUserBadges.includes(badge[3])) {
+                    let div = document.createElement("div");
+                    div.classList.add('is');
+
                     let file = document.createElement("img");
-                    file.classList.add('img_is');
+                    file.classList.add('img');
                     file.src = badge[1];
-                    ul.appendChild(file);  
+                    div.appendChild(file);  
+
+                    let li_title = document.createElement("li");
+                    li_title.classList.add('title');
+                    li_title = document.createElement("li");                
+                    li_title.innerText = badge[3];
+                    div.appendChild(li_title);
+
+                    let li_type = document.createElement("li");
+                    li_type.classList.add('title');
+                    li_type = document.createElement("li");                
+                    li_type.innerText = badge[0];
+                    div.appendChild(li_type);
+
+                    let li_description = document.createElement("li");
+                    li_description.classList.add('title');
+                    li_description = document.createElement("li");                
+                    li_description.innerText = badge[2];
+                    div.appendChild(li_description);
+
+                    ul.appendChild(div);
+
                 } else {
+                    let div = document.createElement("div");
+                    div.classList.add('is_not');
+
                     let file = document.createElement("img");
-                    file.classList.add('img_is_not');
+                    file.classList.add('img');
                     file.src = badge[1];
-                    ul.appendChild(file);  
+                    div.appendChild(file);  
+
+                    let li_title = document.createElement("li");
+                    li_title.classList.add('title');
+                    li_title = document.createElement("li");                
+                    li_title.innerText = badge[3];
+                    div.appendChild(li_title);
+
+                    let li_type = document.createElement("li");
+                    li_type.classList.add('title');
+                    li_type = document.createElement("li");                
+                    li_type.innerText = badge[0];
+                    div.appendChild(li_type);
+
+                    let li_description = document.createElement("li");
+                    li_description.classList.add('title');
+                    li_description = document.createElement("li");                
+                    li_description.innerText = badge[2];
+                    div.appendChild(li_description);
+
+                    ul.appendChild(div);
                 }
             })
             badges_area.appendChild(ul);
