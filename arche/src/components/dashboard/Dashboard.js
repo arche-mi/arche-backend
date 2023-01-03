@@ -9,6 +9,7 @@ import "./dashboard.css";
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
 import LoadingSpinner from "../loadSpinner/LoadingSpinner";
+import { async } from "@firebase/util";
 
 function Dashboard() {
     const [isLoading, setIsLoading] = useState(false);
@@ -52,6 +53,68 @@ function Dashboard() {
         const questionDate = time.getDate()+' '+corMonth(time.getMonth())+', '+time.getFullYear();
         return questionDate+' a '+questionTime;
     }
+
+    const showBadge = async (badge) => {
+        console.log(badge);
+    }
+
+
+    const fetchBadges = async () => {
+        try {          
+            setIsLoading(true);  
+            const q = query(collection(db, "badges"));
+            const doct = await getDocs(q);
+            const data = doct.docs;
+
+            const quser = query(collection(db, "users"), where("uid", "==", userid));
+            const doctuser = await getDocs(quser);
+            const datauser = doctuser.docs[0].data();
+            let userBadges = datauser.badges;    
+            let currentUserBadges = [];
+            userBadges.forEach(ub => {
+                currentUserBadges.push(ub.split('&')[0])
+            })
+
+            let badges_area = document.querySelector("#badges_area");
+            if (badges_area.hasChildNodes != "") { badges_area.textContent = "" };
+                        
+            // Fetch all badges by type
+            function fetcher(data, arr, type) {
+                data.forEach(item => {
+                    if (item.data().type == type) {
+                        arr.push([item.data().type, item.data().ref, item.data().description, item.data().title])
+                    }
+                });                
+            };
+            let allBadges = [];
+            fetcher(data, allBadges, 'commune');
+            fetcher(data, allBadges, 'rare');
+            fetcher(data, allBadges, 'legendaire');          
+            
+            let ul = document.createElement("ul");
+            allBadges.forEach(badge => {
+                if (currentUserBadges.includes(badge[3])) {
+                    let div = document.createElement("div");
+                    div.classList.add('is');
+
+                    let file = document.createElement("img");
+                    file.classList.add('img');
+                    file.src = badge[1];
+                    file.onclick = function() {showBadge(badge)};
+                    div.appendChild(file);
+
+                    ul.appendChild(div);
+
+                }
+            })
+            badges_area.appendChild(ul);
+            
+        } catch (error) {
+            console.log(error)            
+        }
+        stopNetworkAcces();
+        setIsLoading(false);
+    } 
 
     
 
@@ -236,7 +299,8 @@ function Dashboard() {
 
         fetchUserQuestions();
         fetchUserResponses();
-        fetchUserInfo();            
+        fetchUserInfo();     
+        fetchBadges();       
         // setTimeout(() => { 
         //     stopNetworkAcces();
         // }, 1000);
@@ -260,6 +324,10 @@ function Dashboard() {
                 <h3>Genre : </h3><p id="sexe">{sexe}</p>
                 <p>Derniere connexion : {lastSeen}</p>
                 <p>Inscrit le : {creationTime}</p>
+
+                <h1>Badges de {name}</h1>
+                {isLoading ? <LoadingSpinner /> : fetchBadges}
+                <div id="badges_area"></div>
 
                 <h1>les question's de {name}</h1>
                 {isLoading ? <LoadingSpinner /> : fetchUserQuestions}
@@ -288,6 +356,10 @@ function Dashboard() {
                 <h3>Derniere connexion : {lastSeen}</h3>
                 <h3>Inscrit le : {creationTime}</h3>                
                 <button onClick={updateUserProfile}>Enregistrer les modification</button>
+
+                <h1>Badges</h1>
+                {isLoading ? <LoadingSpinner /> : fetchBadges}
+                <div id="badges_area"></div>
 
                 <h1>Mes Question's</h1>
                 {isLoading ? <LoadingSpinner /> : fetchUserQuestions}
