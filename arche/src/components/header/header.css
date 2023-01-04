@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=NTR&family=Poppins:wght@400;500;600&display=swap');
 body {
-    background-color: #E5E5E5;
+    background-color: white;
 }
 .btn-primary {
     background: #5170d5d5;
@@ -25,14 +25,18 @@ body {
     padding: 7px 14px;
     border-radius: 7px;
 }
-
+hr {
+    background-color: white;
+    margin: 0;
+    opacity: 0.01;
+}
 header {
     background-color: white;
-    border-radius: 10px;
+    /* border-radius: 10px; */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 15px;
+    /* margin: 15px; */
     padding: 10px 35px;
 }
 

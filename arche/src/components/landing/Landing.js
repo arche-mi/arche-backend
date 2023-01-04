@@ -41,6 +41,7 @@ function Home() {
                     <img src={hero} alt="Hero"/>
                 </div>
             </main>
+            <Footer />
         </>
     )
 }

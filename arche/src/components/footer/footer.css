@@ -4,13 +4,18 @@
 body{
     margin: 0;
     padding: 0;
-    background-color: rgba(128, 128, 128, 0.267);
+    /* background-color: rgba(128, 128, 128, 0.267); */
+}
+hr {
+    background-color: white;
+    margin: 0;
+    opacity: 0.01;
 }
 footer{
     background-color: #fff;
-    margin: 20px;
+    /* margin: 20px; */
     padding-bottom: 20px;
-    border-radius: 10px;
+    /* border-radius: 10px; */
     font-family: 'Poppins', sans-serif;
     font-style: normal;
     font-size: 16px;

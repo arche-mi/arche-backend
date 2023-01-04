@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=NTR&family=Poppins:wght@400;500;600&display=swap');
 body {
-    background-color: #E5E5E5;
+    background-color: white;
 }
 .btn-primary {
     background: #5170d5d5;
@@ -29,13 +29,14 @@ body {
 
 main {
     background-color: white;
-    border-radius: 16px;
+    /* border-radius: 10px; */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 15px;
-    padding: 20px 125px;
-    min-height: 90vh;
+    /* margin: 15px; */
+    padding: 50px 75px;
+    gap: 3rem;
+    min-height: 70vh;
 }
 
 #landing-content h1 {
@@ -133,7 +134,8 @@ main {
 }    
 @media (max-width:440px) {
     main {
-        margin: 5px 3px;
+        /* margin: 5px 3px; */
+        padding: 30px 50px;
     }    
     #landing-svg img {
         width: 370px;
