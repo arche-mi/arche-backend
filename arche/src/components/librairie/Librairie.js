@@ -118,8 +118,7 @@ function Librairie() {
             lib_area.innerHTML = "";
             
             data
-            .slice()
-            .reverse()
+            .slice()            
             .forEach(item => {
 
                 if (currentDoc.includes(item.data().title.toLowerCase())) {
@@ -179,8 +178,7 @@ function Librairie() {
             lib_area.innerHTML = "";
             
             data
-            .slice()
-            .reverse()
+            .slice()            
             .forEach(item => {
 
                 if ((item.data().level).split(' ')[0] == level && currentDoc.includes(item.data().title.toLowerCase())) {
@@ -274,8 +272,7 @@ function Librairie() {
             lib_area.innerHTML = "";                     
             
             data
-            .slice()
-            .reverse()
+            .slice()            
             .forEach(item => {
                 if (currentDoc.includes(item.data().title.toLowerCase())) {    
                     let lib_item = document.createElement('div');
@@ -406,7 +403,7 @@ function Librairie() {
                 <button onClick={fetchLicence} class="lic-lib">Licence</button>
                 <button onClick={fetchFavoris} class="fav-lib">Favoris</button>
             </div>
-            {/* {isLoading ? <LoadingSpinner /> : fetchLibrairie} */}
+            {isLoading ? <LoadingSpinner /> : fetchLibrairie}
             <div class="lib-area" id="lib-area">
             </div>
             <div class="contact-support ajout">

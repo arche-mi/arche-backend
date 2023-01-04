@@ -1,7 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=NTR&family=Poppins:wght@400;500;600&display=swap');
-body {
-  background-color: gray;
-}
+
 * {
   font-family: 'Poppins';
 }
@@ -228,7 +226,7 @@ a {
 }
 @media only screen and (max-width: 440px) {
   .lib-content {
-    padding: 40px 15px;
+    padding: 40px 30px;
   }
   .lib-area {
     display: grid;
