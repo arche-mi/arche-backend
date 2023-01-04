@@ -1,0 +1,103 @@
+/* <=========================================FOOTER ARCHE==========================> */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+body{
+    margin: 0;
+    padding: 0;
+    background-color: rgba(128, 128, 128, 0.267);
+}
+footer{
+    background-color: #fff;
+    margin: 20px;
+    padding-bottom: 20px;
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    font-size: 16px;
+}
+.content-text ul{
+    list-style-type: none;
+}
+.content-text{
+    display: flex;
+    margin: 0;
+    margin-bottom: 10px;
+    padding: 0;
+}
+.content-text div{
+    margin-inline-end: 6em;
+}
+.text1 h1{
+    margin-left: 1.2em;
+}
+.termes{
+    display: flex;
+    margin-top: 70px;
+    margin-left: 7px;
+}
+.termes > ul {
+    margin-inline: 15px;
+}
+.text1 ul li{
+    margin-bottom: 5px;
+}
+.text2 ul li{
+    margin-bottom: 5px;
+    margin-left: 2em;
+}
+.text3 ul li{
+    margin-bottom: 5px;
+    text-decoration: underline;
+    margin-left: 1em;
+}
+.text4 h1{
+    margin-left: 1.5em;
+}
+.text4 ul {
+    display: flex;
+}
+.img > ul> li{
+    margin-inline: 15px;
+}
+.img > ul{
+    margin-right: 12px;
+}
+.archeBeta li{
+    margin-left: 18px;
+    margin-bottom: 10px; 
+}
+
+/* <=================================MEDIA QUERRY=======================> */
+
+@media only screen and (max-width: 600px){
+    .content-text{
+        display: flex;
+        flex-direction: column;
+    }
+    .termes{
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+    }
+    .text2 ul li{
+        margin: 0;
+        margin-bottom: 6px;
+    }
+    .text3 ul li{
+        margin: 0;
+        margin-bottom: 6px;
+    }
+    .text4 ul li{
+        margin: 0;
+    }
+    .text4 h1{
+        margin-left: 1.2em;
+    }
+    .text1 ul li{
+        margin-bottom: 6px;
+    }
+    .img ul li{
+        margin-inline-end: 10px;
+    }
+}
