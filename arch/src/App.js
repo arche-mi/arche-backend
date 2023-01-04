@@ -12,6 +12,9 @@ import Users from "./components/users/Users";
 import Blog from "./components/blog/Blog";
 import Questions from "./components/question/Questions";
 import Unanswered from "./components/question/Unanswered";
+import Chat from "./components/chat/Chat";
+import Privacy from "./components/privacyPolicy/privacyPolicy";
+
 
 
 function App() {
@@ -31,6 +34,8 @@ function App() {
           <Route exact path="/unanswered" element={<Unanswered />} />
           <Route exact path="/feedback" element={<Feedback />} />
           <Route exact path="/donation" element={<Donation />} />
+          <Route exact path="/Chat" element={<Chat />} />
+          <Route exact path="/privacy-policy" element={<Privacy />} />
         </Routes>
       </Router>
     </div>
