@@ -46,7 +46,7 @@ function Header() {
         window.location = `/`;
     }
     function switchToChat() {
-        window.location = `chat/`;
+        window.location.href = `/chat`;
     }
 
     useEffect(() => {

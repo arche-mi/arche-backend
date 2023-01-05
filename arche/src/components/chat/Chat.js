@@ -52,9 +52,6 @@ function Chat() {
     }
 
 
-
-
-
     useEffect(() => {
         if (loading) return;
         if (!user) navigate("/landing");
