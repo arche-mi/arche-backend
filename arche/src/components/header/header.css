@@ -90,6 +90,7 @@ header {
     border-radius: 20px;
 }
 #beta:hover {
+    cursor: pointer;
     opacity: 0.8;
     background-color: #27BC48;
 }

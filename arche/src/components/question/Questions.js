@@ -218,7 +218,7 @@ function Questions() {
                     </div>
                     
                     <div class="entete">
-                        <span>Top Questions</span>
+                        <span>Tout les Questions</span>
                         <span ><a href="/question/new">Poser une question</a></span>
                     </div>
                     

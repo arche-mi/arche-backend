@@ -209,7 +209,7 @@ function Unanswered() {
                     </div>
                     
                     <div class="entete">
-                        <span>Top Questions</span>
+                        <span>Questions non repondues</span>
                         <span ><a href="/question/new">Poser une question</a></span>
                     </div>
                     

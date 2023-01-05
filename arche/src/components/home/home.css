@@ -132,6 +132,9 @@
     margin-left: 10px;
     font-weight: 800;
 }
+.container-home main .allquestion .question-home .user .name_user:hover {
+    cursor: pointer;
+}
 
 @media screen and (max-width: 750px) {
     .container-home{

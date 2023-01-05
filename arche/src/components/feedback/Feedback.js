@@ -93,7 +93,7 @@ function Feedback() {
         <>
             <Header />
             <div className="feedback">
-                <h2>Bienvenue {name}</h2>
+                <h4>Bienvenue {name}</h4>
                 <h1>Feedback</h1>
                 <div className="feedback-paragraph">
                     Faite nous savoir vos avis et sugestions sur arche-beta. Pour préparer notre prochaine mise à jours, nous demandons les attentes de nos clients concernant la nouvelle version. laisser vos idées.

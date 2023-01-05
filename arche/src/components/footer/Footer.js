@@ -18,8 +18,11 @@ function Footer() {
     function switchToHome() {
         window.location.href = `/`;
     }
+    function switchToUsers() {
+        window.location.href = `/users`;
+    }
     function switchToLibrairie() {
-        window.location.href = `/${user.displayName}}`;
+        window.location.href = `/librairie#${user.displayName}`;
     }
 
     return (
@@ -31,7 +34,7 @@ function Footer() {
                         <h1 class="arche">Arche</h1>
                         <ul>
                             <li className="el-hover-footer"  onClick={switchToHome}>Toutes les questions</li>
-                            <li className="el-hover-footer"  onClick={switchToHome}>Utilisateurs</li>
+                            <li className="el-hover-footer"  onClick={switchToUsers}>Utilisateurs</li>
                             <li className="el-hover-footer" >Contact</li>
                             <li className="el-hover-footer" ><a href="mailto:hamedcuenca5@gmail.com">Devenir contributeur</a></li>
                         </ul>

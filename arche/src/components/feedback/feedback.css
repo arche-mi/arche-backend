@@ -1,9 +1,13 @@
 
 .feedback {
-    margin: 5% 15% 5% 15%;
+    padding: 5% 15% 5% 15%;
+    background-color: white;
+}
+.feedback h4 {
+    text-decoration: overline;
 }
 .feedback-paragraph {
-    width: 45%;
+    width: 90%;
     margin: 0% 0% 2% ;
 }
 .btn-form-feedback {
@@ -11,7 +15,7 @@
     gap: 1rem;
 }
 .btn-form-feedback textarea {
-    width: 50%;
+    width: 60%;
 }
 .btn-form-feedback input {
     min-height: 30vh;

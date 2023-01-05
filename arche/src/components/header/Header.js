@@ -51,6 +51,9 @@ function Header() {
     function switchToLibrairie() {
         window.location.href = `/librairie#${user.displayName}`
     }
+    function switchToFeedback() {
+        window.location = `/feedback?${user.displayName}`
+    }
 
     useEffect(() => {
         if (loading) return;     
@@ -81,10 +84,10 @@ function Header() {
             <header>                   
                 <section id="logo">
                     <h3 onClick={switchToHome} id="arche">Arche</h3>
-                    <p id="beta">Beta</p>
+                    <p onClick={switchToFeedback} id="beta">Beta</p>
                 </section>
                 <section id="img-btn">
-                    <img id="user-img" onClick={switchToProfile} src={photo} alt="Photo"/>
+                    <img id="user-img" onClick={switchToProfile} src={photo} />
                     <button onClick={switchToLibrairie} type="button" class="btn-primary-header">librairie</button>                    
                     <button onClick={switchToChat} type="button" class="chat-btn-header">Chat</button>
                     <div className="chat-ring-ring">
