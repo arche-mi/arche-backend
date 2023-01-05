@@ -33,11 +33,10 @@ footer{
 } 
 .text3 ul li{
     margin-bottom: 5px;
-    text-decoration: underline;
     margin-left: 1em;
 }
 .text4 h1{
-    margin-left: 1.5em;
+    margin-left: 1.35em;
 }
 .text4 ul {
     display: flex;
@@ -62,7 +61,10 @@ li a{
     margin: 0;
     opacity: 0.01;
 }
-
+.el-hover-footer:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
 /* <=================================MEDIA QUERRY=======================> */
 
 @media only screen and (max-width: 600px){

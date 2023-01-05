@@ -28,26 +28,26 @@ function Footer() {
             <footer>
                 <div class="content-text">
                     <div class="text1">
-                        <h1 onClick={switchToHome} class="arche">Arche</h1>
+                        <h1 class="arche">Arche</h1>
                         <ul>
-                            <li onClick={switchToHome}>Toutes les questions</li>
-                            <li onClick={switchToHome}>Utilisateurs</li>
-                            <li>Contact</li>
-                            <li><a href="mailto:hamedcuenca5@gmail.com">Devenir contributeur</a></li>
+                            <li className="el-hover-footer"  onClick={switchToHome}>Toutes les questions</li>
+                            <li className="el-hover-footer"  onClick={switchToHome}>Utilisateurs</li>
+                            <li className="el-hover-footer" >Contact</li>
+                            <li className="el-hover-footer" ><a href="mailto:hamedcuenca5@gmail.com">Devenir contributeur</a></li>
                         </ul>
                     </div>
                     <div class="termes">
                         <div class="text2">
                             <ul>
-                                <li onClick={switchToBlog}>Blog</li>
-                                <li onClick={switchToBadges}>Badges</li>
-                                <li onClick={switchToLibrairie}>Librairie</li>
+                                <li className="el-hover-footer" onClick={switchToBlog}>Blog</li>
+                                <li className="el-hover-footer" onClick={switchToBadges}>Badges</li>
+                                <li className="el-hover-footer" onClick={switchToLibrairie}>Librairie</li>
                             </ul>
                         </div>
                         <div class="text3">
                             <ul>
-                                <li>Termes of use</li>
-                                <li>Tips</li>
+                                <li className="el-hover-footer">Termes of use</li>
+                                <li className="el-hover-footer">Tips</li>
                             </ul>
                         </div>
                     </div>
@@ -55,14 +55,13 @@ function Footer() {
                         <h1>Follow us</h1>
                         <div class="img">
                             <ul>
-                                <li><img src="https://img.icons8.com/material/24/228BE6/facebook-new.png"/></li>
-                                <li><img src="https://img.icons8.com/material/24/228BE6/youtube-play--v1.png"/></li>
-                                <li><img src="https://img.icons8.com/material/24/228BE6/whatsapp--v1.png"/></li>
+                                <li><a className="el-hover-footer" href="#">Youtube</a></li>
+                                <li><a className="el-hover-footer" href="#">Facebook</a></li>
                             </ul>
                         </div>
                         <div class="archeBeta">
                             <ul>
-                                <li>Arche Beta</li>
+                                <li><a className="el-hover-footer" href="mailto:hamedcuenca5@gmail.com">Contact</a></li>
                             </ul>
                         </div>
                     </div>

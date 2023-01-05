@@ -85,5 +85,18 @@
 @media (max-width:748px) {
    .chat-content {
     display: grid;
+    gap: 1rem;
+   }
+   .chat-cta {
+    max-height: 45vh;
+   }
+   .btn-chat {
+    gap: 0.5rem;
+   }
+   .btn-chat-pre {
+    gap: 0.5rem;
+   }
+   .btn-form-chat textarea {
+    max-height: 5vh;
    }
 }
