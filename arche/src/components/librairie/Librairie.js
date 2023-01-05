@@ -407,7 +407,7 @@ function Librairie() {
             <div class="lib-area" id="lib-area">
             </div>
             <div class="contact-support ajout">
-                <a href="mailto:hamedcuenca5@gmail.com">Contacter le support pour ajouter un document +</a>
+                <a className="lib-a" href="mailto:hamedcuenca5@gmail.com">Contacter le support pour ajouter un document +</a>
             </div>
         </div>
         

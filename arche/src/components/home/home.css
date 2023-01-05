@@ -78,7 +78,7 @@
 
 .container-home main .allquestion .question-home {
     background-color: #D9D9D980;
-    padding: 20px;
+    padding: 20px 20px 1px 20px;
     margin-bottom: 10px;
     border-radius: 10px;
 }
@@ -109,7 +109,7 @@
 }
 
 .container-home main .allquestion .question-home .user span:last-child {
-    margin-left: 10px;
+    margin-left: 5px;
     background-color: #35dc596c;
     padding: 5px 10px;
     color: #FFFFFF;

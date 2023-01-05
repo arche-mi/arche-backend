@@ -10,6 +10,7 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
+import './createQuestion.css';
 
 
 function CreateQuestion() {
@@ -139,9 +140,12 @@ function CreateQuestion() {
 
     
     return (
+        
         <>
-
             <Header />
+
+            
+
 
                 <h2>Poser une question?</h2>
                 <label>

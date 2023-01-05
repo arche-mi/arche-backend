@@ -117,7 +117,7 @@ function Questions() {
                     voir.appendChild(linkText);
                     a.appendChild(voir);
                     // a.title = "more";
-                    a.href = `/question?${+prop}!${item[2]}#${user?.uid}`;
+                    a.href = `/question?${+prop}!${item[2]}#${user.uid}`;
                     
                     // const fetchTime = questions[questions.indexOf(item)][0][0][4].toDate();
                     // const date = firebaseTimeToDayMonthYearAndHourMinutes(fetchTime);
@@ -127,6 +127,7 @@ function Questions() {
                         //     ul.appendChild(li); 
                         // });
                         
+                    
                     qs_cta.appendChild(user);
                     qs_cta.appendChild(titre);
                     qs.appendChild(qs_cta);
