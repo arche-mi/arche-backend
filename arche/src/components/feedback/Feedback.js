@@ -8,6 +8,7 @@ import { isEmpty } from "@firebase/util";
 
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
+import "./feedback.css";
 
 
 function Feedback() {
@@ -91,15 +92,19 @@ function Feedback() {
     return (
         <>
             <Header />
+            <div className="feedback">
+                <h2>Bienvenue {name}</h2>
+                <h1>Feedback</h1>
+                <div className="feedback-paragraph">
+                    Faite nous savoir vos avis et sugestions sur arche-beta. Pour préparer notre prochaine mise à jours, nous demandons les attentes de nos clients concernant la nouvelle version. laisser vos idées.
+                </div>
+                <div className="btn-form-feedback">
+                        <textarea rows="5" cols="50" id="feedback-message" type="text"></textarea>
+                        <button onClick={sendFeedback} id="message-btn">Envoyer</button>
+                </div>
 
-            <h2>Bienvenue {name}</h2>
-            <p>Feedback</p>
-            <label>
-                <textarea id="feed"></textarea>
-            </label><br></br>
-            <button onClick={sendFeedback}>Envoyer</button>
-
-            <br></br>
+                <br></br>
+            </div>
 
             <Footer />
         </>

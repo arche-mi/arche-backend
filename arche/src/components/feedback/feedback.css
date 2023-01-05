@@ -1,0 +1,46 @@
+
+.feedback {
+    margin: 5% 15% 5% 15%;
+}
+.feedback-paragraph {
+    width: 45%;
+    margin: 0% 0% 2% ;
+}
+.btn-form-feedback {
+    display: grid;
+    gap: 1rem;
+}
+.btn-form-feedback textarea {
+    width: 50%;
+}
+.btn-form-feedback input {
+    min-height: 30vh;
+}
+.btn-form-feedback button {
+    display: grid;
+    margin-right: 85%;
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    background: black;
+    border-radius: 5px;
+}
+.btn-form-feedback button:hover {
+    cursor: pointer;
+    background: #272727;
+}
+
+@media (max-width:748px) {
+   .chat-content {
+    display: grid;
+   }
+   .btn-form-feedback button {
+    margin-right: 60%;
+    }
+    .btn-form-feedback textarea {
+        width: auto;
+    }
+    .feedback-paragraph {
+        width: auto;
+    }
+}
