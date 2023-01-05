@@ -165,7 +165,6 @@ function Home() {
     return (
         <>
             <Header />
-            <button onClick={switchToProfile}>vers ton profil {name}</button>
 
             <button onClick={switchToTopLibrairie}>librairie</button><br></br>
             <button onClick={switchToTopQuestions}>top questions</button><br></br>

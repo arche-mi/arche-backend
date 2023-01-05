@@ -77,6 +77,10 @@
     cursor: pointer;
     background: #3556c2;
 }
+.btn-form-chat textarea {
+    border: 1px solid #1a2a5e;
+    border-radius: 3px;
+}
 
 @media (max-width:748px) {
    .chat-content {

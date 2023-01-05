@@ -1,55 +1,36 @@
 /* <=========================================FOOTER ARCHE==========================> */
 
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-body{
-    margin: 0;
-    padding: 0;
-    /* background-color: rgba(128, 128, 128, 0.267); */
-}
-hr {
-    background-color: white;
-    margin: 0;
-    opacity: 0.01;
-}
 footer{
     background-color: #fff;
-    /* margin: 20px; */
     padding-bottom: 20px;
-    /* border-radius: 10px; */
     font-family: 'Poppins', sans-serif;
     font-style: normal;
-    font-size: 16px;
+    font-size: 15px;
 }
 .content-text ul{
     list-style-type: none;
 }
 .content-text{
-    display: flex;
-    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     margin-bottom: 10px;
-    padding: 0;
-}
-.content-text div{
-    margin-inline-end: 6em;
 }
 .text1 h1{
-    margin-left: 1.2em;
+    margin-left: 1.3em;
 }
 .termes{
     display: flex;
     margin-top: 70px;
-    margin-left: 7px;
-}
-.termes > ul {
-    margin-inline: 15px;
+    gap: 2rem;
 }
 .text1 ul li{
     margin-bottom: 5px;
 }
 .text2 ul li{
     margin-bottom: 5px;
-    margin-left: 2em;
-}
+} 
 .text3 ul li{
     margin-bottom: 5px;
     text-decoration: underline;
@@ -61,15 +42,25 @@ footer{
 .text4 ul {
     display: flex;
 }
-.img > ul> li{
-    margin-inline: 15px;
-}
 .img > ul{
-    margin-right: 12px;
+    margin-right: 40px;
+    margin-left: 0;
+}
+.img > ul> li{
+    margin-inline-end: 25px;
 }
 .archeBeta li{
-    margin-left: 18px;
+    margin-left: 2px;
     margin-bottom: 10px; 
+}
+li a{
+    text-decoration: none;
+    color: inherit;
+} 
+.hr-footer {
+    background-color: white;
+    margin: 0;
+    opacity: 0.01;
 }
 
 /* <=================================MEDIA QUERRY=======================> */
@@ -79,30 +70,40 @@ footer{
         display: flex;
         flex-direction: column;
     }
+    .content-text div{
+        margin-inline-end: 1em;
+    }
     .termes{
         margin: 0;
         padding: 0;
-        display: flex;
-        flex-direction: column;
+        display: block;
+    }
+    .text1 h1{
+        margin-right: 4px;
+    }
+    .text1 ul li{
+        margin-bottom: 5px;
     }
     .text2 ul li{
         margin: 0;
-        margin-bottom: 6px;
+        margin-bottom: 5px;
+    }
+    .text3{
+        margin-bottom: 10px;
     }
     .text3 ul li{
         margin: 0;
-        margin-bottom: 6px;
+        margin-bottom: 5px;
     }
     .text4 ul li{
         margin: 0;
     }
     .text4 h1{
-        margin-left: 1.2em;
-    }
-    .text1 ul li{
-        margin-bottom: 6px;
+        margin-left: 1.4em;
     }
     .img ul li{
-        margin-inline-end: 10px;
+        margin-inline-end: 20px;
+    } .archeBeta{
+        margin-left: 3.3px;
     }
 }

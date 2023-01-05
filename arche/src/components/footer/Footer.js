@@ -24,7 +24,7 @@ function Footer() {
 
     return (
         <>
-            <hr></hr>
+            <hr className="hr-footer"></hr>
             <footer>
                 <div class="content-text">
                     <div class="text1">
