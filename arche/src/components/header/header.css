@@ -30,6 +30,9 @@ hr {
     margin: 0;
     opacity: 0.01;
 }
+.ring {
+    width: 80%;
+}
 header {
     background-color: white;
     /* border-radius: 10px; */
@@ -84,15 +87,38 @@ header {
 #login-btn {
     font-size: 1rem;
 }
+#img-btn {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+.ring:hover {
+    cursor: pointer;
+}
+@keyframes cloch {
+    0% {
+      transform: rotate(0deg);
+    }
+    50% {
+      transform: rotate(36deg);
+    }
+    100% {
+        transform: rotate(3deg);
+    }
+}
+.ring {
+    animation: cloch 1.5s linear infinite;
+}
 
-#img-btn img {    
+#user-img {    
     width: 40px;
     height: 40px;
     border-radius: 20px;
 }
-#img-btn img:hover {
+#user-img:hover {
     cursor: pointer;
 }
+
 
 
 @media (max-width:448px) {

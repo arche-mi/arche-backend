@@ -4,6 +4,7 @@ import { auth,db,stopNetworkAcces,activeNetworkAcces, logout } from "../../fireb
 import { query, collection, getDocs, where } from "firebase/firestore";
 import "./header.css";
 
+import ring from "../../assets/images/ring.svg";
 
 function Header() {
     const [user, loading] = useAuthState(auth);
@@ -44,6 +45,9 @@ function Header() {
     function switchToHome() {
         window.location = `/`;
     }
+    function switchToChat() {
+        window.location = `chat/`;
+    }
 
     useEffect(() => {
         if (loading) return;     
@@ -77,7 +81,8 @@ function Header() {
                     <p id="beta">Beta</p>
                 </section>
                 <section id="img-btn">
-                    <img onClick={switchToProfile} src={photo} alt="Photo"/>
+                    <img onClick={switchToChat} className="ring" src={ring} />
+                    <img id="user-img" onClick={switchToProfile} src={photo} alt="Photo"/>
                 </section>
             </header>                                     
             <hr></hr>

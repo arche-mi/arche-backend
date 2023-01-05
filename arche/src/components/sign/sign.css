@@ -41,6 +41,9 @@ body{
 
 
     }
+    .texte:hover {
+        cursor: pointer;
+    }
     .lien .check .switch{
         
         display: inline-block;

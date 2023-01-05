@@ -20,7 +20,9 @@ function Privacy() {
 
     return (
         <>
-            <h1>Termes of use</h1>
+           
+           <div className="privacy">
+           <h1>Termes of use</h1>
             <span>Last updated {state.curDT}</span>
 
             <h2>1. AGREEMENT TO TERMS</h2>
@@ -102,6 +104,7 @@ function Privacy() {
             <h2>8. CONTACT US</h2>
             <p>In order to resolve a complaint regarding the Site or to receive further information regarding use of the Site, please contact us at: <br /> arche <br /> Abidajn 8922<br /> Cote d'Ivoire<br /> Phone: 0779186972</p>
 
+           </div>
             
         </>
     )

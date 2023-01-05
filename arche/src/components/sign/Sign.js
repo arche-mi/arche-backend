@@ -9,7 +9,7 @@ function Sign() {
     const [user, loading] = useAuthState(auth);
     const navigate = useNavigate();
 
-    function switchToSign(param) {
+    function switchToSign() {
       const check = document.querySelector('#check');
       if (check.checked == true) {
         signInWithGoogle();
@@ -17,6 +17,10 @@ function Sign() {
         // alert('');
       }
       
+    }
+
+    function switchToPrivacy() {
+      window.location.href = '/privacy-policy';
     }
     
     useEffect(() => {
@@ -36,7 +40,7 @@ function Sign() {
                 recusandae, quia ea suscipit est rem, eum aut!        
             </div>
             <div class="lien">
-                <div  class="texte">
+                <div onClick={switchToPrivacy} class="texte">
                     j'ai lu et j'accepte les règles ainsi que les conditions d'utilisations.
                 </div>
                 <div class="check">
