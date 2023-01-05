@@ -159,11 +159,48 @@ function Users() {
         }
     }
 
+
+    function switchToProfile() {
+        window.location = `/user?${user.displayName}#${user?.uid}`;
+    }
+    function switchToUsers() {
+        window.location = `/users`;
+    }    
+    function switchToQuestions() {
+        window.location.href = `/questions`;
+    }
+    function switchToUnanswered() {
+        window.location.href = `/unanswered`;
+    }
+    function switchToTopQuestions() {
+        window.location.href = `/`;
+    }  
+    function switchToTopLibrairie() {
+        window.location.href = `/librairie#${user.displayName}`
+    }
+
     useEffect(() => {
         if (loading) return;
         if (!user) navigate("/landing");
 
         fetchUsers();
+
+        const top = document.querySelector('.topq');
+        const allq = document.querySelector('.allq');
+        const unq = document.querySelector('.unq');
+        const usrs = document.querySelector('.usrs');
+
+        const currentPage = window.location.href;
+        if (currentPage.includes('user')) {
+            usrs.style.background = '#516FD4FC';
+        } else if (currentPage.includes('unanswered')) {
+            unq.style.background = '#516FD4FC';
+        } else if (currentPage.includes('questions')) {
+            allq.style.background = '#516FD4FC';
+        } else {
+            top.style.background = '#516FD4FC';
+            console.log(2)
+        }
 
     }, [user, loading]);
 
@@ -172,11 +209,20 @@ function Users() {
         <>
             <Header />
 
-            <h1>Tous les users</h1>
-            <button onClick={fetchUsers}>last users</button>
-            <button onClick={fetchUsersByQuestions}>questions</button>
-            {isLoading ? <LoadingSpinner /> : fetchUsersByQuestions}
-            <div id="users"></div>
+            <div class="container-home">
+                <main class="home-main">
+                    <div class="header-home">
+                        <span onClick={switchToTopQuestions} class="item active topq" data-name="01">Top Questions</span>
+                        <span onClick={switchToQuestions} class="item allq" data-name="02">Toutes les questions</span>
+                        <span onClick={switchToUnanswered} class="item unq" data-name="03">Questions non repondues</span>
+                        <span onClick={switchToUsers} class="item usrs"><a href="#">Utilisateurs</a></span>
+                    </div>
+      
+                    {isLoading ? <LoadingSpinner /> : fetchUsers} 
+                    <div id="users"></div>               
+                </main>
+            </div> 
+
             <Footer />
         </>
     )

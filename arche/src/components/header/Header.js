@@ -48,6 +48,9 @@ function Header() {
     function switchToChat() {
         window.location.href = `/chat`;
     }
+    function switchToLibrairie() {
+        window.location.href = `/librairie#${user.displayName}`
+    }
 
     useEffect(() => {
         if (loading) return;     
@@ -65,7 +68,7 @@ function Header() {
                     <p id="beta">Beta</p>
                 </section>
                 <section id="header-btn">
-                    <button onClick={switchToSign} type="button" class="btn-primary" id="login-btn">Login</button>
+                    <button onClick={switchToSign} type="button" class="btn-primary-header" id="login-btn">Login</button>
                 </section>
             </header>
             <hr className="hr-header"></hr>
@@ -81,8 +84,12 @@ function Header() {
                     <p id="beta">Beta</p>
                 </section>
                 <section id="img-btn">
-                    <img onClick={switchToChat} className="ring" src={ring} />
                     <img id="user-img" onClick={switchToProfile} src={photo} alt="Photo"/>
+                    <button onClick={switchToLibrairie} type="button" class="btn-primary-header">librairie</button>                    
+                    <button onClick={switchToChat} type="button" class="chat-btn-header">Chat</button>
+                    <div className="chat-ring-ring">
+                        <img onClick={switchToChat} className="ring" src={ring} />
+                    </div>
                 </section>
             </header>                                     
             <hr className="hr-header"></hr>

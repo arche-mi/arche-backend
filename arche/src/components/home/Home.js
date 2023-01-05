@@ -7,6 +7,7 @@ import { query, collection, getDocs, where, doc } from "firebase/firestore";
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
 import LoadingSpinner from "../loadSpinner/LoadingSpinner";
+import './home.css';
 
 
 function Home() {
@@ -56,62 +57,83 @@ function Home() {
             console.log(error);
         }
         
-        let list = document.getElementById("qs");
-        if (list.textContent != "") { list.textContent = "" };
-
+        let all = document.querySelector('.allquestion');
+        all.innerHTML = "";
+        
         questions.forEach((item) => {
             
             for (const prop in item[0]) {
-
+                
                 if ((Object.values(item[0][prop][3].responses)).length >= 2) {
-                    let ul = document.createElement("ul");
+                    let qs_home = document.createElement("div");
+                    qs_home.classList.add('question-home')
+
+                    let qs = document.createElement('div');
+                    qs.classList.add('blockquestion');
+
+                    let qs_cta = document.createElement('div');
+                    qs_cta.classList.add('qs-cta');
+
+                    let user = document.createElement("div");
+                    user.classList.add('user');
+                    let image = document.createElement("div");
+                    image.classList.add('image');
 
                     let img = document.createElement("img")
                     img.setAttribute('referrerpolicy', 'no-referrer');
                     img.src = item[3];                  
-                    ul.appendChild(img);
+                    image.appendChild(img);
+                    user.appendChild(image);
 
-                    let usernamelink = document.createElement("a");
+                    let usernamelink = document.createElement("span");
+                    usernamelink.classList.add('name_user');
                     let usernamelinktext = document.createTextNode(item[1]);                
                     usernamelink.appendChild(usernamelinktext);
-                    ul.appendChild(usernamelink);
                     // a.title = "more";
                     usernamelink.href = `/user?${item[1]}#${item[2]}`;
+                    user.appendChild(usernamelink);
 
-                    let li = document.createElement("li");                
-                    li.innerText = Object.values(item[0][prop][0]);
-                    ul.appendChild(li);
+                    let nb_rs = document.createElement("span");
+                    nb_rs.classList.add('nb_answered');
+                    nb_rs.innerText = (Object.values(item[0][prop][3].responses)).length + " reponses";
+                    user.appendChild(nb_rs);
 
-                    li = document.createElement("li");
-                    li.innerText = Object.values(item[0][prop][1]);
-                    ul.appendChild(li);
+                    let titre = document.createElement("span");                
+                    titre.classList.add('titre');
+                    titre.innerText = Object.values(item[0][prop][1]);
+
+                    // li = document.createElement("li");
+                    // li.innerText = Object.values(item[0][prop][0]);
+                    // ul.appendChild(li);
                     
-                    li = document.createElement("li");
-                    li.innerText = Object.values(item[0][prop][2])
-                    ul.appendChild(li);
+                    // li = document.createElement("li");
+                    // li.innerText = Object.values(item[0][prop][2])
+                    // ul.appendChild(li);    
                     
-                    li = document.createElement("li");
-                    li.innerText = (Object.values(item[0][prop][3].responses)).length + " reponses";
-                    ul.appendChild(li);
-
-
+                    let voir = document.createElement('span');
+                    voir.classList.add('view');
                     let a = document.createElement("a");
                     let linkText = document.createTextNode("voir");
-                    a.appendChild(linkText);
-                    ul.appendChild(a);
+                    voir.appendChild(linkText);
+                    a.appendChild(voir);
                     // a.title = "more";
                     a.href = `/question?${+prop}!${item[2]}#${user?.uid}`;
-
-                    const fetchTime = questions[questions.indexOf(item)][0][0][4].toDate();
-                    const date = firebaseTimeToDayMonthYearAndHourMinutes(fetchTime);
-                    li = document.createElement("li");
-                    date.then((value) => {
-                        li.innerText = "posee le: " + value;
-                        ul.appendChild(li); 
-                    });
                     
-                    list.appendChild(ul);
-                }                
+                    // const fetchTime = questions[questions.indexOf(item)][0][0][4].toDate();
+                    // const date = firebaseTimeToDayMonthYearAndHourMinutes(fetchTime);
+                    // li = document.createElement("li");
+                    // date.then((value) => {
+                        //     li.innerText = "posee le: " + value;
+                        //     ul.appendChild(li); 
+                        // });
+                        
+                    qs_cta.appendChild(user);
+                    qs_cta.appendChild(titre);
+                    qs.appendChild(qs_cta);
+                    qs.appendChild(a);
+                    qs_home.appendChild(qs);
+                    all.appendChild(qs_home);
+                }                                
             }
         })
         setIsLoading(false);
@@ -158,27 +180,50 @@ function Home() {
         if (!user) navigate("/landing");
 
         fetchUserInfo();
-        fetchUsersQuestions();        
+        fetchUsersQuestions();    
+        
+        const top = document.querySelector('.topq');
+        const allq = document.querySelector('.allq');
+        const unq = document.querySelector('.unq');
+        const usrs = document.querySelector('.usrs');
+
+        const currentPage = window.location.href;
+        if (currentPage.includes('user')) {
+            usrs.style.background = '#516FD4FC';
+        } else if (currentPage.includes('unanswered')) {
+            unq.style.background = '#516FD4FC';
+        } else if (currentPage.includes('questions')) {
+            allq.style.background = '#516FD4FC';
+        } else {
+            top.style.background = '#516FD4FC';
+            console.log(2)
+        }
 
     }, [user, loading]);
 
     return (
         <>
             <Header />
-            <button onClick={switchToProfile}>vers ton profil {name}</button>
 
-            <button onClick={switchToTopLibrairie}>librairie</button><br></br>
-            <button onClick={switchToTopQuestions}>top questions</button><br></br>
-            <button onClick={switchToQuestions}>tous les questions</button><br></br>
-            <button onClick={switchToUnanswered}>tous les questions non repondu</button><br></br>
-            <button onClick={switchToUsers}>tous les utilisateurs</button><br></br>
-            <p>Home ,Ya tout ici normalement</p>
-
-            <h2>Question's</h2>
-            <a href="/question/new">Poser une question ici</a>
-            <h3>Top questions</h3>
-            <p id="qs"></p>            
-            {isLoading ? <LoadingSpinner /> : fetchUsersQuestions}
+            <div class="container-home">
+                <main class="home-main">
+                    <div class="header-home">
+                        <span onClick={switchToTopQuestions} class="item active topq" data-name="01">Top Questions</span>
+                        <span onClick={switchToQuestions} class="item allq" data-name="02">Toutes les questions</span>
+                        <span onClick={switchToUnanswered} class="item unq" data-name="03">Questions non repondues</span>
+                        <span onClick={switchToUsers} class="item usrs"><a href="#">Utilisateurs</a></span>
+                    </div>
+                    
+                    <div class="entete">
+                        <span>Top Questions</span>
+                        <span ><a href="/question/new">Poser une question</a></span>
+                    </div>
+                    
+                    {isLoading ? <LoadingSpinner /> : fetchUsersQuestions}
+                    <div class="allquestion">                              
+                    </div>
+                </main>
+            </div>            
 
             <Footer />
         </>
