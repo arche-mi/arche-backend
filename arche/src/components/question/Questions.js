@@ -56,8 +56,8 @@ function Questions() {
         }            
 
 
-        let list = document.getElementById("qs");
-        if (list.textContent != "") { list.textContent = "" };
+        let all = document.querySelector('.allquestion');
+        all.innerHTML = "";
         
         let questions_count = 0;
         questions.forEach((item) => {
@@ -65,61 +65,82 @@ function Questions() {
             for (const prop in item[0]) {
                 questions_count++;
 
-                let ul = document.createElement("ul");
+                    let qs_home = document.createElement("div");
+                    qs_home.classList.add('question-home')
 
-                let img = document.createElement("img")
-                img.setAttribute('referrerpolicy', 'no-referrer');
-                img.src = item[3];              
-                ul.appendChild(img);
+                    let qs = document.createElement('div');
+                    qs.classList.add('blockquestion');
 
-                let usernamelink = document.createElement("a");
-                let usernamelinktext = document.createTextNode(item[1]);                
-                usernamelink.appendChild(usernamelinktext);
-                ul.appendChild(usernamelink);
-                // a.title = "more";
-                usernamelink.href = `/user?${item[1]}#${item[2]}`;
+                    let qs_cta = document.createElement('div');
+                    qs_cta.classList.add('qs-cta');
 
-                let li = document.createElement("li");                
-                li.innerText = Object.values(item[0][prop][0]);
-                ul.appendChild(li);
+                    let user = document.createElement("div");
+                    user.classList.add('user');
+                    let image = document.createElement("div");
+                    image.classList.add('image');
 
-                li = document.createElement("li");
-                li.innerText = Object.values(item[0][prop][1]);
-                ul.appendChild(li);
-                
-                li = document.createElement("li");
-                li.innerText = Object.values(item[0][prop][2])
-                ul.appendChild(li);
-                
-                li = document.createElement("li");
-                li.innerText = (Object.values(item[0][prop][3].responses)).length + " reponses";
-                ul.appendChild(li);
+                    let img = document.createElement("img")
+                    img.setAttribute('referrerpolicy', 'no-referrer');
+                    img.src = item[3];                  
+                    image.appendChild(img);
+                    user.appendChild(image);
 
+                    let usernamelink = document.createElement("span");
+                    usernamelink.classList.add('name_user');
+                    let usernamelinktext = document.createTextNode(item[1]);                
+                    usernamelink.appendChild(usernamelinktext);
+                    // a.title = "more";
+                    usernamelink.href = `/user?${item[1]}#${item[2]}`;
+                    user.appendChild(usernamelink);
 
-                let a = document.createElement("a");
-                let linkText = document.createTextNode("voir");
-                a.appendChild(linkText);
-                ul.appendChild(a);
-                // a.title = "more";
-                a.href = `/question?${+prop}!${item[2]}#${user?.uid}`;
+                    let nb_rs = document.createElement("span");
+                    nb_rs.classList.add('nb_answered');
+                    nb_rs.innerText = (Object.values(item[0][prop][3].responses)).length + " reponses";
+                    user.appendChild(nb_rs);
 
-                const fetchTime = questions[questions.indexOf(item)][0][0][4].toDate();
-                const date = firebaseTimeToDayMonthYearAndHourMinutes(fetchTime);
-                li = document.createElement("li");
-                date.then((value) => {
-                    li.innerText = "posee le: " + value;
-                    ul.appendChild(li); 
-                });
-                
-                list.appendChild(ul);
+                    let titre = document.createElement("span");                
+                    titre.classList.add('titre');
+                    titre.innerText = Object.values(item[0][prop][1]);
+
+                    // li = document.createElement("li");
+                    // li.innerText = Object.values(item[0][prop][0]);
+                    // ul.appendChild(li);
+                    
+                    // li = document.createElement("li");
+                    // li.innerText = Object.values(item[0][prop][2])
+                    // ul.appendChild(li);    
+                    
+                    let voir = document.createElement('span');
+                    voir.classList.add('view');
+                    let a = document.createElement("a");
+                    let linkText = document.createTextNode("voir");
+                    voir.appendChild(linkText);
+                    a.appendChild(voir);
+                    // a.title = "more";
+                    a.href = `/question?${+prop}!${item[2]}#${user?.uid}`;
+                    
+                    // const fetchTime = questions[questions.indexOf(item)][0][0][4].toDate();
+                    // const date = firebaseTimeToDayMonthYearAndHourMinutes(fetchTime);
+                    // li = document.createElement("li");
+                    // date.then((value) => {
+                        //     li.innerText = "posee le: " + value;
+                        //     ul.appendChild(li); 
+                        // });
+                        
+                    qs_cta.appendChild(user);
+                    qs_cta.appendChild(titre);
+                    qs.appendChild(qs_cta);
+                    qs.appendChild(a);
+                    qs_home.appendChild(qs);
+                    all.appendChild(qs_home);
             }
         });
 
-        let questions_count_text = document.getElementById("questions_count");
-        if (questions_count_text.textContent != "") { questions_count_text.textContent = "" };
-        let questions_count_p = document.createElement("p");
-        questions_count_p.innerText = questions_count + " questions";
-        questions_count_text.appendChild(questions_count_p)
+        // let questions_count_text = document.getElementById("questions_count");
+        // if (questions_count_text.textContent != "") { questions_count_text.textContent = "" };
+        // let questions_count_p = document.createElement("p");
+        // questions_count_p.innerText = questions_count + " questions";
+        // questions_count_text.appendChild(questions_count_p)
 
         setIsLoading(false);
         stopNetworkAcces();
@@ -135,6 +156,25 @@ function Questions() {
             console.error(err);
         }
     }; 
+
+    function switchToProfile() {
+        window.location = `/user?${user.displayName}#${user?.uid}`;
+    }
+    function switchToUsers() {
+        window.location = `/users`;
+    }    
+    function switchToQuestions() {
+        window.location.href = `/questions`;
+    }
+    function switchToUnanswered() {
+        window.location.href = `/unanswered`;
+    }
+    function switchToTopQuestions() {
+        window.location.href = `/`;
+    }  
+    function switchToTopLibrairie() {
+        window.location.href = `/librairie#${user.displayName}`
+    }
     
 
 
@@ -145,19 +185,49 @@ function Questions() {
         fetchUserInfo();
         fetchUsersQuestions();
 
+        const top = document.querySelector('.topq');
+        const allq = document.querySelector('.allq');
+        const unq = document.querySelector('.unq');
+        const usrs = document.querySelector('.usrs');
+
+        const currentPage = window.location.href;
+        if (currentPage.includes('user')) {
+            usrs.style.background = '#516FD4FC';
+        } else if (currentPage.includes('unanswered')) {
+            unq.style.background = '#516FD4FC';
+        } else if (currentPage.includes('questions')) {
+            allq.style.background = '#516FD4FC';
+        } else {
+            top.style.background = '#516FD4FC';
+            console.log(2)
+        }
+
     }, [user, loading]);
 
     return (
         <>
             <Header />
 
-            <h1>All questions</h1>
+            <div class="container-home">
+                <main class="home-main">
+                    <div class="header-home">
+                        <span onClick={switchToTopQuestions} class="item active topq" data-name="01">Top Questions</span>
+                        <span onClick={switchToQuestions} class="item allq" data-name="02">Toutes les questions</span>
+                        <span onClick={switchToUnanswered} class="item unq" data-name="03">Questions non repondues</span>
+                        <span onClick={switchToUsers} class="item usrs"><a href="#">Utilisateurs</a></span>
+                    </div>
+                    
+                    <div class="entete">
+                        <span>Top Questions</span>
+                        <span ><a href="/question/new">Poser une question</a></span>
+                    </div>
+                    
+                    {isLoading ? <LoadingSpinner /> : fetchUsersQuestions}
+                    <div class="allquestion">                              
+                    </div>
+                </main>
+            </div> 
 
-            <a href="/question/new">Poser une question ici</a>
-            <h3>Tout les questions</h3>
-            <p id="questions_count"></p>
-            {isLoading ? <LoadingSpinner /> : fetchUsersQuestions}
-            <p id="qs"></p>
             <Footer />
         </>
     )

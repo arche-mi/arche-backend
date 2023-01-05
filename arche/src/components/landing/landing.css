@@ -27,7 +27,7 @@ body {
 }
 
 
-main {
+.landing-main {
     background-color: white;
     /* border-radius: 10px; */
     display: flex;
@@ -91,7 +91,7 @@ main {
     }
 }
 @media (max-width:655px) { 
-   main {
+   .landing-main {
     display: grid;
     justify-content: center;
    }
@@ -128,12 +128,12 @@ main {
         width: 366px;
         height: 234px;
     }
-    main {
+    .landing-main {
         max-width: 300px;
     }
 }    
 @media (max-width:440px) {
-    main {
+    .landing-main {
         /* margin: 5px 3px; */
         padding: 30px 50px;
     }    
@@ -141,7 +141,7 @@ main {
         width: 370px;
         height: 214px;
     }
-    main {
+    .landing-main {
         max-width: 300px;
     }
 }    
