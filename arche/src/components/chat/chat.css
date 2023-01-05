@@ -73,3 +73,13 @@
     background: #516FD5;
     border-radius: 5px;
 }
+.btn-form-chat button:hover {
+    cursor: pointer;
+    background: #3556c2;
+}
+
+@media (max-width:748px) {
+   .chat-content {
+    display: grid;
+   }
+}
