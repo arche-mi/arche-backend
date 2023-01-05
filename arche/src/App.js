@@ -14,6 +14,10 @@ import Questions from "./components/question/Questions";
 import Unanswered from "./components/question/Unanswered";
 import Librairie from "./components/librairie/Librairie";
 import Badges from "./components/badges/Badge";
+import Chat from "./components/chat/Chat";
+import Privacy from "./components/privacyPolicy/privacyPolicy";
+
+
 
 function App() {
   return (
@@ -34,6 +38,8 @@ function App() {
           <Route exact path="/donation" element={<Donation />} />
           <Route exact path="/librairie" element={<Librairie />} />
           <Route exact path="/badges" element={<Badges />} />
+          <Route exact path="/Chat" element={<Chat />} />
+          <Route exact path="/privacy-policy" element={<Privacy />} />
         </Routes>
       </Router>
     </div>
