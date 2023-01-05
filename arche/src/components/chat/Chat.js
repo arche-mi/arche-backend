@@ -33,22 +33,32 @@ function Chat() {
         try {
         //get message from form field
         const msg = document.getElementById("message").value;
+        if (msg == '') {
+            // alert(2);
+        } else {
+            //set data to insert in an object
+            const insertData = {
+                message: msg,
+                sender: user.displayName,
+                timestamp: serverTimestamp(),
+            }        
+    
+            // Add a new document with a generated id.
+            const docRef = await addDoc(collection(db, "messages"), insertData);
+            var check = console.log("Document written with ID: ", docRef.id);
+            
+            addSample('');
+        }
 
-        //set data to insert in an object
-        const insertData = {
-            message: msg,
-            sender: user.displayName,
-            timestamp: serverTimestamp(),
-        }        
-
-        // Add a new document with a generated id.
-        const docRef = await addDoc(collection(db, "messages"), insertData);
-        var check = console.log("Document written with ID: ", docRef.id);
-        
         } catch (err) {
             console.log(err);
-        }
-        
+        }     
+    }
+
+
+    function addSample(text) {
+        const msg = document.getElementById("message");
+        msg.value = `${text}`;
     }
 
 
@@ -62,7 +72,7 @@ function Chat() {
           querySnapshot.forEach((doc) => {
             messages.push({ ...doc.data(), id: doc.id });
           });
-          setMessages(messages);
+          setMessages(messages.reverse());
         });
         return () => unsubscribe();
 
@@ -75,27 +85,39 @@ function Chat() {
         <>
             <Header />
 
-                <h1>ChatRoom</h1>
-                <div id="chat">
-                    {/* messages will display here */}
-                    <div className="msgs">
-                        {messages.map(({ id, message, sender, photoURL, uid }) => (
-                            <div>
-                                <div key={id} className={`msg ${uid === auth.currentUser.uid ? 'sent' : 'received'}`}>
-                                    <li>{sender}:   {message}</li>
-                                </div>
+                <div className="chat-content">
+
+                    <div id="chat">
+                        <h1>ChatRoom</h1>
+                        {/* messages will display here */}
+                        <div className="chat-cta">
+                            <div className="msgs">
+                                {messages.map(({ id, message, sender, photoURL, uid }) => (
+                                    <div className="msgs-cta">
+                                        <div key={id} className={`msg ${uid === auth.currentUser.uid ? 'sent' : 'received'}`}>
+                                            <h4>{sender}</h4>
+                                            <p>{message}</p>
+                                        </div>
+                                        <hr className="hr-chat"></hr>
+                                    </div>
+                                ))}
                             </div>
-                        ))}
+                        </div>
                     </div>
 
-                    <br />
-
-                     {/* form to send message  */}
-                    {/* <form id="message-form"> */}
-                    <input id="message" type="text"/>
-                    <button onClick={sendMessage} id="message-btn">Send</button>
-                    {/* </form> */}
-                </div>
+                    <div className="btn-chat">
+                        <div className="btn-chat-pre">
+                            <button onClick={() => addSample('Bien, et toi ?')}>Bien, et toi ?</button>
+                            <button onClick={() => addSample('Salut tout le monde ! Comment ça va ?')}>Salut tout le monde ! Comment ça va ?</button>
+                            <button onClick={() => addSample('Joyeux Nouvel An !')}>Joyeux Nouvel An !</button>
+                            <button onClick={() => addSample('Bienvenue sur l’arche ')}>Bienvenue sur l’arche </button>
+                        </div>
+                        <div className="btn-form-chat">
+                            <textarea rows="5" cols="50" id="message" type="text"></textarea>
+                            <button onClick={sendMessage} id="message-btn">Envoyer</button>
+                        </div>
+                    </div>           
+                </div>            
 
             <Footer />
         </>

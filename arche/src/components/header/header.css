@@ -25,7 +25,7 @@ body {
     padding: 7px 14px;
     border-radius: 7px;
 }
-hr {
+.hr-header {
     background-color: white;
     margin: 0;
     opacity: 0.01;
@@ -99,11 +99,17 @@ header {
     0% {
       transform: rotate(0deg);
     }
+    25% {
+      transform: rotate(10deg);
+    }
     50% {
-      transform: rotate(36deg);
+        transform: rotate(0deg);
+    }
+    75% {
+        transform: rotate(-10deg);
     }
     100% {
-        transform: rotate(3deg);
+        transform: rotate(0deg);
     }
 }
 .ring {

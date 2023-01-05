@@ -68,7 +68,7 @@ function Header() {
                     <button onClick={switchToSign} type="button" class="btn-primary" id="login-btn">Login</button>
                 </section>
             </header>
-            <hr></hr>
+            <hr className="hr-header"></hr>
             </>
         )
     } else {
@@ -85,7 +85,7 @@ function Header() {
                     <img id="user-img" onClick={switchToProfile} src={photo} alt="Photo"/>
                 </section>
             </header>                                     
-            <hr></hr>
+            <hr className="hr-header"></hr>
             </>
         )
     };
