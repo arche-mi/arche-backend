@@ -101,7 +101,7 @@ function ReadQuestion() {
             } else {
                 setResponses(userFetchResponses)
             }
-            
+
 
             //les renders
             // const tags_resp = document.querySelector("#tags");
@@ -359,15 +359,11 @@ function ReadQuestion() {
         }
     }
 
-    
 
     function switchToProfile() {
         window.location = `/user?${name}#${userid}`;
     }
-    function openQuestionPhoto() {
-        window.location.href = `${questionPhoto}`;
-    }
-
+   
     useEffect(() => {
         if (loading) return;
         if (!questionId) return navigate("/sign");
@@ -379,92 +375,183 @@ function ReadQuestion() {
     }, [user, loading]);
 
     if (userid === user?.uid) {
-        return (
-            <>
-                <Header />
 
-                <div id="conteneurprincipal">
-                    <div class="titre">
-                        <span class="span">{title}</span> 
-                        <span class="span1">{name}</span>{date}
-                    </div>
-                    <div class="question">
-                        {text}
-                        <button onClick={openQuestionPhoto} id="button" class="button" name="fichier"><img className="qphoto" src={questionPhoto} alt="Photo"/></button>
-
-                    </div>
-                    <h2>Reponses</h2> 
-                    <div class="reponse">
-                        
-                    </div>
-
-
-                    <h2 class="seul">Repondre à cette question</h2>
-                    <div class="repondre">                        
-                        <textarea id="response_text"></textarea>
-                        <div class="boutons">
-                            <div class="bouton1">
-                                <input type="file" accept="/image/*" onChange={handleUpload}/>
-                                <p>{percent} %</p>
-                            </div> 
-                            <div class="bouton2">
+        if (questionPhoto == '') {
+            return (
+                <>
+                    <Header />
+    
+                    <div id="conteneurprincipal">
+                        <div class="titre">
+                            <span class="span">{title}</span> 
+                            <span class="span1">{name}</span>{date}
+                        </div>
+                        <div class="question">
+                            {text}
+                            <button id="button" class="button" name="fichier"></button>
+    
+                        </div>
+                        <h2>Reponses</h2> 
+                        <div class="reponse">
+                            
+                        </div>
+    
+    
+                        <h2 class="seul">Repondre à cette question</h2>
+                        <div class="repondre">                        
+                            <textarea rows={4} id="response_text"></textarea>
+                            <div class="boutons">
+                                <div class="bouton1">
+                                    <input className="load-input" type="file" accept="/image/*" onChange={handleUpload}/>
+                                    <p className="load-p-qs">{percent} %</p>
+                                </div> 
                                 <button onClick={createNewResponses} id="button" class="button2" name="repondre">Repondre</button>
-                            </div> 
-                        </div>                         
-                    </div> 
-                    <div class="bouton3">
-                        <button onClick={deleteQuestion} id="button" class="button3" name="repondre">Supprimer la question</button>
-                    </div> 
-                </div>
+                            </div>                         
+                        </div> 
+                        <div class="bouton3">
+                            <button onClick={deleteQuestion} id="button" class="button3" name="repondre">Supprimer la question</button>
+                        </div> 
+                    </div>
+    
+                    <Footer />
+                </>
+            )            
+        } else {
+            return (
+                <>
+                    <Header />
+    
+                    <div id="conteneurprincipal">
+                        <div class="titre">
+                            <span class="span">{title}</span> 
+                            <span class="span1">{name}</span>{date}
+                        </div>
+                        <div class="question">
+                            {text}
+                            <button id="button" class="button" name="fichier"><img className="qphoto" src={questionPhoto} alt="Photo"/></button>
+    
+                        </div>
+                        <h2>Reponses</h2> 
+                        <div class="reponse">
+                            
+                        </div>
+    
+    
+                        <h2 class="seul">Repondre à cette question</h2>
+                        <div class="repondre">                        
+                            <textarea rows={4} id="response_text"></textarea>
+                            <div class="boutons">
+                                <div class="bouton1">
+                                    <input className="load-input" type="file" accept="/image/*" onChange={handleUpload}/>
+                                    <p className="load-p-qs">{percent} %</p>
+                                </div> 
+                                <button onClick={createNewResponses} id="button" class="button2" name="repondre">Repondre</button>
+                            </div>                         
+                        </div> 
+                        <div class="bouton3">
+                            <button onClick={deleteQuestion} id="button" class="button3" name="repondre">Supprimer la question</button>
+                        </div> 
+                    </div>
+    
+                    <Footer />
+                </>
+            )       
+        }
 
-                <Footer />
-            </>
-        )
+
     } else {
-        return (
-            <>
-                <Header />
 
-                {/* <p id="tags">tags: </p> */}
-
-                <div id="conteneurprincipal">
-                    <div class="titre">
-                        <span class="span">{title}</span> 
-                        <span class="span1">{name}</span>{date}
+        if (questionPhoto == '') {
+            return (
+                <>
+                    <Header />
+    
+                    {/* <p id="tags">tags: </p> */}
+    
+                    <div id="conteneurprincipal">
+                        <div class="titre">
+                            <span class="span">{title}</span> 
+                            <span class="span1">{name}</span>{date}
+                        </div>
+                        <div class="question">
+                            {text}
+                            <button id="button" class="button" name="fichier"></button>
+    
+                        </div>
+                        <h2>Reponses</h2> 
+                        <div class="reponse">
+                            
+                        </div>
+    
+    
+                        <h2 class="seul">Repondre à cette question</h2>
+                        <div class="repondre">                        
+                            <textarea id="response_text"></textarea>
+                            <div class="boutons">
+                                <div class="bouton1">
+                                    <input type="file" accept="/image/*" onChange={handleUpload}/>
+                                    <p>{percent} %</p>
+                                </div> 
+                                <div class="bouton2">
+                                    <button onClick={createNewResponses} id="button" class="button2" name="repondre">Repondre</button>
+                                </div> 
+                            </div>                         
+                        </div> 
+                        <div class="bouton3">
+                            <button onClick={signalQuestion} id="button" class="button3" name="repondre">signaler la question</button>
+                        </div> 
                     </div>
-                    <div class="question">
-                        {text}
-                        <button onClick={openQuestionPhoto} id="button" class="button" name="fichier"><img src={questionPhoto} alt="Photo"/></button>
-
+    
+    
+                    <Footer />
+                </>
+            )            
+        } else {
+            return (
+                <>
+                    <Header />
+    
+                    {/* <p id="tags">tags: </p> */}
+    
+                    <div id="conteneurprincipal">
+                        <div class="titre">
+                            <span class="span">{title}</span> 
+                            <span class="span1">{name}</span>{date}
+                        </div>
+                        <div class="question">
+                            {text}
+                            <button id="button" class="button" name="fichier"><img src={questionPhoto} alt="Photo"/></button>
+    
+                        </div>
+                        <h2>Reponses</h2> 
+                        <div class="reponse">
+                            
+                        </div>
+    
+    
+                        <h2 class="seul">Repondre à cette question</h2>
+                        <div class="repondre">                        
+                            <textarea id="response_text"></textarea>
+                            <div class="boutons">
+                                <div class="bouton1">
+                                    <input type="file" accept="/image/*" onChange={handleUpload}/>
+                                    <p>{percent} %</p>
+                                </div> 
+                                <div class="bouton2">
+                                    <button onClick={createNewResponses} id="button" class="button2" name="repondre">Repondre</button>
+                                </div> 
+                            </div>                         
+                        </div> 
+                        <div class="bouton3">
+                            <button onClick={signalQuestion} id="button" class="button3" name="repondre">signaler la question</button>
+                        </div> 
                     </div>
-                    <h2>Reponses</h2> 
-                    <div class="reponse">
-                        
-                    </div>
-
-
-                    <h2 class="seul">Repondre à cette question</h2>
-                    <div class="repondre">                        
-                        <textarea id="response_text"></textarea>
-                        <div class="boutons">
-                            <div class="bouton1">
-                                <input type="file" accept="/image/*" onChange={handleUpload}/>
-                                <p>{percent} %</p>
-                            </div> 
-                            <div class="bouton2">
-                                <button onClick={createNewResponses} id="button" class="button2" name="repondre">Repondre</button>
-                            </div> 
-                        </div>                         
-                    </div> 
-                    <div class="bouton3">
-                        <button onClick={signalQuestion} id="button" class="button3" name="repondre">signaler la question</button>
-                    </div> 
-                </div>
-
-
-                <Footer />
-            </>
-        )
+    
+    
+                    <Footer />
+                </>
+            )
+        }
     }
 
     

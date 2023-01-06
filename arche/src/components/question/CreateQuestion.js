@@ -80,7 +80,7 @@ function CreateQuestion() {
                         questions: questions
                     });
                     stopNetworkAcces();
-                    window.location = `/question?${+key}!${user?.uid}#${user?.uid}`;
+                    window.location = `/question?${+key}!${user?.uid}`;
                 }            
     
             } catch (error) {

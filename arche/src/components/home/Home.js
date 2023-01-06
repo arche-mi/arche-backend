@@ -117,7 +117,7 @@ function Home() {
                     voir.appendChild(linkText);
                     a.appendChild(voir);
                     // a.title = "more";
-                    a.href = `/question?${+prop}!${item[2]}#${user?.uid}`;
+                    a.href = `/question?${+prop}!${item[2]}`;
                     
                     // const fetchTime = questions[questions.indexOf(item)][0][0][4].toDate();
                     // const date = firebaseTimeToDayMonthYearAndHourMinutes(fetchTime);

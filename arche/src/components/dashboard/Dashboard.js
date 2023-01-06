@@ -173,7 +173,7 @@ function Dashboard() {
                 a.appendChild(linkText);
                 ul.appendChild(a);
                 // a.title = "more";
-                a.href = `/question?${+i}!${userid}#${user?.uid}`;
+                a.href = `/question?${+i}!${userid}`;
 
                 list.appendChild(ul);
             };
@@ -209,7 +209,7 @@ function Dashboard() {
                     a.appendChild(linkText);
                     ul.appendChild(a);
                     // a.title = "more";
-                    a.href = `/question?${+responses[i][5]}!${responses[i][1].user}#${user?.uid}`;
+                    a.href = `/question?${+responses[i][5]}!${responses[i][1].user}`;
                                 
                     li = document.createElement("li");
                     const fetchTime = responses[i][3].toDate();
