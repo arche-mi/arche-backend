@@ -24,6 +24,9 @@ function Footer() {
     function switchToLibrairie() {
         window.location.href = `/librairie#${user.displayName}`;
     }
+    function switchToPrivacy() {
+        window.location.href = '/privacy-policy';
+    }
 
     return (
         <>
@@ -49,7 +52,7 @@ function Footer() {
                         </div>
                         <div class="text3">
                             <ul>
-                                <li className="el-hover-footer">Termes of use</li>
+                                <li onClick={switchToPrivacy} className="el-hover-footer">Termes of use</li>
                                 <li className="el-hover-footer">Tips</li>
                             </ul>
                         </div>

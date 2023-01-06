@@ -8,6 +8,8 @@ import Header from "../header/Header";
 import Footer from "../footer/Footer";
 import { async } from "@firebase/util";
 import LoadingSpinner from "../loadSpinner/LoadingSpinner";
+import './users.css';
+
 
 
 function sort(items){
@@ -26,6 +28,7 @@ function sort(items){
 
 function Users() {
     const [isLoading, setIsLoading] = useState(false);
+    const [filtre, setFiltre] = useState(true);
     const [user, loading] = useAuthState(auth);
     const navigate = useNavigate();
 
@@ -62,39 +65,59 @@ function Users() {
                 
                     if (item.data().name == userDataSorted[i][0]) {
                             
-                        let ul = document.createElement("ul");
+                        let user_item = document.createElement('div');
+                        user_item.classList.add('user-item');
 
-                        let img = document.createElement("img");
+                        let user_photo = document.createElement("div");
+                        user_photo.classList.add('user-photo');                        
+
+                        let img = document.createElement("img")
                         img.setAttribute('referrerpolicy', 'no-referrer');
-                        img.src = item.data().userPhoto;                               
-                        ul.appendChild(img);
+                        img.src = item.data().userPhoto;                    
+                        user_photo.appendChild(img);
+
+                        let user_info = document.createElement("div");
+                        user_info.classList.add('user-info');
+
+                        let user_info_cta = document.createElement("div");
+                        user_info_cta.classList.add('user-info-cta');
+
+                        let user_name = document.createElement("div");
+                        user_name.classList.add('user-name');
 
                         let usernamelink = document.createElement("a");
                         let usernamelinktext = document.createTextNode(item.data().name);                
                         usernamelink.appendChild(usernamelinktext);
-                        ul.appendChild(usernamelink);
+                        user_name.appendChild(usernamelink);
                         // a.title = "more";
                         usernamelink.href = `/user?${item.data().name}#${item.data().uid}`;
 
-                        let li = document.createElement("li");                
-                        li.innerText = item.data().university;
-                        ul.appendChild(li);
+                        let un = document.createElement("p");
+                        un.classList.add('university');
+                        un.innerText = item.data().university+",";
+                        user_info_cta.appendChild(un);
 
-                        li = document.createElement("li");                
-                        li.innerText = item.data().filiere;
-                        ul.appendChild(li);
+                        let fi = document.createElement("p");
+                        fi.classList.add('filiere');                
+                        fi.innerText = item.data().filiere;
+                        user_info_cta.appendChild(fi);
 
-                        li = document.createElement("li");                
+                        let li = document.createElement("p");
+                        li.classList.add('nb-qs-us');
                         try {
-                            li.innerText = parseInt(Object.keys(item.data().questions).pop())+1 + " questions";
-                            ul.appendChild(li);                    
+                            li.innerText = parseInt(Object.keys(item.data().questions).pop())+1 + " question(s)";
+                            user_info_cta.appendChild(li);                    
                         } catch (error) {
                             console.log(error);
-                            li.innerText = 0 + " questions";
-                            ul.appendChild(li);                    
+                            li.innerText = 0 + " question(s)";
+                            user_info_cta.appendChild(li);                    
                         }
                                 
-                        users_div.appendChild(ul);
+                        user_info.appendChild(user_name);
+                        user_info.appendChild(user_info_cta);
+                        user_item.appendChild(user_photo);
+                        user_item.appendChild(user_info);
+                        users_div.appendChild(user_item);     
                     }
                 })
             }                        
@@ -115,41 +138,60 @@ function Users() {
             if (users_div.textContent != "") { users_div.textContent = "" };
         
 
-                data.forEach((item) => {                                 
-                        let ul = document.createElement("ul");
+                data.forEach((item) => {            
+                    let user_item = document.createElement('div');
+                    user_item.classList.add('user-item');
+
+                        let user_photo = document.createElement("div");
+                        user_photo.classList.add('user-photo');                        
 
                         let img = document.createElement("img")
                         img.setAttribute('referrerpolicy', 'no-referrer');
                         img.src = item.data().userPhoto;                    
-                        ul.appendChild(img);
+                        user_photo.appendChild(img);
+
+                        let user_info = document.createElement("div");
+                        user_info.classList.add('user-info');
+
+                        let user_info_cta = document.createElement("div");
+                        user_info_cta.classList.add('user-info-cta');
+
+                        let user_name = document.createElement("div");
+                        user_name.classList.add('user-name');
 
                         let usernamelink = document.createElement("a");
                         let usernamelinktext = document.createTextNode(item.data().name);                
                         usernamelink.appendChild(usernamelinktext);
-                        ul.appendChild(usernamelink);
+                        user_name.appendChild(usernamelink);
                         // a.title = "more";
                         usernamelink.href = `/user?${item.data().name}#${item.data().uid}`;
 
-                        let li = document.createElement("li");                
-                        li.innerText = item.data().university;
-                        ul.appendChild(li);
+                        let un = document.createElement("p");
+                        un.classList.add('university');
+                        un.innerText = item.data().university+",";
+                        user_info_cta.appendChild(un);
 
-                        li = document.createElement("li");                
-                        li.innerText = item.data().filiere;
-                        ul.appendChild(li);
+                        let fi = document.createElement("p");
+                        fi.classList.add('filiere');                
+                        fi.innerText = item.data().filiere;
+                        user_info_cta.appendChild(fi);
 
-                        li = document.createElement("li");                
+                        let li = document.createElement("p");
+                        li.classList.add('nb-qs-us');
                         try {
-                            li.innerText = parseInt(Object.keys(item.data().questions).pop())+1 + " questions";
-                            ul.appendChild(li);                    
+                            li.innerText = parseInt(Object.keys(item.data().questions).pop())+1 + " question(s)";
+                            user_info_cta.appendChild(li);                    
                         } catch (error) {
                             console.log(error);
-                            li.innerText = 0 + " questions";
-                            ul.appendChild(li);                    
+                            li.innerText = 0 + " question(s)";
+                            user_info_cta.appendChild(li);                    
                         }
                                 
-                        users_div.appendChild(ul);
-                
+                        user_info.appendChild(user_name);
+                        user_info.appendChild(user_info_cta);
+                        user_item.appendChild(user_photo);
+                        user_item.appendChild(user_info);
+                        users_div.appendChild(user_item);                
                 })
 
             stopNetworkAcces();
@@ -190,6 +232,20 @@ function Users() {
         const unq = document.querySelector('.unq');
         const usrs = document.querySelector('.usrs');
 
+        const span1 = document.querySelector('.users-menu-span1');
+        const span2 = document.querySelector('.users-menu-span2');
+        const fl1 = document.querySelector('.fl1');
+        const fl2 = document.querySelector('.fl2');
+        fl2.addEventListener('click', () => {
+            span1.style.background = '#BFC8E5';
+            span2.style.background = '#516FD4FC';
+        });
+        fl1.addEventListener('click', () => {
+            span2.style.background = '#BFC8E5';
+            span1.style.background = '#516FD4FC';
+        });
+        
+        
         const currentPage = window.location.href;
         if (currentPage.includes('user')) {
             usrs.style.background = '#516FD4FC';
@@ -217,6 +273,14 @@ function Users() {
                         <span onClick={switchToQuestions} class="item allq" data-name="02">Toutes les questions</span>
                         <span onClick={switchToUnanswered} class="item unq" data-name="03">Questions non repondues</span>
                         <span onClick={switchToUsers} class="item usrs"><a href="#">Utilisateurs</a></span>
+                    </div>
+
+                    <div className="users-menu-container">
+                        <h1>Utilisateurs</h1>
+                        <div className="users-menu">
+                            <span class="fl1 users-menu-span1" onClick={fetchUsers}>a-z</span>
+                            <span class="fl2 users-menu-span2" onClick={fetchUsersByQuestions}>Questions</span>
+                        </div>
                     </div>
       
                     <div id="users"></div>               

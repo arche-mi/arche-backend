@@ -46,7 +46,7 @@
 
 .container-home main .header-home .item:hover{
     /* background-color: #516FD4FC; */
-    text-decoration: underline;
+    /* text-decoration: underline; */
 }
 
 .container-home main .entete {
@@ -135,6 +135,9 @@
 .container-home main .allquestion .question-home .user .name_user:hover {
     cursor: pointer;
 }
+.unq {
+    font-size: 14px;
+}
 
 @media screen and (max-width: 750px) {
     .container-home{
@@ -151,15 +154,21 @@
         display: grid;
         grid-template-columns: 180px 180px;
     }
+    .container-home main .header-home .item {
+        padding: 10px 0;
+    }
 
     .container-home main .header-home .item:first-child{
         border-radius: 10px 0 0 0;
-        height: 90px;
+        /* height: 90px; */
     }
 
     .container-home main .header-home .item:last-child {
         border-radius: 0 0 10px 0;
-        height: 90px;
+        /* height: 90px; */
+    }
+    .unq {
+        font-size: 13px;
     }
 
     .container-home main .entete {

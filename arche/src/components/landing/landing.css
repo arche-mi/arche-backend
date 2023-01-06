@@ -65,7 +65,7 @@ body {
 
 
 @media (max-width:1150px) { 
-   main {
+   .landing-main {
     display: grid;
     justify-content: center;
     text-align: center;
