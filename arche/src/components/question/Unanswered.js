@@ -197,6 +197,7 @@ function Unanswered() {
 
     return (
         <>
+            {isLoading ? <LoadingSpinner /> : fetchUsersQuestions}
             <Header />
 
             <div class="container-home">
@@ -213,7 +214,6 @@ function Unanswered() {
                         <span ><a href="/question/new">Poser une question</a></span>
                     </div>
                     
-                    {isLoading ? <LoadingSpinner /> : fetchUsersQuestions}
                     <div class="allquestion">                              
                     </div>
                 </main>

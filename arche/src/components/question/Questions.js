@@ -207,6 +207,7 @@ function Questions() {
 
     return (
         <>
+            {isLoading ? <LoadingSpinner /> : fetchUsersQuestions}
             <Header />
 
             <div class="container-home">
@@ -223,7 +224,6 @@ function Questions() {
                         <span ><a href="/question/new">Poser une question</a></span>
                     </div>
                     
-                    {isLoading ? <LoadingSpinner /> : fetchUsersQuestions}
                     <div class="allquestion">                              
                     </div>
                 </main>

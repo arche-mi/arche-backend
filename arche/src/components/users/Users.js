@@ -207,6 +207,7 @@ function Users() {
 
     return (
         <>
+            {isLoading ? <LoadingSpinner /> : fetchUsers} 
             <Header />
 
             <div class="container-home">
@@ -218,7 +219,6 @@ function Users() {
                         <span onClick={switchToUsers} class="item usrs"><a href="#">Utilisateurs</a></span>
                     </div>
       
-                    {isLoading ? <LoadingSpinner /> : fetchUsers} 
                     <div id="users"></div>               
                 </main>
             </div> 

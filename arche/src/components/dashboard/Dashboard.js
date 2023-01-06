@@ -310,6 +310,7 @@ function Dashboard() {
     if (userid != user?.uid) {
         return (
             <>
+                {isLoading ? <LoadingSpinner /> : fetchBadges}
                 <Header />
 
                 <h1>Bio</h1>
@@ -325,15 +326,14 @@ function Dashboard() {
                 <p>Inscrit le : {creationTime}</p>
 
                 <h1>Badges de {name}</h1>
-                {isLoading ? <LoadingSpinner /> : fetchBadges}
                 <div id="badges_area"></div>
 
                 <h1>les question's de {name}</h1>
-                {isLoading ? <LoadingSpinner /> : fetchUserQuestions}
+                {/* {isLoading ? <LoadingSpinner /> : fetchUserQuestions} */}
                 <div id="qs"></div>
 
                 <h1>les reponses de {name}</h1>
-                {isLoading ? <LoadingSpinner /> : fetchUserResponses}
+                {/* {isLoading ? <LoadingSpinner /> : fetchUserResponses} */}
                 <div id="rs"></div>
 
                 <Footer />                
@@ -342,6 +342,7 @@ function Dashboard() {
     } else {
         return (
             <>
+                {isLoading ? <LoadingSpinner /> : fetchBadges}
                 <Header />
 
                 <h1>Bio</h1>
@@ -357,15 +358,14 @@ function Dashboard() {
                 <button onClick={updateUserProfile}>Enregistrer les modification</button>
 
                 <h1>Badges</h1>
-                {isLoading ? <LoadingSpinner /> : fetchBadges}
                 <div id="badges_area"></div>                
 
                 <h1>Mes Question's</h1>
-                {isLoading ? <LoadingSpinner /> : fetchUserQuestions}
+                {/* {isLoading ? <LoadingSpinner /> : fetchUserQuestions} */}
                 <div id="qs"></div>
 
                 <h1>Mes reponses</h1>
-                {isLoading ? <LoadingSpinner /> : fetchUserResponses}
+                {/* {isLoading ? <LoadingSpinner /> : fetchUserResponses} */}
                 <div id="rs"></div>
     
                 <h2>Message</h2>

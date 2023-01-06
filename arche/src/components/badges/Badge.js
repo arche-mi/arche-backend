@@ -144,12 +144,12 @@ function Badges() {
     return (
         <>
 
+        {isLoading ? <LoadingSpinner /> : fetchBadges}
         <Header/ >
 
         <div>
             Badges ici
 
-            {isLoading ? <LoadingSpinner /> : fetchBadges}
             <div id="badges_area"></div>
         </div>
 

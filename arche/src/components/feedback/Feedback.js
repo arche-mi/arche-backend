@@ -9,9 +9,10 @@ import { isEmpty } from "@firebase/util";
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
 import "./feedback.css";
-
+import LoadingSpinner from "../loadSpinner/LoadingSpinner";
 
 function Feedback() {
+    const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
     const [user, loading] = useAuthState(auth);
     const [name, setName] = useState();
@@ -19,7 +20,8 @@ function Feedback() {
 
 
     const fetchUserName = async () => {
-        try {        
+        setIsLoading(true);
+        try {
           const q = query(collection(db, "users"), where("uid", "==", user?.uid));
           const doc = await getDocs(q);
           const data = doc.docs[0].data();
@@ -28,6 +30,7 @@ function Feedback() {
         } catch (err) {
           console.error(err);
         }
+        setIsLoading(false);
     };     
 
 
@@ -91,6 +94,7 @@ function Feedback() {
     
     return (
         <>
+            {isLoading ? <LoadingSpinner /> : fetchUserName}
             <Header />
             <div className="feedback">
                 <h4>Bienvenue {name}</h4>

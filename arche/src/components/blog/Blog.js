@@ -159,10 +159,10 @@ function Blog() {
 
     return (      
         <>
+            {isLoading ? <LoadingSpinner /> : fetchBlogs}
             <Header />
 
                 <h1>Blog</h1>
-                {isLoading ? <LoadingSpinner /> : fetchBlogs}
                 <div id="blog_area"></div>
 
             <Footer />

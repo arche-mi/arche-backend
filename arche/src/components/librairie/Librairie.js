@@ -393,6 +393,7 @@ function Librairie() {
 
     return (
         <>
+        {isLoading ? <LoadingSpinner /> : fetchLibrairie}
         <Header />
         
         <div class="lib-content">
@@ -403,7 +404,6 @@ function Librairie() {
                 <button onClick={fetchLicence} class="lic-lib">Licence</button>
                 <button onClick={fetchFavoris} class="fav-lib">Favoris</button>
             </div>
-            {isLoading ? <LoadingSpinner /> : fetchLibrairie}
             <div class="lib-area" id="lib-area">
             </div>
             <div class="contact-support ajout">
