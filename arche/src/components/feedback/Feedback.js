@@ -8,9 +8,11 @@ import { isEmpty } from "@firebase/util";
 
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
-
+import "./feedback.css";
+import LoadingSpinner from "../loadSpinner/LoadingSpinner";
 
 function Feedback() {
+    const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
     const [user, loading] = useAuthState(auth);
     const [name, setName] = useState();
@@ -18,7 +20,8 @@ function Feedback() {
 
 
     const fetchUserName = async () => {
-        try {        
+        setIsLoading(true);
+        try {
           const q = query(collection(db, "users"), where("uid", "==", user?.uid));
           const doc = await getDocs(q);
           const data = doc.docs[0].data();
@@ -27,6 +30,7 @@ function Feedback() {
         } catch (err) {
           console.error(err);
         }
+        setIsLoading(false);
     };     
 
 
@@ -90,16 +94,21 @@ function Feedback() {
     
     return (
         <>
+            {isLoading ? <LoadingSpinner /> : fetchUserName}
             <Header />
+            <div className="feedback">
+                <h4>Bienvenue {name}</h4>
+                <h1>Feedback</h1>
+                <div className="feedback-paragraph">
+                    Faite nous savoir vos avis et sugestions sur arche-beta. Pour préparer notre prochaine mise à jours, nous demandons les attentes de nos clients concernant la nouvelle version. laisser vos idées.
+                </div>
+                <div className="btn-form-feedback">
+                        <textarea rows="5" cols="50" id="feedback-message" type="text"></textarea>
+                        <button onClick={sendFeedback} id="message-btn">Envoyer</button>
+                </div>
 
-            <h2>Bienvenue {name}</h2>
-            <p>Feedback</p>
-            <label>
-                <textarea id="feed"></textarea>
-            </label><br></br>
-            <button onClick={sendFeedback}>Envoyer</button>
-
-            <br></br>
+                <br></br>
+            </div>
 
             <Footer />
         </>

@@ -118,17 +118,17 @@ function Blog() {
                 file.src = item.data().file;
                 ul.appendChild(file);                               
 
-                let button = document.createElement("button");
-                button.classList.add('like_bnt');
-                button.onclick = function() {updateLike(item.data(), data.indexOf(item))};
-                button.innerHTML = "j'aime";
-                ul.appendChild(button)
+                // let button = document.createElement("button");
+                // button.classList.add('like_bnt');
+                // button.onclick = function() {updateLike(item.data(), data.indexOf(item))};
+                // button.innerHTML = "j'aime";
+                // ul.appendChild(button)
 
-                let li_like = document.createElement('li');
-                li_like = document.createElement("li");              
-                li_like.classList.add('like');
-                li_like.innerText = item.data().likes + " likes";
-                ul.appendChild(li_like);  
+                // let li_like = document.createElement('li');
+                // li_like = document.createElement("li");              
+                // li_like.classList.add('like');
+                // li_like.innerText = item.data().likes + " likes";
+                // ul.appendChild(li_like);  
 
                 // let view =  parseInt(item.data().views) + 1;
                 // updateView(item.data(), data.indexOf(item));
@@ -159,10 +159,10 @@ function Blog() {
 
     return (      
         <>
+            {isLoading ? <LoadingSpinner /> : fetchBlogs}
             <Header />
 
                 <h1>Blog</h1>
-                {isLoading ? <LoadingSpinner /> : fetchBlogs}
                 <div id="blog_area"></div>
 
             <Footer />

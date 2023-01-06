@@ -1,0 +1,28 @@
+.not-found-content {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding: 2rem 20%;
+    text-align: center;
+}
+.not-found-content img {
+    max-width: 60%;
+}
+.not-found-content p {
+    text-align: left;
+}
+
+
+
+@media (max-width:448px) {
+    .not-found-content img {
+        min-width: 100%;
+    }
+    .not-found-content h1 {
+        font-size: 20px;
+    }
+    .not-found-content p {
+        font-size: 12px;
+    }
+}

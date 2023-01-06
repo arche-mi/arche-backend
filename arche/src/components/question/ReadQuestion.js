@@ -101,54 +101,84 @@ function ReadQuestion() {
             } else {
                 setResponses(userFetchResponses)
             }
-            
+
 
             //les renders
-            const tags_resp = document.querySelector("#tags");
-            if (tags_resp.textContent != "") { tags_resp.textContent = "" };
-            for (let i=0; i < Object.values(questions[questionId][2])[0].length; i++) {
-                let ul = document.createElement("ul");
-                let li = document.createElement("li");
-                li.innerText = Object.values(questions[questionId][2])[0][i];
-                ul.appendChild(li);
-                tags_resp.appendChild(ul);
-            }      
+            // const tags_resp = document.querySelector("#tags");
+            // if (tags_resp.textContent != "") { tags_resp.textContent = "" };
+            // for (let i=0; i < Object.values(questions[questionId][2])[0].length; i++) {
+            //     let ul = document.createElement("ul");
+            //     let li = document.createElement("li");
+            //     li.innerText = Object.values(questions[questionId][2])[0][i];
+            //     ul.appendChild(li);
+            //     tags_resp.appendChild(ul);
+            // }      
 
             //render des reponses
-            const resp_resp = document.querySelector("#resp");
-            if (resp_resp.textContent != "") { resp_resp.textContent = "" };
+            const resp_resp = document.querySelector(".reponse");
+            resp_resp.innerHTML = "";
             for (let i=0; i <= Object.keys(Object.values(questions[questionId][3])[0]).pop(); i++) {
                 const response_date = firebaseTimeToDayMonthYearAndHourMinutes(Object.values(questions[questionId][3])[0][i][3].toDate());
                 const fetchUserAnswer = getUserAnswer(Object.values(questions[questionId][3])[0][i][2].user_answer);
                 const printAddress = async () => {
-                    const userAnswer = await fetchUserAnswer;                                                
+                    const userAnswer = await fetchUserAnswer;    
+                    
+                    let r1 = document.createElement('div');
+                    r1.classList.add('reponse1');
 
-                    let ul = document.createElement("ul");
-                    let li = document.createElement("li");
-                    li.innerText = Object.values(questions[questionId][3])[0][i][0].text;
-                    ul.appendChild(li);                                   
+                    let item_res = document.createElement('div');
+                    item_res.classList.add('item_res');
 
+                    let tt = document.createElement("div");
+                    tt.classList.add('texte');
+                    let p = document.createElement("p");
+                    p.innerText = Object.values(questions[questionId][3])[0][i][0].text;
+                    tt.appendChild(p);
+
+                    let bas = document.createElement("div");
+                    bas.classList.add('bas');
+
+                    let ti = document.createElement("div");
+                    ti.classList.add('users');
+                    let tuser = document.createElement("div");
+                    tuser.classList.add('user');
+                    let tim = document.createElement("div");
+                    tim.classList.add('image');
+                    let button = document.createElement("div");
+                    button.classList.add('button');
+
+                    let a = document.createElement("a");
+                    let linkText = document.createTextNode(`reponse de ${userAnswer}`);
+                    a.appendChild(linkText);
+                    a.href = `/user?${Object.values(questions[questionId][3])[0][i][2].user_answer}#${user?.uid}`;
+                    // a.title = "more";
+                    tuser.appendChild(a);
+
+                    p = document.createElement("p");
+                    p.innerText = "le "+response_date;
+                    tim.appendChild(p);   
+
+                    let btn = document.createElement("button");
+                    btn.classList.add('button');
                     let aPhoto = document.createElement("a");
                     let img = document.createElement("img")
                     img.src = Object.values(questions[questionId][3])[0][i][4];
-                    console.log(Object.values(questions[questionId][3])[0][i][4] + "image ou pas si vide");
                     aPhoto.href = Object.values(questions[questionId][3])[0][i][4];
                     aPhoto.appendChild(img)
-                    ul.appendChild(aPhoto);
-                    // a.title = "more";
+                    btn.appendChild(aPhoto);
+                    // // a.title = "more";
+                    button.appendChild(btn);                    
+                    
+                    ti.appendChild(tuser);
+                    ti.appendChild(tim);
+                                     
+                    bas.appendChild(ti);
+                    bas.appendChild(button);
 
-                    li = document.createElement("li");
-                    li.innerText = "reponse du: " + response_date;
-                    ul.appendChild(li);     
-
-                    let a = document.createElement("a");
-                    let linkText = document.createTextNode(userAnswer);
-                    a.appendChild(linkText);
-                    ul.appendChild(a);
-                    // a.title = "more";
-                    a.href = `/user?${Object.values(questions[questionId][3])[0][i][2].user_answer}#${user?.uid}`;
-
-                    resp_resp.appendChild(ul);
+                    item_res.appendChild(tt);
+                    item_res.appendChild(bas);
+                    r1.appendChild(item_res);
+                    resp_resp.appendChild(r1);
                 };
                 printAddress()
             }          
@@ -214,8 +244,6 @@ function ReadQuestion() {
             });
             const response_text = document.querySelector("#response_text");
             response_text.value = '';
-
-            console.log(34567);
 
             // update user who ask questions
             const qcu = query(collection(db, "users"), where("uid", "==", user?.uid));
@@ -331,86 +359,199 @@ function ReadQuestion() {
         }
     }
 
-    
 
     function switchToProfile() {
         window.location = `/user?${name}#${userid}`;
     }
-
+   
     useEffect(() => {
         if (loading) return;
         if (!questionId) return navigate("/sign");
         
         fetchUserName();
         fetchUserQuestions();
+
         
     }, [user, loading]);
 
     if (userid === user?.uid) {
-        return (
-            <>
-                <Header />
 
-                <button onClick={switchToProfile}>{name}</button>
-                <h3>Question</h3>
-                <p>titre : {title}</p>
-                <p>text : {text}</p>
-                <p id="tags">tags: </p>
-                <p>publier le : {date}</p>
-                <img src={questionPhoto} alt="Photo"/>
-                <p id="resp">reponses : </p>
+        if (questionPhoto == '') {
+            return (
+                <>
+                    <Header />
+    
+                    <div id="conteneurprincipal">
+                        <div class="titre">
+                            <span class="span">{title}</span> 
+                            <span class="span1">{name}</span>{date}
+                        </div>
+                        <div class="question">
+                            {text}
+                            <button id="button" class="button" name="fichier"></button>
+    
+                        </div>
+                        <h2>Reponses</h2> 
+                        <div class="reponse">
+                            
+                        </div>
+    
+    
+                        <h2 class="seul">Repondre à cette question</h2>
+                        <div class="repondre">                        
+                            <textarea rows={4} id="response_text"></textarea>
+                            <div class="boutons">
+                                <div class="bouton1">
+                                    <input className="load-input" type="file" accept="/image/*" onChange={handleUpload}/>
+                                    <p className="load-p-qs">{percent} %</p>
+                                </div> 
+                                <button onClick={createNewResponses} id="button" class="button2" name="repondre">Repondre</button>
+                            </div>                         
+                        </div> 
+                        <div class="bouton3">
+                            <button onClick={deleteQuestion} id="button" class="button3" name="repondre">Supprimer la question</button>
+                        </div> 
+                    </div>
+    
+                    <Footer />
+                </>
+            )            
+        } else {
+            return (
+                <>
+                    <Header />
+    
+                    <div id="conteneurprincipal">
+                        <div class="titre">
+                            <span class="span">{title}</span> 
+                            <span class="span1">{name}</span>{date}
+                        </div>
+                        <div class="question">
+                            {text}
+                            <button id="button" class="button" name="fichier"><img className="qphoto" src={questionPhoto} alt="Photo"/></button>
+    
+                        </div>
+                        <h2>Reponses</h2> 
+                        <div class="reponse">
+                            
+                        </div>
+    
+    
+                        <h2 class="seul">Repondre à cette question</h2>
+                        <div class="repondre">                        
+                            <textarea rows={4} id="response_text"></textarea>
+                            <div class="boutons">
+                                <div class="bouton1">
+                                    <input className="load-input" type="file" accept="/image/*" onChange={handleUpload}/>
+                                    <p className="load-p-qs">{percent} %</p>
+                                </div> 
+                                <button onClick={createNewResponses} id="button" class="button2" name="repondre">Repondre</button>
+                            </div>                         
+                        </div> 
+                        <div class="bouton3">
+                            <button onClick={deleteQuestion} id="button" class="button3" name="repondre">Supprimer la question</button>
+                        </div> 
+                    </div>
+    
+                    <Footer />
+                </>
+            )       
+        }
 
-                <div>
-                    <label>
-                        Contenu de la reponse:
-                        <textarea id="response_text"></textarea>
-                    </label><br></br>
-                    <label>
-                        Photo:
-                        <input type="file" accept="/image/*" onChange={handleUpload}/>
-                        <p>{percent} "%"</p>
-                    </label>
-                    <button onClick={createNewResponses}>repondre</button>
-                </div>
 
-                <button onClick={deleteQuestion}>supprimer la question</button>
-
-                <Footer />
-            </>
-        )
     } else {
-        return (
-            <>
-                <Header />
 
-                <button onClick={switchToProfile}>{name}</button>
-                <h3>Question</h3>
-                <p>titre : {title}</p>
-                <p>text : {text}</p>
-                <p id="tags">tags: </p>
-                <p>publier le : {date}</p>
-                <img src={questionPhoto} alt="Photo"/>
-                <p id="resp">reponses : </p>
-
-                <div>
-                    <label>
-                        Contenu de la reponse:
-                        <textarea id="response_text"></textarea>
-                    </label><br></br>
-                    <label>
-                        Photo:
-                        <input type="file" accept="/image/*" onChange={handleUpload}/>
-                        <p>{percent} %</p>
-                    </label>
-                    <button onClick={createNewResponses}>repondre</button>
-
-                    <button onClick={signalQuestion}>signaler</button>
-
-                </div>
-
-                <Footer />
-            </>
-        )
+        if (questionPhoto == '') {
+            return (
+                <>
+                    <Header />
+    
+                    {/* <p id="tags">tags: </p> */}
+    
+                    <div id="conteneurprincipal">
+                        <div class="titre">
+                            <span class="span">{title}</span> 
+                            <span class="span1">{name}</span>{date}
+                        </div>
+                        <div class="question">
+                            {text}
+                            <button id="button" class="button" name="fichier"></button>
+    
+                        </div>
+                        <h2>Reponses</h2> 
+                        <div class="reponse">
+                            
+                        </div>
+    
+    
+                        <h2 class="seul">Repondre à cette question</h2>
+                        <div class="repondre">                        
+                            <textarea id="response_text"></textarea>
+                            <div class="boutons">
+                                <div class="bouton1">
+                                    <input type="file" accept="/image/*" onChange={handleUpload}/>
+                                    <p>{percent} %</p>
+                                </div> 
+                                <div class="bouton2">
+                                    <button onClick={createNewResponses} id="button" class="button2" name="repondre">Repondre</button>
+                                </div> 
+                            </div>                         
+                        </div> 
+                        <div class="bouton3">
+                            <button onClick={signalQuestion} id="button" class="button3" name="repondre">signaler la question</button>
+                        </div> 
+                    </div>
+    
+    
+                    <Footer />
+                </>
+            )            
+        } else {
+            return (
+                <>
+                    <Header />
+    
+                    {/* <p id="tags">tags: </p> */}
+    
+                    <div id="conteneurprincipal">
+                        <div class="titre">
+                            <span class="span">{title}</span> 
+                            <span class="span1">{name}</span>{date}
+                        </div>
+                        <div class="question">
+                            {text}
+                            <button id="button" class="button" name="fichier"><img src={questionPhoto} alt="Photo"/></button>
+    
+                        </div>
+                        <h2>Reponses</h2> 
+                        <div class="reponse">
+                            
+                        </div>
+    
+    
+                        <h2 class="seul">Repondre à cette question</h2>
+                        <div class="repondre">                        
+                            <textarea id="response_text"></textarea>
+                            <div class="boutons">
+                                <div class="bouton1">
+                                    <input type="file" accept="/image/*" onChange={handleUpload}/>
+                                    <p>{percent} %</p>
+                                </div> 
+                                <div class="bouton2">
+                                    <button onClick={createNewResponses} id="button" class="button2" name="repondre">Repondre</button>
+                                </div> 
+                            </div>                         
+                        </div> 
+                        <div class="bouton3">
+                            <button onClick={signalQuestion} id="button" class="button3" name="repondre">signaler la question</button>
+                        </div> 
+                    </div>
+    
+    
+                    <Footer />
+                </>
+            )
+        }
     }
 
     

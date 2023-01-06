@@ -5,6 +5,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { query, collection, getDocs, where } from "firebase/firestore";
 import { doc, getDoc, updateDoc} from "firebase/firestore";
 import './librairie.css';
+import pdf from "../../assets/images/pdf.svg";
 
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
@@ -100,7 +101,7 @@ function Librairie() {
     }
 
     
-    const fetchFavoris = async () => {
+    const fetchFavoris = async () => {        
         try {            
             setIsLoading(true);
             const q = query(collection(db, "librairie"));
@@ -114,37 +115,41 @@ function Librairie() {
             let currentDoc = datauser.docs;
 
             let lib_area = document.querySelector("#lib-area");
-            if (lib_area.textContent != "") { lib_area.textContent = "" };
+            lib_area.innerHTML = "";
             
             data
-            .slice()
-            .reverse()
+            .slice()            
             .forEach(item => {
 
                 if (currentDoc.includes(item.data().title.toLowerCase())) {
-                    let ul = document.createElement("ul");
-    
-                    let li_level = document.createElement("li");                
-                    li_level.classList.add('title');
-                    li_level.innerText = item.data().level;
-                    ul.appendChild(li_level);  
+                    let lib_item = document.createElement('div');
+                    lib_item.classList.add('lib-item');
+                    let lib_cta = document.createElement('div');
+                    lib_cta.classList.add('lib-cta');                
+
+                    let file = document.createElement("img");
+                    file.src = pdf;
+                    lib_item.appendChild(file);  
     
                     let doclink = document.createElement("a");
-                    let doclinktext = document.createTextNode(item.data().title);                
+                    let doclinktext = document.createTextNode(item.data().title);
                     doclink.appendChild(doclinktext);
-                    ul.appendChild(doclink);
+                    lib_cta.appendChild(doclink);
                     // a.title = "more";
-                    doclink.href = `${item.data().ref}`;
-                                                  
+                    doclink.href = `${item.data().ref}`;                                                                                      
     
-                    let button = document.createElement("button");
-                    button.classList.add('fav_bnt');
-                    button.classList.add('fav_bnt_red');
+                    let button = document.createElement("div");
+                    button.classList.add('moin');
                     button.onclick = function() {updateLike(item.data(), item.data().title)};
-                    button.innerHTML = "retirer des favoris";
-                    ul.appendChild(button)
-    
-                    lib_area.appendChild(ul);                    
+                    button.innerHTML = "-";
+                    lib_cta.appendChild(button);
+                    lib_item.appendChild(lib_cta);
+
+                    let p_level = document.createElement("p");                
+                    p_level.innerText = item.data().level;
+                    lib_item.appendChild(p_level);  
+
+                    lib_area.appendChild(lib_item);        
                 }
                
             });  
@@ -170,61 +175,71 @@ function Librairie() {
             let currentDoc = datauser.docs;
 
             let lib_area = document.querySelector("#lib-area");
-            if (lib_area.textContent != "") { lib_area.textContent = "" };
+            lib_area.innerHTML = "";
             
             data
-            .slice()
-            .reverse()
+            .slice()            
             .forEach(item => {
 
                 if ((item.data().level).split(' ')[0] == level && currentDoc.includes(item.data().title.toLowerCase())) {
-                    let ul = document.createElement("ul");
-    
-                    let li_level = document.createElement("li");                
-                    li_level.classList.add('title');
-                    li_level.innerText = item.data().level;
-                    ul.appendChild(li_level);  
+                    let lib_item = document.createElement('div');
+                    lib_item.classList.add('lib-item');
+                    let lib_cta = document.createElement('div');
+                    lib_cta.classList.add('lib-cta');                
+
+                    let file = document.createElement("img");
+                    file.src = pdf;
+                    lib_item.appendChild(file);  
     
                     let doclink = document.createElement("a");
-                    let doclinktext = document.createTextNode(item.data().title);                
+                    let doclinktext = document.createTextNode(item.data().title);
                     doclink.appendChild(doclinktext);
-                    ul.appendChild(doclink);
+                    lib_cta.appendChild(doclink);
                     // a.title = "more";
-                    doclink.href = `${item.data().ref}`;
-                                                  
+                    doclink.href = `${item.data().ref}`;                                                                                      
     
-                    let button = document.createElement("button");
-                    button.classList.add('fav_bnt');
-                    button.classList.add('fav_bnt_red');
+                    let button = document.createElement("div");
+                    button.classList.add('moin');
                     button.onclick = function() {updateLike(item.data(), item.data().title)};
-                    button.innerHTML = "retirer des favoris";
-                    ul.appendChild(button)
-    
-                    lib_area.appendChild(ul);                    
+                    button.innerHTML = "-";
+                    lib_cta.appendChild(button);
+                    lib_item.appendChild(lib_cta);
+
+                    let p_level = document.createElement("p");                
+                    p_level.innerText = item.data().level;
+                    lib_item.appendChild(p_level);  
+
+                    lib_area.appendChild(lib_item);                    
                 }
                 if ((item.data().level).split(' ')[0] == level && !currentDoc.includes(item.data().title.toLowerCase())) {
-                    let ul = document.createElement("ul");
-    
-                    let li_level = document.createElement("li");                
-                    li_level.classList.add('title');
-                    li_level.innerText = item.data().level;
-                    ul.appendChild(li_level);  
+                    let lib_item = document.createElement('div');
+                    lib_item.classList.add('lib-item');
+                    let lib_cta = document.createElement('div');
+                    lib_cta.classList.add('lib-cta'); 
+
+                    let file = document.createElement("img");
+                    file.src = pdf;
+                    lib_item.appendChild(file);  
     
                     let doclink = document.createElement("a");
-                    let doclinktext = document.createTextNode(item.data().title);                
+                    let doclinktext = document.createTextNode(item.data().title);
                     doclink.appendChild(doclinktext);
-                    ul.appendChild(doclink);
+                    lib_cta.appendChild(doclink);
                     // a.title = "more";
-                    doclink.href = `${item.data().ref}`;
-                                                  
+                    doclink.href = `${item.data().ref}`;                                                                       
     
-                    let button = document.createElement("button");
-                    button.classList.add('fav_bnt');
+                    let button = document.createElement("div");
+                    button.classList.add('plus');
                     button.onclick = function() {updateLike(item.data(), item.data().title)};
-                    button.innerHTML = "ajouter aux favoris";
-                    ul.appendChild(button)
-    
-                    lib_area.appendChild(ul);                    
+                    button.innerHTML = "+";
+                    lib_cta.appendChild(button);
+                    lib_item.appendChild(lib_cta);
+
+                    let p_level = document.createElement("p");                
+                    p_level.innerText = item.data().level;
+                    lib_item.appendChild(p_level); 
+
+                    lib_area.appendChild(lib_item);                 
                 }
                
             });  
@@ -254,60 +269,71 @@ function Librairie() {
             console.log(librairieData);
 
             let lib_area = document.querySelector("#lib-area");
-            if (lib_area.textContent != "") { lib_area.textContent = "" };
+            lib_area.innerHTML = "";                     
             
             data
-            .slice()
-            .reverse()
+            .slice()            
             .forEach(item => {
-                if (currentDoc.includes(item.data().title.toLowerCase())) {                    
-                    let ul = document.createElement("ul");
-    
-                    let li_level = document.createElement("li");                
-                    li_level.classList.add('title');
-                    li_level.innerText = item.data().level;
-                    ul.appendChild(li_level);  
+                if (currentDoc.includes(item.data().title.toLowerCase())) {    
+                    let lib_item = document.createElement('div');
+                    lib_item.classList.add('lib-item');
+                    let lib_cta = document.createElement('div');
+                    lib_cta.classList.add('lib-cta');                
+
+                    let file = document.createElement("img");
+                    file.src = pdf;
+                    lib_item.appendChild(file);  
     
                     let doclink = document.createElement("a");
-                    let doclinktext = document.createTextNode(item.data().title);                
+                    let doclinktext = document.createTextNode(item.data().title);
                     doclink.appendChild(doclinktext);
-                    ul.appendChild(doclink);
+                    lib_cta.appendChild(doclink);
                     // a.title = "more";
-                    doclink.href = `${item.data().ref}`;
-                                                  
+                    doclink.href = `${item.data().ref}`;                                                                                      
     
-                    let button = document.createElement("button");
-                    button.classList.add('fav_bnt');
-                    button.classList.add('fav_bnt_red');
+                    let button = document.createElement("div");
+                    button.classList.add('moin');
                     button.onclick = function() {updateLike(item.data(), item.data().title)};
-                    button.innerHTML = "retirer des favoris";
-                    ul.appendChild(button)
-    
-                    lib_area.appendChild(ul);
+                    button.innerHTML = "-";
+                    lib_cta.appendChild(button);
+                    lib_item.appendChild(lib_cta);
+
+                    let p_level = document.createElement("p");                
+                    p_level.innerText = item.data().level;
+                    lib_item.appendChild(p_level);  
+
+                    lib_area.appendChild(lib_item);    
                 } else {
-                    let ul = document.createElement("ul");
-    
-                    let li_level = document.createElement("li");                
-                    li_level.classList.add('title');
-                    li_level.innerText = item.data().level;
-                    ul.appendChild(li_level);  
+                    let lib_item = document.createElement('div');
+                    lib_item.classList.add('lib-item');
+                    let lib_cta = document.createElement('div');
+                    lib_cta.classList.add('lib-cta'); 
+
+                    let file = document.createElement("img");
+                    file.src = pdf;
+                    lib_item.appendChild(file);  
     
                     let doclink = document.createElement("a");
-                    let doclinktext = document.createTextNode(item.data().title);                
+                    let doclinktext = document.createTextNode(item.data().title);
                     doclink.appendChild(doclinktext);
-                    ul.appendChild(doclink);
+                    lib_cta.appendChild(doclink);
                     // a.title = "more";
-                    doclink.href = `${item.data().ref}`;
-                                                  
+                    doclink.href = `${item.data().ref}`;                                                                       
     
-                    let button = document.createElement("button");
-                    button.classList.add('fav_bnt');
+                    let button = document.createElement("div");
+                    button.classList.add('plus');
                     button.onclick = function() {updateLike(item.data(), item.data().title)};
-                    button.innerHTML = "ajouter aux favoris";
-                    ul.appendChild(button)
-    
-                    lib_area.appendChild(ul);
+                    button.innerHTML = "+";
+                    lib_cta.appendChild(button);
+                    lib_item.appendChild(lib_cta);
+
+                    let p_level = document.createElement("p");                
+                    p_level.innerText = item.data().level;
+                    lib_item.appendChild(p_level); 
+
+                    lib_area.appendChild(lib_item);
                 }
+                
             });  
             
         } catch (error) {
@@ -330,22 +356,61 @@ function Librairie() {
         if (loading) return;
         if (!user) navigate("/landing");
         if (!username) navigate("/");
-        fetchLibrairie();       
+        fetchLibrairie();   
+
+        // state form script menu
+        const tout = document.querySelector('.tout-lib');
+        const master = document.querySelector('.master-lib');
+        const lic = document.querySelector('.lic-lib');
+        const fav = document.querySelector('.fav-lib');
+        tout.addEventListener('click', () => {
+            tout.style.background = 'rgba(5, 56, 225, 0.961)';
+            master.style.background = 'rgb(124, 152, 255)';
+            lic.style.background = 'rgb(124, 152, 255)';
+            fav.style.background = 'rgba(53, 220, 90, 0.61)';
+        });      
+        master.addEventListener('click', () => {
+            master.style.background = 'rgba(5, 56, 225, 0.961)';
+            tout.style.background = 'rgb(124, 152, 255)';
+            lic.style.background = 'rgb(124, 152, 255)';
+            fav.style.background = 'rgba(53, 220, 90, 0.61)';
+        });      
+        lic.addEventListener('click', () => {
+            lic.style.background = 'rgba(5, 56, 225, 0.961)';
+            tout.style.background = 'rgb(124, 152, 255)';
+            master.style.background = 'rgb(124, 152, 255)';
+            fav.style.background = 'rgba(53, 220, 90, 0.61)';
+        });      
+        fav.addEventListener('click', () => {
+            fav.style.background = '#27BC48';
+            tout.style.background = 'rgb(124, 152, 255)';
+            lic.style.background = 'rgb(124, 152, 255)';
+            master.style.background = 'rgb(124, 152, 255)';
+        });            
         
     }, [user, loading]);
 
 
     return (
         <>
-        <Header />
-
-        <h1>Librairie</h1>
-        <button onClick={fetchLibrairie}>Tout</button>
-        <button onClick={fetchMaster}>Master</button>
-        <button onClick={fetchLicence}>Licence</button>
-        <button onClick={fetchFavoris}>Favoris</button>
         {isLoading ? <LoadingSpinner /> : fetchLibrairie}
-        <div id="lib-area"></div>
+        <Header />
+        
+        <div class="lib-content">
+            <div class="title"><h1>Librairie</h1></div>
+            <div class="menu-lib">
+                <button onClick={fetchLibrairie} class="tout-lib">Tout</button>
+                <button onClick={fetchMaster} class="master-lib">Master</button>
+                <button onClick={fetchLicence} class="lic-lib">Licence</button>
+                <button onClick={fetchFavoris} class="fav-lib">Favoris</button>
+            </div>
+            <div class="lib-area" id="lib-area">
+            </div>
+            <div class="contact-support ajout">
+                <a className="lib-a" href="mailto:hamedcuenca5@gmail.com">Contacter le support pour ajouter un document +</a>
+            </div>
+        </div>
+        
         <Footer />
         </>
     )

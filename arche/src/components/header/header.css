@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css2?family=NTR&family=Poppins:wght@400;500;600&display=swap');
+body {
+    background-color: white;
+}
+.btn-primary-header {
+    background: #5170d5d5;
+    border: none;
+    border-radius: 5px;
+    padding: 0px 30px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;    
+    color: #FBFCFF;
+}
+.btn-primary-header:hover {
+    cursor: pointer;
+    background-color: rgba(81, 111, 213, 0.99);
+}
+.btn-secondary {
+    background-color: white;
+    color: black;
+    border: 1px solid green;
+    padding: 7px 14px;
+    border-radius: 7px;
+}
+.hr-header {
+    background-color: white;
+    margin: 0;
+    opacity: 0.01;
+}
+.ring {
+    width: 80%;
+}
+.chat-btn-header {
+    border: none;
+    background: none;
+    margin: 0;
+    padding: 0;
+}
+.chat-btn-header:hover{
+    cursor: pointer;
+    opacity: 0.7;
+    text-decoration: underline;
+}
+.chat-ring-ring {
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+header {
+    background-color: white;
+    /* border-radius: 10px; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* margin: 15px; */
+    padding: 5px 35px;
+}
+
+#logo {
+    display: flex;
+    gap: 10px;
+}
+#logo h3:hover {
+    cursor: pointer;
+}
+#header-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+#arche {
+    font-family: 'Poppins';
+    font-weight: 500;
+    color: #000000;
+}
+
+#beta {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 22px;
+    color: #FFFFFF;
+    background: rgba(53, 220, 90, 0.58);
+    border: 1px solid rgba(39, 188, 72, 0.37);
+    padding: 5px 17px;
+    border-radius: 20px;
+}
+#beta:hover {
+    cursor: pointer;
+    opacity: 0.8;
+    background-color: #27BC48;
+}
+
+#blog-btn {
+    font-size: 1rem;
+}
+
+#login-btn {
+    font-size: 1rem;
+}
+#img-btn {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+.ring:hover {
+    cursor: pointer;
+}
+@keyframes cloch {
+    0% {
+      transform: rotate(0deg);
+    }
+    25% {
+      transform: rotate(7deg);
+    }
+    50% {
+        transform: rotate(0deg);
+    }
+    75% {
+        transform: rotate(-7deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+.ring {
+    animation: cloch 1.5s linear infinite;
+}
+
+#user-img {    
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+}
+#user-img:hover {
+    cursor: pointer;
+}
+
+
+
+@media (max-width:448px) {
+    #beta {
+        display: none;
+    }
+    header {
+        padding: 5px 12px;
+    }
+}
