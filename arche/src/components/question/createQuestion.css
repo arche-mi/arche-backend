@@ -43,6 +43,9 @@
 .span1:hover {
     cursor: pointer;
 }
+.button2 {
+    max-width: 180px;
+}
 
 #response_text {
     min-width: 600px;

@@ -103,9 +103,9 @@ function Users() {
                         user_info_cta.appendChild(fi);
 
                         let li = document.createElement("p");
-                        li.classList.add('nb-qs-us');
+                        li.classList.add('nb-qs-us');                        
                         try {
-                            li.innerText = parseInt(Object.keys(item.data().questions).pop())+1 + " question(s)";
+                            li.innerText = parseInt(Object.keys(item.data().questions).length) + " question(s)";
                             user_info_cta.appendChild(li);                    
                         } catch (error) {
                             console.log(error);
@@ -178,7 +178,7 @@ function Users() {
                         let li = document.createElement("p");
                         li.classList.add('nb-qs-us');
                         try {
-                            li.innerText = parseInt(Object.keys(item.data().questions).pop())+1 + " question(s)";
+                            li.innerText = parseInt(Object.keys(item.data().questions).length) + " question(s)";
                             user_info_cta.appendChild(li);                    
                         } catch (error) {
                             console.log(error);

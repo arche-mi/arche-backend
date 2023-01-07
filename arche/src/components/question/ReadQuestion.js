@@ -270,13 +270,14 @@ function ReadQuestion() {
             const datacu = doctcu.docs[0].data();
             let new_responses = null;
             let key = null;
+            console.log(Object.keys(datacu.responses))
             if (isEmpty(datacu.responses)) {
                 new_responses = {};
                 key = 0;
             } else {
                 new_responses = datacu.responses;
-                key = Object.keys(responses);
-                key = parseInt(key[key.length -1])+1;
+                key = Object.keys(datacu.responses);
+                key = parseInt(key[key.length-1])+1;
             }
             new_responses[key] = ccresp;
             const userDocByUsernameCu = doc(db, "users", datacu.name);
