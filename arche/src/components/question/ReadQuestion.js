@@ -417,7 +417,7 @@ function ReadQuestion() {
                     <div id="conteneurprincipal">
                         <div class="titre">
                             <span class="span">{title}</span> 
-                            <span class="span1">{name}</span>{date}
+                            <span onClick={switchToProfile} class="span1">{name}</span>{date}
                         </div>
                         <div class="question">
                             {text}
@@ -458,7 +458,7 @@ function ReadQuestion() {
                     <div id="conteneurprincipal">
                         <div class="titre">
                             <span class="span">{title}</span> 
-                            <span class="span1">{name}</span>{date}
+                            <span onClick={switchToProfile} class="span1">{name}</span>{date}
                         </div>
                         <div class="question">
                             {text}
@@ -506,7 +506,7 @@ function ReadQuestion() {
                     <div id="conteneurprincipal">
                         <div class="titre">
                             <span class="span">{title}</span> 
-                            <span class="span1">{name}</span>{date}
+                            <span onClick={switchToProfile} class="span1">{name}</span>{date}
                         </div>
                         <div class="question">
                             {text}
@@ -525,7 +525,7 @@ function ReadQuestion() {
                             <div class="boutons">
                                 <div class="bouton1">
                                     <input type="file" accept="/image/*" onChange={handleUpload}/>
-                                    <p>{percent} %</p>
+                                    <p className="percent">{percent} %</p>
                                 </div> 
                                 <div class="bouton2">
                                     <button onClick={createNewResponses} id="button" class="button2" name="repondre">Repondre</button>
@@ -552,7 +552,7 @@ function ReadQuestion() {
                     <div id="conteneurprincipal">
                         <div class="titre">
                             <span class="span">{title}</span> 
-                            <span class="span1">{name}</span>{date}
+                            <span onClick={switchToProfile} class="span1">{name}</span>{date}
                         </div>
                         <div class="question">
                             {text}
@@ -571,7 +571,7 @@ function ReadQuestion() {
                             <div class="boutons">
                                 <div class="bouton1">
                                     <input type="file" accept="/image/*" onChange={handleUpload}/>
-                                    <p>{percent} %</p>
+                                    <p className="percent">{percent} %</p>
                                 </div> 
                                 <div class="bouton2">
                                     <button onClick={createNewResponses} id="button" class="button2" name="repondre">Repondre</button>
