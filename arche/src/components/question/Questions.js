@@ -37,10 +37,9 @@ function Questions() {
 
 
     // Fetch users Questions
-    const fetchUsersQuestions = async () => {
+    const fetchUsersQuestions = async () => {        
         let questions = [];
         try {
-            setIsLoading(true);  
             const q = query(collection(db, "users"));
             const doc = await getDocs(q);
             const data = doc.docs;
@@ -180,6 +179,8 @@ function Questions() {
 
 
     useEffect(() => {
+        setIsLoading(true);  
+        
         if (loading) return;
         if (!user) navigate("/landing");
 

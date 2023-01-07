@@ -59,8 +59,7 @@ function Dashboard() {
 
 
     const fetchBadges = async () => {
-        try {          
-            setIsLoading(true);  
+        try {                        
             const q = query(collection(db, "badges"));
             const doct = await getDocs(q);
             const data = doct.docs;
@@ -292,6 +291,8 @@ function Dashboard() {
     
     
     useEffect(() => {
+        setIsLoading(true);
+        
         if (loading) return;
         if (!user) { return navigate("/sign") };
         if (!hrefName) return navigate("/sign");

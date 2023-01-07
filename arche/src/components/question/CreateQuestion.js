@@ -72,8 +72,6 @@ function CreateQuestion() {
                     }
                     console.log(`On a deja ${Object.keys(questions).length} questions`);
                     questions[key] = [{title:title}, {text:text}, {tags:tags.split(',')}, {responses:responses}, date, fileUrl];
-    
-                    console.log(name);
                     const userDocByUsername = doc(db, "users", name);
                     activeNetworkAcces();
                     await updateDoc(userDocByUsername, {

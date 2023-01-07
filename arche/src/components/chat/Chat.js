@@ -63,7 +63,7 @@ function Chat() {
 
 
     useEffect(() => {
-        activeNetworkAcces();
+        // activeNetworkAcces();
 
         if (loading) return;
         if (!user) navigate("/landing");
@@ -76,7 +76,7 @@ function Chat() {
           });
           setMessages(messages.reverse());
         });
-        stopNetworkAcces();
+        // stopNetworkAcces();
         return () => unsubscribe();
 
     }, [user, loading]);

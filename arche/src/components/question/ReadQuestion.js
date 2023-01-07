@@ -10,7 +10,7 @@ import { isEmpty } from "@firebase/util";
 
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
-
+import LoadingSpinner from "../loadSpinner/LoadingSpinner";
 
 function corMonth(m) {
     let finalMonth = null;
@@ -31,6 +31,7 @@ function firebaseTimeToDayMonthYearAndHourMinutes(time) {
 
 
 function ReadQuestion() {
+    const [isLoading, setIsLoading] = useState(false);
     const [name, setName] = useState();
     const [user, loading] = useAuthState(auth);
     const navigate = useNavigate();    
@@ -40,6 +41,7 @@ function ReadQuestion() {
     const [date, setDate] = useState();
     const [questionPhoto, setQuestionPhoto] = useState(); 
     let [responses, setResponses] = useState("");
+    let [currentUserResponses, setCurrentUserResponses] = useState("");
     
     const [fileUrl, setUrl] = useState("");
     const [percent, setPercent] = useState(0);
@@ -75,7 +77,8 @@ function ReadQuestion() {
     }
 
 
-    const fetchUserQuestions = async () => {
+    const fetchUserQuestions = async () => {      
+        setIsLoading(true)  ;
         let questions = null;        
         try {
             const q = query(collection(db, "users"), where("uid", "==", userid));
@@ -117,7 +120,8 @@ function ReadQuestion() {
             //render des reponses
             const resp_resp = document.querySelector(".reponse");
             resp_resp.innerHTML = "";
-            for (let i=0; i <= Object.keys(Object.values(questions[questionId][3])[0]).pop(); i++) {
+            console.log()
+            Object.keys(Object.values(questions[questionId][3])[0]).forEach(i => {
                 const response_date = firebaseTimeToDayMonthYearAndHourMinutes(Object.values(questions[questionId][3])[0][i][3].toDate());
                 const fetchUserAnswer = getUserAnswer(Object.values(questions[questionId][3])[0][i][2].user_answer);
                 const printAddress = async () => {
@@ -132,6 +136,7 @@ function ReadQuestion() {
                     let tt = document.createElement("div");
                     tt.classList.add('texte');
                     let p = document.createElement("p");
+                    p.classList.add('texte-p');
                     p.innerText = Object.values(questions[questionId][3])[0][i][0].text;
                     tt.appendChild(p);
 
@@ -181,7 +186,7 @@ function ReadQuestion() {
                     resp_resp.appendChild(r1);
                 };
                 printAddress()
-            }          
+            })         
 
             const currentTime = Date.now();
             const fetchTime = questions[questionId][4].toDate();           
@@ -190,6 +195,7 @@ function ReadQuestion() {
         } catch (error) {
             console.log(error);
         }
+        setIsLoading(false);
         // stopNetworkAcces();
     }
     
@@ -228,7 +234,7 @@ function ReadQuestion() {
 
 
 
-    const updateResponses = async () => {
+    const updateResponses = async (ccresp) => {
         let questions = null;   
         try {            
             // update questions
@@ -236,7 +242,20 @@ function ReadQuestion() {
             const doct = await getDocs(q);
             const data = doct.docs[0].data();
             questions = data.questions;
-            questions[questionId][3] = {responses:responses};
+            let currentQuestionResponses = null;
+            let keyQ = null;
+            if (isEmpty(questions[questionId][3].responses)) {
+                console.log("is empty");
+                currentQuestionResponses = {};
+                keyQ = 0;
+            } else {
+                console.log("is not empty");
+                currentQuestionResponses = questions[questionId][3].responses;
+                keyQ = Object.keys((questions[questionId][3].responses));
+                keyQ = parseInt(keyQ[keyQ.length -1])+1;
+            }
+            currentQuestionResponses[keyQ] = ccresp;
+            questions[questionId][3] = {responses:currentQuestionResponses};
             const userDocByUsername = doc(db, "users", name);
             console.log("update start new");
             await updateDoc(userDocByUsername, {
@@ -245,14 +264,24 @@ function ReadQuestion() {
             const response_text = document.querySelector("#response_text");
             response_text.value = '';
 
-            // update user who ask questions
+            // update user who response rsp
             const qcu = query(collection(db, "users"), where("uid", "==", user?.uid));
             const doctcu = await getDocs(qcu);
             const datacu = doctcu.docs[0].data();
-            console.log(responses)
+            let new_responses = null;
+            let key = null;
+            if (isEmpty(datacu.responses)) {
+                new_responses = {};
+                key = 0;
+            } else {
+                new_responses = datacu.responses;
+                key = Object.keys(responses);
+                key = parseInt(key[key.length -1])+1;
+            }
+            new_responses[key] = ccresp;
             const userDocByUsernameCu = doc(db, "users", datacu.name);
             await updateDoc(userDocByUsernameCu, {
-                responses: responses
+                responses: new_responses
             });
             console.log("update done");
             fetchUserQuestions();
@@ -264,7 +293,6 @@ function ReadQuestion() {
 
 
     const createNewResponses = async () => {
-        console.log(typeof(responses))
         if (responses.length === 0) {
             responses = {}
         }
@@ -282,9 +310,10 @@ function ReadQuestion() {
                         key = 0;
                     }
                     console.log(`On a deja ${key} reponses`);
-                    responses[key] = [{text:response_text}, {user:userid}, {user_answer:user?.uid}, date, fileUrl, questionId];
-                    setResponses(responses);
-                    updateResponses();                    
+                    // responses[key] = [{text:response_text}, {user:userid}, {user_answer:user?.uid}, date, fileUrl, questionId];
+                    const ccresp = [{text:response_text}, {user:userid}, {user_answer:user?.uid}, date, fileUrl, questionId]
+                    // setResponses(responses);
+                    updateResponses(ccresp); 
                 }            
     
             } catch (error) {
@@ -365,9 +394,12 @@ function ReadQuestion() {
     }
    
     useEffect(() => {
+        setIsLoading(true);
+        
         if (loading) return;
         if (!questionId) return navigate("/sign");
-        
+
+
         fetchUserName();
         fetchUserQuestions();
 
@@ -379,12 +411,13 @@ function ReadQuestion() {
         if (questionPhoto == '') {
             return (
                 <>
+                    {isLoading ? <LoadingSpinner /> : fetchUserQuestions}
                     <Header />
     
                     <div id="conteneurprincipal">
                         <div class="titre">
                             <span class="span">{title}</span> 
-                            <span class="span1">{name}</span>{date}
+                            <span onClick={switchToProfile} class="span1">{name}</span>{date}
                         </div>
                         <div class="question">
                             {text}
@@ -419,12 +452,13 @@ function ReadQuestion() {
         } else {
             return (
                 <>
+                    {isLoading ? <LoadingSpinner /> : fetchUserQuestions}
                     <Header />
     
                     <div id="conteneurprincipal">
                         <div class="titre">
                             <span class="span">{title}</span> 
-                            <span class="span1">{name}</span>{date}
+                            <span onClick={switchToProfile} class="span1">{name}</span>{date}
                         </div>
                         <div class="question">
                             {text}
@@ -464,6 +498,7 @@ function ReadQuestion() {
         if (questionPhoto == '') {
             return (
                 <>
+                    {isLoading ? <LoadingSpinner /> : fetchUserQuestions}
                     <Header />
     
                     {/* <p id="tags">tags: </p> */}
@@ -471,7 +506,7 @@ function ReadQuestion() {
                     <div id="conteneurprincipal">
                         <div class="titre">
                             <span class="span">{title}</span> 
-                            <span class="span1">{name}</span>{date}
+                            <span onClick={switchToProfile} class="span1">{name}</span>{date}
                         </div>
                         <div class="question">
                             {text}
@@ -490,7 +525,7 @@ function ReadQuestion() {
                             <div class="boutons">
                                 <div class="bouton1">
                                     <input type="file" accept="/image/*" onChange={handleUpload}/>
-                                    <p>{percent} %</p>
+                                    <p className="percent">{percent} %</p>
                                 </div> 
                                 <div class="bouton2">
                                     <button onClick={createNewResponses} id="button" class="button2" name="repondre">Repondre</button>
@@ -509,6 +544,7 @@ function ReadQuestion() {
         } else {
             return (
                 <>
+                    {isLoading ? <LoadingSpinner /> : fetchUserQuestions}
                     <Header />
     
                     {/* <p id="tags">tags: </p> */}
@@ -516,7 +552,7 @@ function ReadQuestion() {
                     <div id="conteneurprincipal">
                         <div class="titre">
                             <span class="span">{title}</span> 
-                            <span class="span1">{name}</span>{date}
+                            <span onClick={switchToProfile} class="span1">{name}</span>{date}
                         </div>
                         <div class="question">
                             {text}
@@ -535,7 +571,7 @@ function ReadQuestion() {
                             <div class="boutons">
                                 <div class="bouton1">
                                     <input type="file" accept="/image/*" onChange={handleUpload}/>
-                                    <p>{percent} %</p>
+                                    <p className="percent">{percent} %</p>
                                 </div> 
                                 <div class="bouton2">
                                     <button onClick={createNewResponses} id="button" class="button2" name="repondre">Repondre</button>

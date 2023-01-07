@@ -128,8 +128,7 @@ function Users() {
     }
 
     const fetchUsers = async () => {
-        try {
-            setIsLoading(true); 
+        try {            
             const q = query(collection(db, "users"));
             const doc = await getDocs(q);
             const data = doc.docs;
@@ -222,6 +221,8 @@ function Users() {
     }
 
     useEffect(() => {
+        setIsLoading(true); 
+        
         if (loading) return;
         if (!user) navigate("/landing");
 
