@@ -52,7 +52,7 @@ function Sign() {
                 </div>        
             </div>
             <div class="seconnecter" >
-                <button onClick={switchToSign} id="button" class="button" name="Seconnecter">Se connecter avec google</button>                
+                <button onClick={switchToSign} id="button" class="button-sign" name="Seconnecter">Se connecter avec google</button>                
             </div>
         
         </div>
