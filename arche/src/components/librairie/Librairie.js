@@ -254,8 +254,7 @@ function Librairie() {
 
 
     const fetchLibrairie = async () => {
-        try {          
-            setIsLoading(true);  
+        try {                      
             const q = query(collection(db, "librairie"));
             const doct = await getDocs(q);
             const data = doct.docs;
@@ -353,6 +352,8 @@ function Librairie() {
 
 
     useEffect(() => {
+        setIsLoading(true);  
+        
         if (loading) return;
         if (!user) navigate("/landing");
         if (!username) navigate("/");

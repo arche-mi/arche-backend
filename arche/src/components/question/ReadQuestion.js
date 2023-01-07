@@ -10,7 +10,7 @@ import { isEmpty } from "@firebase/util";
 
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
-
+import LoadingSpinner from "../loadSpinner/LoadingSpinner";
 
 function corMonth(m) {
     let finalMonth = null;
@@ -31,6 +31,7 @@ function firebaseTimeToDayMonthYearAndHourMinutes(time) {
 
 
 function ReadQuestion() {
+    const [isLoading, setIsLoading] = useState(false);
     const [name, setName] = useState();
     const [user, loading] = useAuthState(auth);
     const navigate = useNavigate();    
@@ -75,7 +76,7 @@ function ReadQuestion() {
     }
 
 
-    const fetchUserQuestions = async () => {
+    const fetchUserQuestions = async () => {        
         let questions = null;        
         try {
             const q = query(collection(db, "users"), where("uid", "==", userid));
@@ -132,6 +133,7 @@ function ReadQuestion() {
                     let tt = document.createElement("div");
                     tt.classList.add('texte');
                     let p = document.createElement("p");
+                    p.classList.add('texte-p');
                     p.innerText = Object.values(questions[questionId][3])[0][i][0].text;
                     tt.appendChild(p);
 
@@ -190,6 +192,7 @@ function ReadQuestion() {
         } catch (error) {
             console.log(error);
         }
+        setIsLoading(false);
         // stopNetworkAcces();
     }
     
@@ -245,14 +248,20 @@ function ReadQuestion() {
             const response_text = document.querySelector("#response_text");
             response_text.value = '';
 
-            // update user who ask questions
+            // update user who response rsp
             const qcu = query(collection(db, "users"), where("uid", "==", user?.uid));
             const doctcu = await getDocs(qcu);
-            const datacu = doctcu.docs[0].data();
-            console.log(responses)
+            const datacu = doctcu.docs[0].data();            
+            let new_responses = {};
+            Object.keys(responses).forEach(key => {
+                if (Object.values(responses[key][2])[0] == user?.uid) {
+                    new_responses[key] = responses[key];
+                }
+            });
+            console.log(new_responses)
             const userDocByUsernameCu = doc(db, "users", datacu.name);
             await updateDoc(userDocByUsernameCu, {
-                responses: responses
+                responses: new_responses
             });
             console.log("update done");
             fetchUserQuestions();
@@ -365,9 +374,12 @@ function ReadQuestion() {
     }
    
     useEffect(() => {
+        setIsLoading(true);  
+        
         if (loading) return;
         if (!questionId) return navigate("/sign");
-        
+
+
         fetchUserName();
         fetchUserQuestions();
 
@@ -379,6 +391,7 @@ function ReadQuestion() {
         if (questionPhoto == '') {
             return (
                 <>
+                    {isLoading ? <LoadingSpinner /> : fetchUserQuestions}
                     <Header />
     
                     <div id="conteneurprincipal">
@@ -419,6 +432,7 @@ function ReadQuestion() {
         } else {
             return (
                 <>
+                    {isLoading ? <LoadingSpinner /> : fetchUserQuestions}
                     <Header />
     
                     <div id="conteneurprincipal">
@@ -464,6 +478,7 @@ function ReadQuestion() {
         if (questionPhoto == '') {
             return (
                 <>
+                    {isLoading ? <LoadingSpinner /> : fetchUserQuestions}
                     <Header />
     
                     {/* <p id="tags">tags: </p> */}
@@ -509,6 +524,7 @@ function ReadQuestion() {
         } else {
             return (
                 <>
+                    {isLoading ? <LoadingSpinner /> : fetchUserQuestions}
                     <Header />
     
                     {/* <p id="tags">tags: </p> */}

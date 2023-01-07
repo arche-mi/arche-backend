@@ -19,8 +19,7 @@ function Feedback() {
     const hrefName = window.location.href.split('?')[1];
 
 
-    const fetchUserName = async () => {
-        setIsLoading(true);
+    const fetchUserName = async () => {   
         try {
           const q = query(collection(db, "users"), where("uid", "==", user?.uid));
           const doc = await getDocs(q);
@@ -81,6 +80,8 @@ function Feedback() {
 
 
     useEffect(() => {
+        setIsLoading(true);
+        
         if (loading) return;
         if (!user) return navigate("/sign");
 
