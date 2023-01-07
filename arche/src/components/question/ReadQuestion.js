@@ -11,6 +11,8 @@ import { isEmpty } from "@firebase/util";
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
 import LoadingSpinner from "../loadSpinner/LoadingSpinner";
+import './readQuestion.css';
+
 
 function corMonth(m) {
     let finalMonth = null;

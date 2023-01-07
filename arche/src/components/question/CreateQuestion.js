@@ -140,30 +140,42 @@ function CreateQuestion() {
     return (
         
         <>
-            <Header />
+            <Header />       
 
-            
+                <div class="create-container">
+                    <main class="create-main">
+                        <h1>Poser une question ?</h1>
 
+                        <div class="block1">
+                            <p className="create-titre">Titre</p>
+                            <p className="create-p">Soyez précis et imaginez que vous posez une question à une autre personne.</p>
+                            <input type="text" id="title" name="title" />
+                        </div>
 
-                <h2>Poser une question?</h2>
-                <label>
-                    Titre:
-                    <input type="text" id="title" name="title" />
-                </label><br></br>
-                <label>
-                    Contenu:
-                    <textarea id="text"></textarea>
-                </label><br></br>
-                <label>
-                    Tags:
-                    <input type="text" id="tags" name="tags" />
-                </label><br></br>
-                <label>
-                    Photo:
-                    <input type="file" accept="/image/*" onChange={handleUpload}/>
-                    <p>{percent} "%"</p>
-                </label>
-                <button onClick={createNewQuestion}>Poser</button>
+                        <div class="block2">
+                            <p className="create-titre">Contenu</p>
+                            <p className="create-p">Présentez le problème et développez ce que vous avez mis dans le titre. Minimum 20 caractères.</p>
+                            <textarea className="create-textarea" id="text"></textarea>
+                        </div>
+
+                        <div class="block3">
+                            <p className="create-titre">Tags</p>
+                            <p className="create-p">Ajouter des tags(séparer par des virgules) pour décrire le sujet de votre question.</p>
+                            <input type="text" id="tags" name="tags" />
+                        </div>
+
+                        <label className="create-label">
+                            Photo:
+                            <input type="file" accept="/image/*" onChange={handleUpload}/>
+                            <p className="create-percent">{percent} "%"</p>
+                        </label>
+
+                        <div class="button">
+                            <a onClick={createNewQuestion}>Poser</a>
+                        </div>
+                    </main>
+                </div> 
+        
 
             <Footer />
 
