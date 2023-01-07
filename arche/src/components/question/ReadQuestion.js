@@ -41,6 +41,7 @@ function ReadQuestion() {
     const [date, setDate] = useState();
     const [questionPhoto, setQuestionPhoto] = useState(); 
     let [responses, setResponses] = useState("");
+    let [currentUserResponses, setCurrentUserResponses] = useState("");
     
     const [fileUrl, setUrl] = useState("");
     const [percent, setPercent] = useState(0);
@@ -76,7 +77,8 @@ function ReadQuestion() {
     }
 
 
-    const fetchUserQuestions = async () => {        
+    const fetchUserQuestions = async () => {      
+        setIsLoading(true)  ;
         let questions = null;        
         try {
             const q = query(collection(db, "users"), where("uid", "==", userid));
@@ -118,7 +120,8 @@ function ReadQuestion() {
             //render des reponses
             const resp_resp = document.querySelector(".reponse");
             resp_resp.innerHTML = "";
-            for (let i=0; i <= Object.keys(Object.values(questions[questionId][3])[0]).pop(); i++) {
+            console.log()
+            Object.keys(Object.values(questions[questionId][3])[0]).forEach(i => {
                 const response_date = firebaseTimeToDayMonthYearAndHourMinutes(Object.values(questions[questionId][3])[0][i][3].toDate());
                 const fetchUserAnswer = getUserAnswer(Object.values(questions[questionId][3])[0][i][2].user_answer);
                 const printAddress = async () => {
@@ -183,7 +186,7 @@ function ReadQuestion() {
                     resp_resp.appendChild(r1);
                 };
                 printAddress()
-            }          
+            })         
 
             const currentTime = Date.now();
             const fetchTime = questions[questionId][4].toDate();           
@@ -231,7 +234,7 @@ function ReadQuestion() {
 
 
 
-    const updateResponses = async () => {
+    const updateResponses = async (ccresp) => {
         let questions = null;   
         try {            
             // update questions
@@ -251,14 +254,18 @@ function ReadQuestion() {
             // update user who response rsp
             const qcu = query(collection(db, "users"), where("uid", "==", user?.uid));
             const doctcu = await getDocs(qcu);
-            const datacu = doctcu.docs[0].data();            
-            let new_responses = {};
-            Object.keys(responses).forEach(key => {
-                if (Object.values(responses[key][2])[0] == user?.uid) {
-                    new_responses[key] = responses[key];
-                }
-            });
-            console.log(new_responses)
+            const datacu = doctcu.docs[0].data();
+            let new_responses = null;
+            let key = null;
+            if (isEmpty(datacu.responses)) {
+                new_responses = {};
+                key = 0;
+            } else {
+                new_responses = datacu.responses;
+                key = Object.keys(responses).length;
+            }
+            new_responses[key] = ccresp;
+            console.log(new_responses);
             const userDocByUsernameCu = doc(db, "users", datacu.name);
             await updateDoc(userDocByUsernameCu, {
                 responses: new_responses
@@ -273,7 +280,6 @@ function ReadQuestion() {
 
 
     const createNewResponses = async () => {
-        console.log(typeof(responses))
         if (responses.length === 0) {
             responses = {}
         }
@@ -292,8 +298,9 @@ function ReadQuestion() {
                     }
                     console.log(`On a deja ${key} reponses`);
                     responses[key] = [{text:response_text}, {user:userid}, {user_answer:user?.uid}, date, fileUrl, questionId];
+                    const ccresp = [{text:response_text}, {user:userid}, {user_answer:user?.uid}, date, fileUrl, questionId]
                     setResponses(responses);
-                    updateResponses();                    
+                    updateResponses(ccresp); 
                 }            
     
             } catch (error) {
@@ -374,7 +381,7 @@ function ReadQuestion() {
     }
    
     useEffect(() => {
-        setIsLoading(true);  
+        setIsLoading(true);
         
         if (loading) return;
         if (!questionId) return navigate("/sign");
