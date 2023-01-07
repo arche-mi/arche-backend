@@ -242,7 +242,20 @@ function ReadQuestion() {
             const doct = await getDocs(q);
             const data = doct.docs[0].data();
             questions = data.questions;
-            questions[questionId][3] = {responses:responses};
+            let currentQuestionResponses = null;
+            let keyQ = null;
+            if (isEmpty(questions[questionId][3].responses)) {
+                console.log("is empty");
+                currentQuestionResponses = {};
+                keyQ = 0;
+            } else {
+                console.log("is not empty");
+                currentQuestionResponses = questions[questionId][3].responses;
+                keyQ = Object.keys((questions[questionId][3].responses));
+                keyQ = parseInt(keyQ[keyQ.length -1])+1;
+            }
+            currentQuestionResponses[keyQ] = ccresp;
+            questions[questionId][3] = {responses:currentQuestionResponses};
             const userDocByUsername = doc(db, "users", name);
             console.log("update start new");
             await updateDoc(userDocByUsername, {
@@ -262,10 +275,10 @@ function ReadQuestion() {
                 key = 0;
             } else {
                 new_responses = datacu.responses;
-                key = Object.keys(responses).length;
+                key = Object.keys(responses);
+                key = parseInt(key[key.length -1])+1;
             }
             new_responses[key] = ccresp;
-            console.log(new_responses);
             const userDocByUsernameCu = doc(db, "users", datacu.name);
             await updateDoc(userDocByUsernameCu, {
                 responses: new_responses
@@ -297,9 +310,9 @@ function ReadQuestion() {
                         key = 0;
                     }
                     console.log(`On a deja ${key} reponses`);
-                    responses[key] = [{text:response_text}, {user:userid}, {user_answer:user?.uid}, date, fileUrl, questionId];
+                    // responses[key] = [{text:response_text}, {user:userid}, {user_answer:user?.uid}, date, fileUrl, questionId];
                     const ccresp = [{text:response_text}, {user:userid}, {user_answer:user?.uid}, date, fileUrl, questionId]
-                    setResponses(responses);
+                    // setResponses(responses);
                     updateResponses(ccresp); 
                 }            
     
