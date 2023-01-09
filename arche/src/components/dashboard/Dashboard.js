@@ -73,8 +73,8 @@ function Dashboard() {
                 currentUserBadges.push(ub.split('&')[0])
             })
 
-            let badges_area = document.querySelector("#badges_area");
-            if (badges_area.hasChildNodes != "") { badges_area.textContent = "" };
+            // let badges_area = document.querySelector("#badges_area");
+            // badges_area.innerHTML = "";
                         
             // Fetch all badges by type
             function fetcher(data, arr, type) {
@@ -105,7 +105,7 @@ function Dashboard() {
 
                 }
             })
-            badges_area.appendChild(ul);
+            // badges_area.appendChild(ul);
             
         } catch (error) {
             console.log(error)            
@@ -396,7 +396,7 @@ function Dashboard() {
                             <p contenteditable="true" id="filiere">{filiere}</p>
                             <p contenteditable="true" id="level">{level}</p>
                             <p contenteditable="true" id="sexe">{sexe}</p>
-                            <button className="update-profile" type="button">Enrégistrer les Modifications</button>
+                            <button onClick={updateUserProfile} className="update-profile" type="button">Enrégistrer les Modifications</button>
                         </div>    
                         <div class="user-cta">
                             <h3>Message</h3>
