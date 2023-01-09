@@ -1,6 +1,6 @@
 ```bash
     git clone https://github.com/Arch-mi/backend.git
-    cd arch
+    cd arche
     npm install
     npm start
 ```
