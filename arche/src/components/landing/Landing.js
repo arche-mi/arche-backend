@@ -15,12 +15,11 @@ function Home() {
 
 
     function switchTosign() {
-        window.location.href = "/sign";
+        window.location.href = "/top/question";
     }
 
     useEffect(() => {
         if (loading) return;
-        // if (user) navigate("/");
 
         setTimeout(() => { 
             stopNetworkAcces();

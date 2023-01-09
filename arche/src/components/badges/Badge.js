@@ -135,7 +135,7 @@ function Badges() {
         
         if (loading) return;
         if (!user) navigate("/landing");
-        if (!username) navigate("/");
+        if (!username) navigate("/questions");
 
         fetchBadges();
         

@@ -14,12 +14,14 @@ function Privacy() {
 
    var state={
         curDT : new Date().toLocaleString(),
-      }
+    }
 
 
 
     return (
         <>
+
+            <Header />
            
            <div className="privacy">
            <h1>Termes of use</h1>
@@ -105,6 +107,8 @@ function Privacy() {
             <p>In order to resolve a complaint regarding the Site or to receive further information regarding use of the Site, please contact us at: <br /> arche <br /> Abidajn 8922<br /> Cote d'Ivoire<br /> Phone: 0779186972</p>
 
            </div>
+
+           <Footer />
             
         </>
     )
