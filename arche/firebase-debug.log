@@ -1,0 +1,85 @@
+[debug] [2023-01-09T12:25:36.856Z] ----------------------------------------------------------------------
+[debug] [2023-01-09T12:25:36.860Z] Command:       /usr/local/bin/node /usr/local/bin/firebase login
+[debug] [2023-01-09T12:25:36.860Z] CLI Version:   11.20.0
+[debug] [2023-01-09T12:25:36.861Z] Platform:      linux
+[debug] [2023-01-09T12:25:36.861Z] Node Version:  v19.4.0
+[debug] [2023-01-09T12:25:36.861Z] Time:          Mon Jan 09 2023 12:25:36 GMT+0000 (Greenwich Mean Time)
+[debug] [2023-01-09T12:25:36.862Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-01-09T12:25:36.866Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[info] i  Firebase optionally collects CLI and Emulator Suite usage and error reporting information to help improve our products. Data is collected in accordance with Google's privacy policy (https://policies.google.com/privacy) and is not used to identify you.
+ 
+[info] i  To change your data collection preference at any time, run `firebase logout` and log in again. 
+[info] 
+[info] Visit this URL on this device to log in:
+[info] https://accounts.google.com/o/oauth2/auth?client_id=563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com&scope=email%20openid%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcloudplatformprojects.readonly%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Ffirebase%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcloud-platform&response_type=code&state=401691113&redirect_uri=http%3A%2F%2Flocalhost%3A9005
+[info] 
+[info] Waiting for authentication...
+[debug] [2023-01-09T12:25:42.571Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2023-01-09T12:25:42.574Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}
+[debug] [2023-01-09T12:25:48.133Z] >>> [apiv2][query] POST https://accounts.google.com/o/oauth2/token [none]
+[debug] [2023-01-09T12:25:48.134Z] >>> [apiv2][body] POST https://accounts.google.com/o/oauth2/token [omitted]
+[debug] [2023-01-09T12:25:53.692Z] <<< [apiv2][status] POST https://accounts.google.com/o/oauth2/token 200
+[debug] [2023-01-09T12:25:53.693Z] <<< [apiv2][body] POST https://accounts.google.com/o/oauth2/token [omitted]
+[info] 
+[info] ✔  Success! Logged in as hamedcuenca5@gmail.com 
+[debug] [2023-01-09T12:26:03.760Z] Error: Timed out.
+    at Timeout._onTimeout (/usr/local/lib/node_modules/firebase-tools/lib/utils.js:253:49)
+    at listOnTimeout (node:internal/timers:564:17)
+    at process.processTimers (node:internal/timers:507:7)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2023-01-09T12:27:08.851Z] ----------------------------------------------------------------------
+[debug] [2023-01-09T12:27:08.854Z] Command:       /usr/local/bin/node /usr/local/bin/firebase init
+[debug] [2023-01-09T12:27:08.855Z] CLI Version:   11.20.0
+[debug] [2023-01-09T12:27:08.855Z] Platform:      linux
+[debug] [2023-01-09T12:27:08.855Z] Node Version:  v19.4.0
+[debug] [2023-01-09T12:27:08.856Z] Time:          Mon Jan 09 2023 12:27:08 GMT+0000 (Greenwich Mean Time)
+[debug] [2023-01-09T12:27:08.856Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-01-09T12:27:08.864Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-01-09T12:27:08.864Z] > authorizing via signed-in user (hamedcuenca5@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /home/yayahc/Documents/CodeParrot/arche-backend/arche
+
+[debug] [2023-01-09T12:28:32.323Z] Error: Timed out.
+    at Timeout._onTimeout (/usr/local/lib/node_modules/firebase-tools/lib/utils.js:253:49)
+    at listOnTimeout (node:internal/timers:564:17)
+    at process.processTimers (node:internal/timers:507:7)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2023-01-09T12:28:36.676Z] ----------------------------------------------------------------------
+[debug] [2023-01-09T12:28:36.679Z] Command:       /usr/local/bin/node /usr/local/bin/firebase init
+[debug] [2023-01-09T12:28:36.679Z] CLI Version:   11.20.0
+[debug] [2023-01-09T12:28:36.680Z] Platform:      linux
+[debug] [2023-01-09T12:28:36.680Z] Node Version:  v19.4.0
+[debug] [2023-01-09T12:28:36.680Z] Time:          Mon Jan 09 2023 12:28:36 GMT+0000 (Greenwich Mean Time)
+[debug] [2023-01-09T12:28:36.680Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-01-09T12:28:36.688Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-01-09T12:28:36.689Z] > authorizing via signed-in user (hamedcuenca5@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /home/yayahc/Documents/CodeParrot/arche-backend/arche
+
+[debug] [2023-01-09T12:28:49.350Z] Error: Timed out.
+    at Timeout._onTimeout (/usr/local/lib/node_modules/firebase-tools/lib/utils.js:253:49)
+    at listOnTimeout (node:internal/timers:564:17)
+    at process.processTimers (node:internal/timers:507:7)
+[error] 
+[error] Error: An unexpected error has occurred.

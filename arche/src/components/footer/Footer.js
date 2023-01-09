@@ -45,7 +45,7 @@ function Footer() {
                     <div class="termes">
                         <div class="text2">
                             <ul>
-                                <li className="el-hover-footer" onClick={switchToBlog}>Blog</li>
+                                {/* <li className="el-hover-footer" onClick={switchToBlog}>Blog</li> */}
                                 <li className="el-hover-footer" onClick={switchToBadges}>Badges</li>
                                 <li className="el-hover-footer" onClick={switchToLibrairie}>Librairie</li>
                             </ul>
