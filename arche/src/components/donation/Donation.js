@@ -4,7 +4,6 @@ function Donation() {
 
     return (
         <div>
-            <a href="/">Arch</a>
             <h1>{name}</h1>
             <p>Faite un depot  Wave, Mtn au numero suivant : {number}, merci !!!</p> 
         </div>

@@ -9,7 +9,7 @@ import "./dashboard.css";
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
 import LoadingSpinner from "../loadSpinner/LoadingSpinner";
-import { async } from "@firebase/util";
+// import { async } from "@firebase/util"
 
 function Dashboard() {
     const [isLoading, setIsLoading] = useState(false);
@@ -134,47 +134,65 @@ function Dashboard() {
             console.log(error);
         }
         let list = document.getElementById("qs");
-        if (list.textContent != "") { list.textContent = "" };
+        list.innerHTML = "";
 
         let count = parseInt(Object.keys(questions).at(-1));
 
         for (let i = 0; i <= count; i++) {
-            let ul = document.createElement("ul");
+            // let ul = document.createElement("ul");
             
             // Pour les questions d'Id non incremente
-            if (questions[i]) {            
-                let li = document.createElement("li");
-                li.innerText = Object.values(questions[i][0])[0];
-                ul.appendChild(li);
+            if (questions[i]) {         
 
-                li = document.createElement("li");
-                li.innerText = Object.values(questions[i][1])[0];  
-                ul.appendChild(li);
+                let question1 = document.createElement('div');
+                question1.classList.add('question1-dash');
+                let rep = document.createElement('div');
+                rep.classList.add('reponses-dash');
+                let name_rep = document.createElement('div');
+                name_rep.classList.add('name-response');
+                let h3 = document.createElement('div');
+                h3.classList.add('h3');
+                let re = document.createElement('div');
+                re.classList.add('reponse-dash');
+                let txt = document.createElement('div');
+                txt.classList.add('texte-dash');
+                let btn = document.createElement('div');
+                btn.classList.add('bouton-dash');
                 
-                li = document.createElement("li");
-                li.innerText = Object.values(questions[i][2])[0];               
-                ul.appendChild(li);
+                h3.innerText = Object.values(questions[i][0])[0];              
                 
-                li = document.createElement("li");
-                li.innerText = (Object.values(questions[i][3].responses)).length + " reponses";
-                ul.appendChild(li);
-
-                li = document.createElement("li");
+                let p = document.createElement("p");
                 const fetchTime = questions[i][4].toDate();
                 const date = firebaseTimeToDayMonthYearAndHourMinutes(fetchTime);
                 date.then((value) => {
-                    li.innerText = "posee le: " + value;
-                    ul.appendChild(li);
+                    p.innerText = value;
+                    txt.appendChild(p);
                 });
+
+                // for tag
+                // li = document.createElement("li");
+                // li.innerText = Object.values(questions[i][2])[0];               
+                // ul.appendChild(li);
+                
+                txt.innerHTML = Object.values(questions[i][1])[0];
+                re.innerText = (Object.values(questions[i][3].responses)).length + " reponses";
+                name_rep.appendChild(h3);
+                name_rep.appendChild(re);
+
+                rep.appendChild(name_rep);
+                rep.appendChild(txt);
 
                 let a = document.createElement("a");
                 let linkText = document.createTextNode("voir");
                 a.appendChild(linkText);
-                ul.appendChild(a);
                 // a.title = "more";
                 a.href = `/question?${+i}!${userid}`;
+                btn.appendChild(a);
+                
+                question1.appendChild(rep);
+                question1.appendChild(btn);
 
-                list.appendChild(ul);
+                list.appendChild(question1);
             };
         }
         setIsLoading(false);
@@ -191,34 +209,38 @@ function Dashboard() {
             const responses = data.responses;
 
             const resp_resp = document.querySelector("#rs");
-            if (resp_resp.textContent != "") { resp_resp.textContent = "" };
+            resp_resp.innerHTML = "";
    
             console.log(responses);
             let count_for_responses = parseInt(Object.keys(responses).at(-1));
 
             for (let i = 0; i <= count_for_responses; i++) {
-                let ul = document.createElement("ul");
+                let rr = document.createElement("div");
+                rr.classList.add('question1-dash')
                 
                 // Pour les questions d'Id non incremente
                 if (responses[i]) {        
-                    let li = document.createElement("li");
+                    let lr = document.createElement("div");
+                    lr.classList.add('h3')
 
                     let a = document.createElement("a");
                     let linkText = document.createTextNode(`${responses[i][0].text}`);
                     a.appendChild(linkText);
-                    ul.appendChild(a);
+                    lr.appendChild(a);
                     // a.title = "more";
                     a.href = `/question?${+responses[i][5]}!${responses[i][1].user}`;
                                 
-                    li = document.createElement("li");
+                    let lrd = document.createElement("div");
+                    lrd.classList.add('resp-date');
                     const fetchTime = responses[i][3].toDate();
                     const date = firebaseTimeToDayMonthYearAndHourMinutes(fetchTime);
                     date.then((value) => {
-                        li.innerText = "posee le: " + value;
-                        ul.appendChild(li);
-                    });                   
+                        lrd.innerText = value;
+                    });                 
+                    rr.appendChild(lr);
+                    rr.appendChild(lrd);
 
-                    resp_resp.appendChild(ul);
+                    resp_resp.appendChild(rr);
                 };
             };
             
@@ -312,30 +334,41 @@ function Dashboard() {
         return (
             <>
                 {isLoading ? <LoadingSpinner /> : fetchBadges}
-                <Header />
+                <Header />           
 
-                <h1>Bio</h1>
-                <a href="/">Arch</a><br></br>
-                <img referrerpolicy="no-referrer" src={photo} alt="Photo"/>
-                <p>{name}</p>
-                <h1>Info</h1>
-                <h3>universite : </h3><p id="university">{university}</p>
-                <h3>filiere : </h3><p id="filiere">{filiere}</p>
-                <h3>niveau : </h3><p id="level">{level}</p>
-                <h3>Genre : </h3><p id="sexe">{sexe}</p>
-                <p>Derniere connexion : {lastSeen}</p>
-                <p>Inscrit le : {creationTime}</p>
-
-                <h1>Badges de {name}</h1>
-                <div id="badges_area"></div>
-
-                <h1>les question's de {name}</h1>
-                {/* {isLoading ? <LoadingSpinner /> : fetchUserQuestions} */}
-                <div id="qs"></div>
-
-                <h1>les reponses de {name}</h1>
-                {/* {isLoading ? <LoadingSpinner /> : fetchUserResponses} */}
-                <div id="rs"></div>
+                <div id="conteneurprincipale-dash">
+                    <div class="rectangle-dash">
+                        <div class="user-detail">
+                            <div class="image-dash">
+                                <img referrerpolicy="no-referrer" src={photo} alt="Photo"/>
+                            </div>
+                            <div class="infos-dash">
+                                <h3>{name}</h3>
+                                <p>Inscrit le : {creationTime}</p>
+                                <p>Derniere connexion : {lastSeen}</p>
+                            </div>
+                        </div>   
+                        <div class="user-detail-editable">
+                            <p id="university">{university}</p>
+                            <p id="filiere">{filiere}</p>
+                            <p id="level">{level}</p>
+                            <p id="sexe">{sexe}</p>
+                        </div>    
+                        {/* <div className="badge" id="badges_area"></div> */}
+                    </div>
+                    <div class="questions-dash">
+                        <div class="question-dash">
+                            <div class="h3">
+                                <h2>Les questions de {name}</h2>
+                                <div id="qs"></div>
+                            </div>                                           
+                            <div class="Reponse-dash">
+                                <h2>Les reponses de {name}</h2>
+                                <div id="rs"></div>
+                            </div>
+                        </div>
+                    </div>                   
+                </div>        
 
                 <Footer />                
             </>
@@ -346,33 +379,48 @@ function Dashboard() {
                 {isLoading ? <LoadingSpinner /> : fetchBadges}
                 <Header />
 
-                <h1>Bio</h1>
-                <img referrerpolicy="no-referrer"  src={photo} alt="Photo"/>
-                <p>{name}</p>
-                <h1>Info</h1>               
-                <h3>universite : </h3><p id="university" contenteditable="true">{university}</p>
-                <h3>filiere : </h3><p id="filiere" contenteditable="true">{filiere}</p>
-                <h3>niveau : </h3><p id="level" contenteditable="true">{level}</p>
-                <h3>Genre : </h3><p id="sexe" contenteditable="true">{sexe}</p>
-                <h3>Derniere connexion : {lastSeen}</h3>
-                <h3>Inscrit le : {creationTime}</h3>                
-                <button onClick={updateUserProfile}>Enregistrer les modification</button>
-
-                <h1>Badges</h1>
-                <div id="badges_area"></div>                
-
-                <h1>Mes Question's</h1>
-                {/* {isLoading ? <LoadingSpinner /> : fetchUserQuestions} */}
-                <div id="qs"></div>
-
-                <h1>Mes reponses</h1>
-                {/* {isLoading ? <LoadingSpinner /> : fetchUserResponses} */}
-                <div id="rs"></div>
-    
-                <h2>Message</h2>
-                <p>{message}</p>
-                <button onClick={switchToFeedback}>feedback (nous laisser un message)</button>
-                <button onClick={logout}>Se deconnecter</button>
+                <div id="conteneurprincipale-dash">
+                    <div class="rectangle-dash">
+                        <div class="user-detail">
+                            <div class="image-dash">
+                                <img referrerpolicy="no-referrer" src={photo} alt="Photo"/>
+                            </div>
+                            <div class="infos-dash">
+                                <h3>{name}</h3>
+                                <p>Inscrit le : {creationTime}</p>
+                                <p>Derniere connexion : {lastSeen}</p>
+                            </div>
+                        </div>   
+                        <div class="user-detail-editable">
+                            <p contenteditable="true" id="university">{university}</p>
+                            <p contenteditable="true" id="filiere">{filiere}</p>
+                            <p contenteditable="true" id="level">{level}</p>
+                            <p contenteditable="true" id="sexe">{sexe}</p>
+                            <button className="update-profile" type="button">Enrégistrer les Modifications</button>
+                        </div>    
+                        <div class="user-cta">
+                            <h3>Message</h3>
+                            <p>{message}</p>
+                            <div className="btn-dash">
+                                <button onClick={switchToFeedback}>feedback (nous laisser un message)</button>
+                                <button onClick={logout}>Se deconnecter</button>
+                            </div>
+                        </div>                
+                        {/* <div className="badge" id="badges_area"></div> */}
+                    </div>
+                    <div class="questions-dash">
+                        <div class="question-dash">
+                            <div class="h3">
+                                <h2>Mes questions</h2>                          
+                                <div id="qs"></div>
+                            </div>                                           
+                            <div class="Reponse-dash">
+                                <h2>Mes reponses</h2>
+                                <div id="rs"></div>
+                            </div>
+                        </div>
+                    </div>                   
+                </div>                                             
 
                 <Footer />
             </>
