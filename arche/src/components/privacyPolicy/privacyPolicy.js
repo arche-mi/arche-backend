@@ -1,8 +1,4 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, stopNetworkAcces } from "../../firebase";
-import { getFirestore, query, getDocs, collection, serverTimestamp, where, addDoc, orderBy, doc, setDoc, Firestore } from "firebase/firestore";
 
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
