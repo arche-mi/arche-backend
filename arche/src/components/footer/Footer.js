@@ -16,7 +16,7 @@ function Footer() {
         window.location.href = `/badges#${user.uid}`;
     }
     function switchToHome() {
-        window.location.href = `/`;
+        window.location.href = `/top/questions`;
     }
     function switchToUsers() {
         window.location.href = `/users`;
