@@ -1,14 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 
 .container-home {
+    display: flex;
     /* max-width: 1200px; */
     padding: 5rem 2rem;
+    gap: 2rem;
     /* margin: 3rem auto; */
-    min-height: 60vh;
+    min-height: 40vh;
     background-color: #FFFFFF;
     /* border-radius: 1rem; */
 }
-
+.aside-home-section {
+    /* border: 1px solid red; */
+    margin-top: 30px;
+}
 .container-home main {
     display: grid;
     justify-content: center;

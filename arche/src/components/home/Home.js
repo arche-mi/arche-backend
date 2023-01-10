@@ -8,6 +8,7 @@ import Header from "../header/Header";
 import Footer from "../footer/Footer";
 import LoadingSpinner from "../loadSpinner/LoadingSpinner";
 import './home.css';
+import HomeAside from "./home_aside";
 
 
 function Home() {
@@ -223,6 +224,9 @@ function Home() {
                     <div class="allquestion">                              
                     </div>
                 </main>
+                <section className="aside-home-section">
+                    <HomeAside />
+                </section>
             </div>            
 
             <Footer />

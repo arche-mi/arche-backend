@@ -1,0 +1,9 @@
+.home-aside {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(9, 64, 146, 0.116);
+    border-radius: 7px;
+    max-width: 250px;
+    padding: 20px;
+}
