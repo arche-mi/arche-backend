@@ -146,8 +146,12 @@
 
 @media screen and (max-width: 750px) {
     .container-home{
+        display: grid;
         /* width: 500px; */
         /* margin: 50px; */
+    }
+    .aside-home-section {
+        margin: 5px 20px;
     }
 
     .container-home main {
@@ -181,7 +185,7 @@
     }
 
     .container-home main .allquestion {
-        width: 450px;
+        /* width: 450px; */
     }
 
     .container-home main .allquestion .question-home {

@@ -6,10 +6,9 @@ import { query, collection, getDocs } from "firebase/firestore";
 
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
-import { async } from "@firebase/util";
 import LoadingSpinner from "../loadSpinner/LoadingSpinner";
+import HomeAside from "../home/home_aside";
 import './users.css';
-
 
 
 function sort(items){
@@ -286,6 +285,9 @@ function Users() {
       
                     <div id="users"></div>               
                 </main>
+                <section className="aside-home-section">
+                    <HomeAside />
+                </section>
             </div> 
 
             <Footer />
