@@ -301,6 +301,7 @@ function Dashboard() {
             } catch (err) {
                 console.error(err);               
             }
+            alert('Mise a jour du profile effectuee !!!');
         }
         fetchUserInfo();
         stopNetworkAcces();

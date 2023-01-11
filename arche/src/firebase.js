@@ -10,7 +10,6 @@ import { onSnapshot } from "firebase/firestore";
 import { enableIndexedDbPersistence } from "firebase/firestore"; 
 import { disableNetwork } from "firebase/firestore"; 
 import { enableNetwork } from "firebase/firestore"; 
-import Badges from "./components/badges/Badge";
 
 
 // Your web app's Firebase configuration
