@@ -36,7 +36,7 @@ function Questions() {
     }
 
 
-    // Fetch users Questions
+    // fetch users Questions
     const fetchUsersQuestions = async () => {        
         let questions = [];
         try {
