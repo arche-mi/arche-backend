@@ -25,7 +25,7 @@ function Sign() {
     
     useEffect(() => {
       if (loading) return;
-      if (user) navigate("/");
+      if (user) navigate("/questions");
       
     }, [user, loading]);
 

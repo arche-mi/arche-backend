@@ -7,7 +7,7 @@ import { query, collection, getDocs } from "firebase/firestore";
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
 import LoadingSpinner from "../loadSpinner/LoadingSpinner";
-
+import HomeAside from "../home/home_aside";
 
 function Questions() {
     const [isLoading, setIsLoading] = useState(false);
@@ -228,6 +228,9 @@ function Questions() {
                     <div class="allquestion">                              
                     </div>
                 </main>
+                <section className="aside-home-section">
+                    <HomeAside />
+                </section>
             </div> 
 
             <Footer />

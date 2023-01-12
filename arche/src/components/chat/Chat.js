@@ -17,14 +17,7 @@ function Chat() {
 
     const [user, loading] = useAuthState(auth);
     const navigate = useNavigate();
-    const [photo, setPhoto] = useState();
-    const [userid, setUid] = useState("");
-    const [username, setName] = useState("");
-    const [formValue, setFormValue] = useState("");
 
-    const [fileUrl, setUrl] = useState("");
-    const [percent, setPercent] = useState(0);
-    const [isReady, setIsready] = useState(true);
     
 
 
@@ -76,8 +69,8 @@ function Chat() {
           });
           setMessages(messages.reverse());
         });
-        // stopNetworkAcces();
         return () => unsubscribe();
+        // stopNetworkAcces();
 
     }, [user, loading]);
 

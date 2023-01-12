@@ -25,9 +25,9 @@ function App() {
       <Router>
         <Routes>
           <Route path='*' element={<NotFound />}/>
-          <Route exact path="/" element={<Home />} />   
+          <Route exact path="/" element={<Landing />} />
+          <Route exact path="/top/questions" element={<Home />} />
           <Route exact path="/blog" element={<Blog />} />   
-          <Route exact path="/landing" element={<Landing />} />   
           <Route exact path="/sign" element={<Sign />} />
           <Route exact path="/user" element={<Dashboard />} />
           <Route exact path="/users" element={<Users />} />

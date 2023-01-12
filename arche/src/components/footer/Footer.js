@@ -16,7 +16,7 @@ function Footer() {
         window.location.href = `/badges#${user.uid}`;
     }
     function switchToHome() {
-        window.location.href = `/`;
+        window.location.href = `/top/questions`;
     }
     function switchToUsers() {
         window.location.href = `/users`;
@@ -46,7 +46,7 @@ function Footer() {
                         <div class="text2">
                             <ul>
                                 {/* <li className="el-hover-footer" onClick={switchToBlog}>Blog</li> */}
-                                <li className="el-hover-footer" onClick={switchToBadges}>Badges</li>
+                                {/* <li className="el-hover-footer" onClick={switchToBadges}>Badges</li> */}
                                 <li className="el-hover-footer" onClick={switchToLibrairie}>Librairie</li>
                             </ul>
                         </div>

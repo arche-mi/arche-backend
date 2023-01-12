@@ -356,7 +356,7 @@ function Librairie() {
         
         if (loading) return;
         if (!user) navigate("/landing");
-        if (!username) navigate("/");
+        if (!username) navigate("/questions");
         fetchLibrairie();   
 
         // state form script menu
