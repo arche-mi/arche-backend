@@ -223,7 +223,7 @@ function Users() {
         setIsLoading(true); 
         
         if (loading) return;
-        if (!user) navigate("/landing");
+        if (!user) navigate("/");
 
         fetchUsers();
 

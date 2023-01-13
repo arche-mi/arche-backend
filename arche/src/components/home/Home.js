@@ -178,7 +178,7 @@ function Home() {
     useEffect(() => {
         if (loading) return;        
 
-        if (!user) navigate("/landing");
+        if (!user) navigate("/");
 
         fetchUserInfo();
         fetchUsersQuestions();    

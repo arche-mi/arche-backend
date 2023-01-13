@@ -36,7 +36,7 @@ function Questions() {
     }
 
 
-    // Fetch users Questions
+    // fetch users Questions
     const fetchUsersQuestions = async () => {        
         let questions = [];
         try {
@@ -182,7 +182,7 @@ function Questions() {
         setIsLoading(true);  
         
         if (loading) return;
-        if (!user) navigate("/landing");
+        if (!user) navigate("/");
 
         fetchUserInfo();
         fetchUsersQuestions();

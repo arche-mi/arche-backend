@@ -355,7 +355,7 @@ function Librairie() {
         setIsLoading(true);  
         
         if (loading) return;
-        if (!user) navigate("/landing");
+        if (!user) navigate("/");
         if (!username) navigate("/questions");
         fetchLibrairie();   
 
