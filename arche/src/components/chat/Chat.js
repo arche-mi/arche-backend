@@ -59,7 +59,7 @@ function Chat() {
         // activeNetworkAcces();
 
         if (loading) return;
-        if (!user) navigate("/landing");
+        if (!user) navigate("/");
 
         const q = query(collection(db, 'messages'), orderBy('timestamp'));
         const unsubscribe = onSnapshot(q, (querySnapshot) => {
