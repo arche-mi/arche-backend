@@ -213,7 +213,7 @@ function Users() {
         window.location.href = `/unanswered`;
     }
     function switchToTopQuestions() {
-        window.location.href = `/`;
+        window.location.href = `/question/top`;
     }  
     function switchToTopLibrairie() {
         window.location.href = `/librairie#${user.displayName}`

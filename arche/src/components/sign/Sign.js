@@ -35,9 +35,8 @@ function Sign() {
           <div id="conteneurprincipale">
             <div class="regle">
                 <h3>Règles et conditions d'utilisation</h3>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas corporis sit rerum hic! 
-                Neque amet fugiat ad et reprehenderit velit eius fugit,
-                recusandae, quia ea suscipit est rem, eum aut!        
+                En vous connectant sur l'arche, vous accepte le partage de votre nom, votre adresse e-mail
+                ,votre photo de profil lies a votre compte Google.       
             </div>
             <div class="lien">
                 <div onClick={switchToPrivacy} class="texte">

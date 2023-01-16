@@ -18,7 +18,7 @@ function HomeAside() {
           querySnapshot.forEach((doc) => {
             infos.push({ text: doc.data().text, votes: doc.data().votes });
           });
-          setInfos(infos);
+          setInfos(infos.reverse());
         });
         return () => docmt();
             
@@ -37,7 +37,7 @@ function HomeAside() {
                     et plus destiné aux étudiants en mathématiques et en informatiques. Il est 100% gratuit.
                 </p>
                 <h1 class="home-aside-h1">
-                    Informations Feed
+                    Flux d'Informations
                 </h1>
                 <div className='info-feed'>
                     {infos.map(({ text, votes }) => (

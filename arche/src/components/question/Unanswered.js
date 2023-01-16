@@ -7,6 +7,7 @@ import { query, collection, getDocs, where, doc } from "firebase/firestore";
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
 import LoadingSpinner from "../loadSpinner/LoadingSpinner";
+import HomeAside from "../home/home_aside";
 
 
 function Unanswered() {
@@ -161,7 +162,7 @@ function Unanswered() {
         window.location.href = `/unanswered`;
     }
     function switchToTopQuestions() {
-        window.location.href = `/`;
+        window.location.href = `/question/top`;
     }  
     function switchToTopLibrairie() {
         window.location.href = `/librairie#${name}`
@@ -218,6 +219,9 @@ function Unanswered() {
                     <div class="allquestion">                              
                     </div>
                 </main>
+                <section className="aside-home-section">
+                    <HomeAside />
+                </section>
             </div> 
 
             <Footer />
