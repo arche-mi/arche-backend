@@ -22,21 +22,20 @@
 
 .container-home main .header-home {
     display: flex;
-    justify-content: space-between;
+    justify-content: right;
     align-items: center;
-    gap: 0;
     /* max-width: 730px; */
-    border-radius: 10px;
-    background-color: #BFC8E5;
-    margin: 15px 0 ;
+    /* border-radius: 10px; */
+    /* background-color: #BFC8E5; */
 }
 
 .container-home main .header-home .item {
     transition: all 0.3s ease;
     text-align: center;
     color: #FFFFFF;
+    background-color: #BFC8E5;
     cursor: pointer;
-    padding: 20px;
+    padding: 12px 20px;
 }
 
 /* .container-home main .header-home .active {
@@ -74,11 +73,11 @@
 }
 
 .container-home main .header-home .item:first-child{
-    border-radius: 10px 0 0 10px;
+    border-radius: 4px;
 }
 
 .container-home main .header-home .item:last-child {
-    border-radius: 0 10px 10px 0;
+    border-radius: 4px;
 }
 
 .container-home main .allquestion .question-home {
@@ -141,10 +140,10 @@
     cursor: pointer;
 }
 .unq {
-    font-size: 14px;
+    /* font-size: 14px; */
 }
 
-@media screen and (max-width: 750px) {
+@media screen and (max-width: 950px) {
     .container-home{
         display: grid;
         /* width: 500px; */
@@ -189,7 +188,7 @@
     }
 
     .container-home main .allquestion .question-home {
-        width: 450px;
+        /* width: 450px; */
     }
 
     .blockquestion {
