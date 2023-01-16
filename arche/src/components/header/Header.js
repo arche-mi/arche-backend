@@ -43,7 +43,7 @@ function Header() {
         window.location = `/user?${user?.uid}#${user?.uid}`;
     }
     function switchToHome() {
-        window.location = `/question/tops`;
+        window.location = `/question/top`;
     }
     function switchToChat() {
         window.location.href = `/chat`;
