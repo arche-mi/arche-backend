@@ -135,7 +135,7 @@ function Unanswered() {
             }
         })
         setIsLoading(false);
-        stopNetworkAcces();
+        // stopNetworkAcces();
     }
 
     // Fetch username by uid

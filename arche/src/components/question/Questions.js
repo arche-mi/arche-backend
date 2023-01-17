@@ -143,7 +143,7 @@ function Questions() {
         // questions_count_text.appendChild(questions_count_p)
 
         setIsLoading(false);
-        stopNetworkAcces();
+        // stopNetworkAcces();
     }
 
 

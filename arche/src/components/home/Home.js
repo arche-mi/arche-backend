@@ -139,7 +139,7 @@ function Home() {
         })
         setIsLoading(false);
         setTimeout(() => { 
-            stopNetworkAcces();
+            // stopNetworkAcces();
         }, 1000);
     }
 

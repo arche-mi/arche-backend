@@ -192,7 +192,7 @@ function Users() {
                         users_div.appendChild(user_item);                
                 })
 
-            stopNetworkAcces();
+            // stopNetworkAcces();
             setIsLoading(false);
         } catch (error) {
             console.log(error);
