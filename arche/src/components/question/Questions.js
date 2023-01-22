@@ -143,7 +143,7 @@ function Questions() {
         // questions_count_text.appendChild(questions_count_p)
 
         setIsLoading(false);
-        stopNetworkAcces();
+        // stopNetworkAcces();
     }
 
 
@@ -187,22 +187,22 @@ function Questions() {
         fetchUserInfo();
         fetchUsersQuestions();
 
-        const top = document.querySelector('.topq');
-        const allq = document.querySelector('.allq');
-        const unq = document.querySelector('.unq');
-        const usrs = document.querySelector('.usrs');
+        // const top = document.querySelector('.topq');
+        // const allq = document.querySelector('.allq');
+        // const unq = document.querySelector('.unq');
+        // const usrs = document.querySelector('.usrs');
 
-        const currentPage = window.location.href;
-        if (currentPage.includes('user')) {
-            usrs.style.background = '#516FD4FC';
-        } else if (currentPage.includes('unanswered')) {
-            unq.style.background = '#516FD4FC';
-        } else if (currentPage.includes('questions')) {
-            allq.style.background = '#516FD4FC';
-        } else {
-            top.style.background = '#516FD4FC';
-            console.log(2)
-        }
+        // const currentPage = window.location.href;
+        // if (currentPage.includes('user')) {
+        //     usrs.style.background = '#516FD4FC';
+        // } else if (currentPage.includes('unanswered')) {
+        //     unq.style.background = '#516FD4FC';
+        // } else if (currentPage.includes('questions')) {
+        //     allq.style.background = '#516FD4FC';
+        // } else {
+        //     top.style.background = '#516FD4FC';
+        //     console.log(2)
+        // }
 
     }, [user, loading]);
 
@@ -213,12 +213,12 @@ function Questions() {
 
             <div class="container-home">
                 <main class="home-main">
-                    <div class="header-home">
+                    {/* <div class="header-home">
                         <span onClick={switchToTopQuestions} class="item active topq" data-name="01">Top Questions</span>
                         <span onClick={switchToQuestions} class="item allq" data-name="02">Toutes les questions</span>
                         <span onClick={switchToUnanswered} class="item unq" data-name="03">Questions non repondues</span>
                         <span onClick={switchToUsers} class="item usrs"><a href="#">Utilisateurs</a></span>
-                    </div>
+                    </div> */}
                     
                     <div class="entete">
                         <span>Tout les Questions</span>

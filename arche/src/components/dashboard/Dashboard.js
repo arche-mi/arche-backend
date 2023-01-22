@@ -304,7 +304,7 @@ function Dashboard() {
             alert('Mise a jour du profile effectuee !!!');
         }
         fetchUserInfo();
-        stopNetworkAcces();
+        // stopNetworkAcces();
     }
 
 

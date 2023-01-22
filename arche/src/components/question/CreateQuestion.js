@@ -73,11 +73,11 @@ function CreateQuestion() {
                     console.log(`On a deja ${Object.keys(questions).length} questions`);
                     questions[key] = [{title:title}, {text:text}, {tags:tags.split(',')}, {responses:responses}, date, fileUrl];
                     const userDocByUsername = doc(db, "users", name);
-                    activeNetworkAcces();
+                    // activeNetworkAcces();
                     await updateDoc(userDocByUsername, {
                         questions: questions
                     });
-                    stopNetworkAcces();
+                    // stopNetworkAcces();
                     window.location = `/question?${+key}!${user?.uid}`;
                 }            
     
@@ -133,7 +133,7 @@ function CreateQuestion() {
 
        fetchUserName();
        fetchUserQuestions();
-       stopNetworkAcces();
+    //    stopNetworkAcces();
     }, [user, loading]);
 
     

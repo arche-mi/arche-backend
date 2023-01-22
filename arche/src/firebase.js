@@ -32,8 +32,8 @@ const feedback = [];
 const documents = [];
 const university = 'ufhb';
 const filiere = "Math Info";
-const level = 'Inconnu';
-const sexe = 'Inconnu';
+const level = 'Niveau';
+const sexe = 'Sexe';
 
 // Sign with Google
 const signInWithGoogle = async () => {

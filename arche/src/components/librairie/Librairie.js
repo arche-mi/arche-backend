@@ -158,7 +158,7 @@ function Librairie() {
             console.log(error)            
         }
         setIsLoading(false);
-        stopNetworkAcces();
+        // stopNetworkAcces();
     }
 
     const fetchLevel = async (level) => {
@@ -248,7 +248,7 @@ function Librairie() {
             console.log(error)            
         }
         setIsLoading(false);
-        stopNetworkAcces();
+        // stopNetworkAcces();
     }
    
 
@@ -339,7 +339,7 @@ function Librairie() {
             console.log(error)            
         }
         setIsLoading(false);
-        stopNetworkAcces();
+        // stopNetworkAcces();
     }
 
 

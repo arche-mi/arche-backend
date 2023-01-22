@@ -9,8 +9,8 @@
 
 .spinner-container {
   position: absolute;
-  background-color: white;
-  opacity: 0.8;
+  background-color: rgb(0, 0, 0);
+  opacity: 0.9;
   /* border: 1px solid red; */
   /* padding: 30px; */
   width: 100%;
@@ -27,7 +27,7 @@
     width: 40px;
     height: 40px;
     border: 10px solid #f3f3f3; /* Light grey */
-    border-top: 10px solid #516FD4FC; /* Black */
+    border-top: 10px solid #27BC48; /* Black */
     border-radius: 50%;
     animation: spinner 1.5s linear infinite;
 }

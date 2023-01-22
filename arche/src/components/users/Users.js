@@ -192,7 +192,7 @@ function Users() {
                         users_div.appendChild(user_item);                
                 })
 
-            stopNetworkAcces();
+            // stopNetworkAcces();
             setIsLoading(false);
         } catch (error) {
             console.log(error);
@@ -227,10 +227,10 @@ function Users() {
 
         fetchUsers();
 
-        const top = document.querySelector('.topq');
-        const allq = document.querySelector('.allq');
-        const unq = document.querySelector('.unq');
-        const usrs = document.querySelector('.usrs');
+        // const top = document.querySelector('.topq');
+        // const allq = document.querySelector('.allq');
+        // const unq = document.querySelector('.unq');
+        // const usrs = document.querySelector('.usrs');
 
         const span1 = document.querySelector('.users-menu-span1');
         const span2 = document.querySelector('.users-menu-span2');
@@ -246,17 +246,17 @@ function Users() {
         });
         
         
-        const currentPage = window.location.href;
-        if (currentPage.includes('user')) {
-            usrs.style.background = '#516FD4FC';
-        } else if (currentPage.includes('unanswered')) {
-            unq.style.background = '#516FD4FC';
-        } else if (currentPage.includes('questions')) {
-            allq.style.background = '#516FD4FC';
-        } else {
-            top.style.background = '#516FD4FC';
-            console.log(2)
-        }
+        // const currentPage = window.location.href;
+        // if (currentPage.includes('user')) {
+        //     usrs.style.background = '#516FD4FC';
+        // } else if (currentPage.includes('unanswered')) {
+        //     unq.style.background = '#516FD4FC';
+        // } else if (currentPage.includes('questions')) {
+        //     allq.style.background = '#516FD4FC';
+        // } else {
+        //     top.style.background = '#516FD4FC';
+        //     console.log(2)
+        // }
 
     }, [user, loading]);
 
@@ -268,12 +268,12 @@ function Users() {
 
             <div class="container-home">
                 <main class="home-main">
-                    <div class="header-home">
+                    {/* <div class="header-home">
                         <span onClick={switchToTopQuestions} class="item active topq" data-name="01">Top Questions</span>
                         <span onClick={switchToQuestions} class="item allq" data-name="02">Toutes les questions</span>
                         <span onClick={switchToUnanswered} class="item unq" data-name="03">Questions non repondues</span>
                         <span onClick={switchToUsers} class="item usrs"><a href="#">Utilisateurs</a></span>
-                    </div>
+                    </div> */}
 
                     <div className="users-menu-container">
                         <h1>Utilisateurs</h1>

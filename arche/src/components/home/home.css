@@ -3,6 +3,7 @@
 .container-home {
     display: flex;
     /* max-width: 1200px; */
+    justify-content: center;
     padding: 5rem 2rem;
     gap: 2rem;
     /* margin: 3rem auto; */
@@ -12,7 +13,7 @@
 }
 .aside-home-section {
     /* border: 1px solid red; */
-    margin-top: 30px;
+    margin-top: 45px;
 }
 .container-home main {
     display: grid;
@@ -22,7 +23,7 @@
 
 .container-home main .header-home {
     display: flex;
-    justify-content: right;
+    /* justify-content: right; */
     align-items: center;
     /* max-width: 730px; */
     /* border-radius: 10px; */
@@ -82,7 +83,7 @@
 
 .container-home main .allquestion .question-home {
     background-color: #D9D9D980;
-    padding: 20px 20px 1px 20px;
+    padding: 20px 20px 20px 20px;
     margin-bottom: 10px;
     border-radius: 10px;
 }
@@ -145,7 +146,7 @@
 
 @media screen and (max-width: 950px) {
     .container-home{
-        display: grid;
+        /* display: grid; */
         /* width: 500px; */
         /* margin: 50px; */
     }
@@ -201,5 +202,69 @@
 
     .container-home main .allquestion .question-home .user span:last-child {
         width: 100px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .container-home main .allquestion .question-home .view {
+        padding: 3px 15px;
+    }
+    .aside-home-section, .question-home {
+        max-width: 300px;
+    }
+    .container-home main .header-home {
+        display: grid;
+        margin-bottom: 20px;
+        grid-template-columns: 200px;
+    }
+    .blockquestion {
+        display: grid;
+    }
+    .container-home main .allquestion .question-home .view, .blockquestion a {
+        margin-left: 0;
+    }
+    .container-home main .allquestion .question-home {
+        max-width: 300px;
+        /* min-height: 110px; */
+    }
+    .container-home {
+        padding: 3rem 15px;
+    }
+    .container-home main .entete {
+        display: flex;
+        width: auto;
+    }
+    .header-home {
+        display: grid;
+        justify-content: center;
+    }
+    .entete span {
+        font-size: 13px;
+    }
+    .users-menu-container {
+        display: grid;
+        align-items: center;
+    }
+    .users-menu-container h1 {
+        font-size: 14px;
+    }   
+    .container-home main .header-home .item:last-child {
+        border-radius: 0 0 10px 10px;
+    }
+    .container-home main .header-home .item:first-child {
+        border-radius: 10px 10px 0 0;
+    }
+    .name_user {
+        max-width: 95px;
+    }
+}
+@media screen and (max-width: 790px) {
+    .container-home{
+        display: grid;
+        /* width: 500px; */
+        /* margin: 50px; */
+    }
+    .container-home main .allquestion .question-home .view {
+        padding: 3px 15px;
     }
 }
