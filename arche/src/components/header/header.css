@@ -142,11 +142,17 @@ header {
 
 
 
-@media (max-width:448px) {
+@media (max-width:648px) {
     #beta {
         display: none;
     }
     header {
         padding: 5px 12px;
+    }
+    .btn-primary-header {
+        padding: 0px 10px;
+    }
+    #img-btn {
+        gap: 9px;
     }
 }

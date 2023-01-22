@@ -48,7 +48,7 @@
 }
 
 #response_text {
-    min-width: 600px;
+    /* min-width: 600px; */
     min-height: 18vh;
 }
 
@@ -366,7 +366,7 @@
     }
     
     .titre{
-       margin-bottom:1.9em;
+       margin-bottom:1em;
        font-size:0.9em;
        color: rgba(0, 0, 0, 0.46);
     }

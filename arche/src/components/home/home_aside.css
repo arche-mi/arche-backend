@@ -4,7 +4,7 @@
     align-items: center;
     background-color: rgba(9, 64, 146, 0.116);
     border-radius: 4px;
-    max-width: 250px;
+    width: 250px;
 }
 .hello-aside {
     padding: 0 10px;
@@ -48,4 +48,10 @@
     padding: 5px 10px;
     background-color:  rgba(9, 64, 146, 0.116);
     opacity: 0.7;
+}
+
+@media screen and (max-width: 700px) {
+    .home-aside {
+        width: auto;
+    }
 }

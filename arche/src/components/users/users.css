@@ -12,6 +12,12 @@
 .users-menu span:hover {
     cursor: pointer;
 }
+.users-menu-container {
+    align-items: center;
+}
+.users-menu-container h1 {
+    font-size: 1.4rem;
+}
 .users-menu .users-menu-span1 {
     padding: 7px 14px;
     color: white;
@@ -75,6 +81,11 @@
 
 @media screen and ((max-width: 400px)) {
     .nb-qs-us {
-        background-color: red;
+        /* background-color: red; */
+    }
+    .user-item {
+        padding: 14px 9px;
+        /* justify-content: space-between; */
+        /* gap: 12px; */
     }
 }
