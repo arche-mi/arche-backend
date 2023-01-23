@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { db,auth } from "../../firebase";
-import { query, onSnapshot, collection, getDocs, setIndexConfiguration } from "firebase/firestore";
+import { getDocs, setIndexConfiguration } from "firebase/firestore";
+import { getFirestore, query, collection, onSnapshot, serverTimestamp, where, addDoc, orderBy, doc, setDoc, Firestore } from "firebase/firestore";
+
 import { useAuthState } from "react-firebase-hooks/auth";
 import './home_aside.css';
 
 function HomeAside() {
     const [infos, setInfos] = useState([]);
     const [user, loading] = useAuthState(auth);
+    const [messages, setMessages] = useState([])
 
         
     useEffect(() => {    
@@ -20,7 +23,18 @@ function HomeAside() {
           });
           setInfos(infos.reverse());
         });
-        return () => docmt();
+        // return () => docmt();
+
+
+        const qm = query(collection(db, 'messages'), orderBy('timestamp'));
+        const unsubscribe = onSnapshot(qm, (querySnapshot) => {
+          let messages = [];
+          querySnapshot.forEach((doc) => {
+            messages.push({ ...doc.data(), id: doc.id });
+          });
+          setMessages(messages.reverse().slice(0, 4));
+        });
+        return () => unsubscribe();
             
     }, [user, loading]);
     
@@ -47,6 +61,21 @@ function HomeAside() {
                             <li className="li-aside">{text}</li>
                         </div>
                     ))}
+                </div>
+                <h1 class="home-aside-h1">
+                    Chat (recent)
+                </h1>
+                <div className="chat-aside info-feed">
+                    <div className="msgs-aside">
+                        {messages.map(({ id, message, sender, photoURL, uid }) => (
+                            <div className="msgs-cta-aside">
+                                <div key={id} className={`msg-aside ${uid === auth.currentUser.uid ? 'sent' : 'received'}`}>
+                                    <p>{message}</p>
+                                </div>
+                                <hr className="hr-chat"></hr>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>      
 

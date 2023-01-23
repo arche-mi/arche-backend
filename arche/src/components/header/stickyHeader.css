@@ -1,0 +1,24 @@
+.sticky {
+    /* background-color: rgba(9, 64, 146, 0.116); */
+}
+.menu-left, .menu-left-plus {
+    display: grid;
+}
+.new-question h4 {
+    /* font-size: 12px; */
+    padding: 7px 10px;
+    background-color: rgba(9, 64, 146, 0.116);
+    opacity: 0.7;
+    cursor: pointer;
+    margin: 0 0 10px 0;
+}
+.sticky span {
+    margin: 1px 0;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 5px 10px;
+}
+.item a {
+    text-decoration: none;
+    color: black;
+}

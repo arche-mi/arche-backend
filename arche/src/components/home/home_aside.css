@@ -55,3 +55,8 @@
         width: auto;
     }
 }
+
+.msg-aside p {
+    margin: 0;
+    font-size: 12px;
+}

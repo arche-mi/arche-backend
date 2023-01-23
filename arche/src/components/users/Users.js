@@ -8,8 +8,8 @@ import Header from "../header/Header";
 import Footer from "../footer/Footer";
 import LoadingSpinner from "../loadSpinner/LoadingSpinner";
 import HomeAside from "../home/home_aside";
+import StickyHeader from "../header/stickyHeader";
 import './users.css';
-
 
 function sort(items){
   var length = items.length;  
@@ -267,6 +267,7 @@ function Users() {
             <Header />
 
             <div class="container-home">
+                <StickyHeader />
                 <main class="home-main">
                     {/* <div class="header-home">
                         <span onClick={switchToTopQuestions} class="item active topq" data-name="01">Top Questions</span>
