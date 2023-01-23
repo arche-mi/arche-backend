@@ -63,6 +63,7 @@
         /* margin-top:2em;                  */
     }
     .titre{
+        cursor: pointer;
        margin-bottom:1.9em;
        
        font-size:1.2em;

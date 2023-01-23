@@ -15,7 +15,7 @@ function Home() {
 
 
     function switchTosign() {
-        window.location.href = "/question/top";
+        window.location.href = "/questions";
     }
 
     useEffect(() => {

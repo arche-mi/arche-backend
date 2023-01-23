@@ -43,7 +43,7 @@ function Header() {
         window.location = `/user?${user?.uid}#${user?.uid}`;
     }
     function switchToHome() {
-        window.location = `/question/top`;
+        window.location = `/questions`;
     }
     function switchToChat() {
         window.location.href = `/chat`;
@@ -67,7 +67,7 @@ function Header() {
             <>        
             <header>
                 <section id="logo">
-                    <h3 onClick={switchToHome} id="arche">Arche</h3>
+                    <h3 onClick={switchToHome} id="arche">arche</h3>
                     <p id="beta">Beta</p>
                 </section>
                 <section id="header-btn">
@@ -83,7 +83,7 @@ function Header() {
             <>     
             <header>                   
                 <section id="logo">
-                    <h3 onClick={switchToHome} id="arche">Arche</h3>
+                    <h3 onClick={switchToHome} id="arche">arche</h3>
                     <p onClick={switchToFeedback} id="beta">Beta</p>
                 </section>
                 <section id="img-btn">

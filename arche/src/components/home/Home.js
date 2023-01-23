@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { auth,db,stopNetworkAcces } from "../../firebase";
-import { useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { useNavigate } from "react-router-dom";
 import { query, collection, getDocs, where, doc } from "firebase/firestore";
 
 import Header from "../header/Header";
@@ -9,6 +9,7 @@ import Footer from "../footer/Footer";
 import LoadingSpinner from "../loadSpinner/LoadingSpinner";
 import './home.css';
 import HomeAside from "./home_aside";
+import StickyHeader from "../header/stickyHeader";
 
 
 function Home() {
@@ -36,6 +37,10 @@ function Home() {
         const questionTime = time.getHours()+':'+time.getMinutes();
         const questionDate = time.getDate()+' '+corMonth(time.getMonth())+', '+time.getFullYear();
         return questionDate+' a '+questionTime;
+    }
+
+    function switchToQuestion(prop, item) {
+        window.location.href = `/question?${+prop}!${item}`;
     }
 
 
@@ -85,7 +90,7 @@ function Home() {
                     img.src = item[3];                  
                     image.appendChild(img);
                     user.appendChild(image);
-
+                    
                     let usernamelink = document.createElement("span");
                     usernamelink.classList.add('name_user');
                     let usernamelinktext = document.createTextNode(item[1]);                
@@ -93,6 +98,7 @@ function Home() {
                     // a.title = "more";
                     usernamelink.href = `/user?${item[1]}#${item[2]}`;
                     user.appendChild(usernamelink);
+                    image.appendChild(usernamelink);
 
                     let nb_rs = document.createElement("span");
                     nb_rs.classList.add('nb_answered');
@@ -101,6 +107,7 @@ function Home() {
 
                     let titre = document.createElement("span");                
                     titre.classList.add('titre');
+                    titre.onclick = function() { switchToQuestion(prop, item[2]) };
                     titre.innerText = Object.values(item[0][prop][1]);
 
                     // li = document.createElement("li");
@@ -111,14 +118,14 @@ function Home() {
                     // li.innerText = Object.values(item[0][prop][2])
                     // ul.appendChild(li);    
                     
-                    let voir = document.createElement('span');
-                    voir.classList.add('view');
-                    let a = document.createElement("a");
-                    let linkText = document.createTextNode("voir");
-                    voir.appendChild(linkText);
-                    a.appendChild(voir);
-                    // a.title = "more";
-                    a.href = `/question?${+prop}!${item[2]}`;
+                    // let voir = document.createElement('span');
+                    // voir.classList.add('view');
+                    // let a = document.createElement("a");
+                    // let linkText = document.createTextNode("voir");
+                    // voir.appendChild(linkText);
+                    // a.appendChild(voir);
+                    // // a.title = "more";
+                    // a.href = `/question?${+prop}!${item[2]}`;
                     
                     // const fetchTime = questions[questions.indexOf(item)][0][0][4].toDate();
                     // const date = firebaseTimeToDayMonthYearAndHourMinutes(fetchTime);
@@ -131,7 +138,7 @@ function Home() {
                     qs_cta.appendChild(user);
                     qs_cta.appendChild(titre);
                     qs.appendChild(qs_cta);
-                    qs.appendChild(a);
+                    // qs.appendChild(a);
                     qs_home.appendChild(qs);
                     all.appendChild(qs_home);
                 }                                
@@ -207,7 +214,9 @@ function Home() {
             {isLoading ? <LoadingSpinner /> : fetchUsersQuestions}
             <Header />
 
+
             <div class="container-home">
+                <StickyHeader />
                 <main class="home-main">
                     {/* <div class="header-home">
                         <span onClick={switchToTopQuestions} class="item active topq" data-name="01">Top Questions</span>
