@@ -8,7 +8,7 @@ import "./chat.css";
 
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
-
+import StickyHeader from "../header/stickyHeader";
 
 function Chat() {
 
@@ -81,7 +81,6 @@ function Chat() {
             <Header />
 
                 <div className="chat-content">
-
                     <div id="chat">
                         <h1>ChatRoom</h1>
                         {/* messages will display here */}
@@ -105,10 +104,10 @@ function Chat() {
                             <button onClick={() => addSample('Bien, et toi ?')}>Bien, et toi ?</button>
                             <button onClick={() => addSample('Salut tout le monde ! Comment ça va ?')}>Salut tout le monde ! Comment ça va ?</button>
                             <button onClick={() => addSample('Joyeux Nouvel An !')}>Joyeux Nouvel An !</button>
-                            <button onClick={() => addSample('Bienvenue sur l’arche ')}>Bienvenue sur l’arche </button>
+                            <button onClick={() => addSample('Bienvenue sur l’arche !')}>Bienvenue sur l’arche </button>
                         </div>
                         <div className="btn-form-chat">
-                            <textarea rows="5" cols="50" id="message" type="text"></textarea>
+                            <textarea rows="5" cols="10" id="message" type="text"></textarea>
                             <button onClick={sendMessage} id="message-btn">Envoyer</button>
                         </div>
                     </div>           
