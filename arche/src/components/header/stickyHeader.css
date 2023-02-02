@@ -1,5 +1,6 @@
 .sticky {
     /* background-color: rgba(9, 64, 146, 0.116); */
+    position: relative;
 }
 .menu-left, .menu-left-plus {
     display: grid;
