@@ -14,6 +14,7 @@
   /* border: 1px solid red; */
   /* padding: 30px; */
   width: 100%;
+  z-index: 720;
   height: 100%;
 }
 

@@ -1,6 +1,6 @@
 .chat-content {
     background-color: white;
-    display: flex;
+    display: grid;
     justify-content: center;
     align-items: center;
     gap:  5rem;
@@ -8,6 +8,7 @@
 }
 .chat-cta {
     max-width: 1200px;
+    min-width: 600px;
     box-sizing: border-box;
     padding: 10px 20px;
     border: 1px solid rgba(0, 0, 0, 0.2);
