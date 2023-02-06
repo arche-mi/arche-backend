@@ -1,0 +1,55 @@
+{
+    "quiz": [
+     {
+      "question": "Qui est considéré comme le père de la géométrie?",
+      "options": [
+       "Einstein",
+       "Newton",
+       "Pythagore",
+       "Galilée"
+      ],
+      "answer": 2
+     },
+     {
+      "question": "Quel est le nombre irrationnel le plus connu?",
+      "options": [
+       "pi",
+       "e",
+       "phi",
+       "sqrt(2)"
+      ],
+      "answer": 0
+     },
+     {
+      "question": "Quel est le but principal de l'algèbre?",
+      "options": [
+       "Résoudre des équations",
+       "Tracer des courbes",
+       "Effectuer des calculs de base",
+       "Trouver des dérivées"
+      ],
+      "answer": 0
+     },
+     {
+      "question": "Qui a inventé la méthode scientifique?",
+      "options": [
+       "Einstein",
+       "Newton",
+       "Galilée",
+       "Descartes"
+      ],
+      "answer": 2
+     },
+     {
+      "question": "En combien de dimensions travaillent les mathématiciens en général?",
+      "options": [
+       "2",
+       "3",
+       "4",
+       "Il n'y a pas de limite fixe"
+      ],
+      "answer": 3
+     }
+    ]
+   }
+   

@@ -4,7 +4,7 @@
     display: flex;
     /* max-width: 1200px; */
     justify-content: space-between;
-    padding: 1rem 10px 5rem 10px;
+    padding: 0 10px 5rem 10px;
     gap: 2rem;
     /* margin: 3rem auto; */
     min-height: 40vh;
@@ -66,7 +66,7 @@
     justify-content: space-between;
     align-items: center;
     gap: 24rem;
-    margin: 30px 0 20px 0;
+    margin: 0 0 20px 0;
 }
 
 .container-home main .entete a {
