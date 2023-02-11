@@ -161,25 +161,6 @@ function Home() {
             console.error(err);
         }
     }; 
-
-    function switchToProfile() {
-        window.location = `/user?${name}#${user?.uid}`;
-    }
-    function switchToUsers() {
-        window.location = `/users`;
-    }    
-    function switchToQuestions() {
-        window.location.href = `/questions`;
-    }
-    function switchToUnanswered() {
-        window.location.href = `/unanswered`;
-    }
-    function switchToTopQuestions() {
-        window.location.href = `/question/top`;
-    }  
-    function switchToTopLibrairie() {
-        window.location.href = `/librairie#${name}`
-    }
             
 
     useEffect(() => {
@@ -189,24 +170,6 @@ function Home() {
 
         fetchUserInfo();
         fetchUsersQuestions();    
-        
-        // const top = document.querySelector('.topq');
-        // const allq = document.querySelector('.allq');
-        // const unq = document.querySelector('.unq');
-        // const usrs = document.querySelector('.usrs');
-
-        // const currentPage = window.location.href;
-        // if (currentPage.includes('user')) {
-        //     usrs.style.background = '#516FD4FC';
-        // } else if (currentPage.includes('unanswered')) {
-        //     unq.style.background = '#516FD4FC';
-        // } else if (currentPage.includes('questions')) {
-        //     allq.style.background = '#516FD4FC';
-        // } else {
-        //     top.style.background = '#516FD4FC';
-        //     console.log(2)
-        // }
-
     }, [user, loading]);
 
     return (
