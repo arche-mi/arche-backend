@@ -230,8 +230,8 @@ function Questions() {
                     </div> */}
                     
                     <div class="entete">
-                        <span>Tout les Questions</span>
-                        <span ><a href="/question/new">Poser une question</a></span>
+                        <span>Toutes les Questions</span>
+                        <span ><a href="/question/new">New</a></span>
                     </div>
                     
                     <div class="allquestion">                              

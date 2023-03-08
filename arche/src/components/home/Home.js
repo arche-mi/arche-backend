@@ -183,7 +183,7 @@ function Home() {
                 <main class="home-main">                                   
                     <div class="entete">
                         <span>Top Questions</span>
-                        <span ><a href="/question/new">Poser une question</a></span>
+                        <span ><a href="/question/new">New</a></span>
                     </div>
                     
                     <div class="allquestion">                              
