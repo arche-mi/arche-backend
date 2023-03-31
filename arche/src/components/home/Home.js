@@ -164,39 +164,41 @@ function Home() {
             
 
     useEffect(() => {
-        if (loading) return;        
-
-        if (!user) navigate("/");
+        if (loading) return;                
 
         fetchUserInfo();
         fetchUsersQuestions();    
     }, [user, loading]);
 
-    return (
-        <>
-            {isLoading ? <LoadingSpinner /> : fetchUsersQuestions}
-            <Header />
+    if (!user) {
+        navigate("/");
+    } else {            
+        return (
+            <>
+                {isLoading ? <LoadingSpinner /> : fetchUsersQuestions}
+                <Header />
 
 
-            <div class="container-home">
-                <StickyHeader />
-                <main class="home-main">                                   
-                    <div class="entete">
-                        <span>Top Questions</span>
-                        <span ><a href="/question/new">Poser une question</a></span>
-                    </div>
-                    
-                    <div class="allquestion">                              
-                    </div>
-                </main>
-                <section className="aside-home-section">
-                    <HomeAside />
-                </section>
-            </div>            
+                <div class="container-home">
+                    <StickyHeader />
+                    <main class="home-main">                                   
+                        <div class="entete">
+                            <span>Top Questions</span>
+                            <span ><a href="/question/new">Poser une question</a></span>
+                        </div>
+                        
+                        <div class="allquestion">                              
+                        </div>
+                    </main>
+                    <section className="aside-home-section">
+                        <HomeAside />
+                    </section>
+                </div>            
 
-            <Footer />
-        </>
-    )
+                <Footer />
+            </>
+        )
+    }
 }
 
 export default Home;

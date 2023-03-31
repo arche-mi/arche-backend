@@ -1,6 +1,6 @@
 {
   "name": "arche",
-  "version": "beta",
+  "version": "",
   "private": true,
   "dependencies": {
     "@headlessui/react": "^1.7.4",
