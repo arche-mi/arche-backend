@@ -15,8 +15,6 @@ function HomeAside() {
     useEffect(() => {    
         if (loading){
             return;   
-        } else {
-            window.location = "/sign";
         }
 
         const q = query(collection(db, 'infos'));
@@ -43,48 +41,53 @@ function HomeAside() {
     }, [user, loading]);
     
 
-    return (
-        <>
-
-            <div class="home-aside">
-                <h1 class="hello-aside">
-                    Hello World!
-                </h1>
-                <p class="home-aside-p">
-                    Il s'agit d'un site collaboratif de questions-réponses 
-                    et plus destiné aux étudiants en mathématiques et en informatiques. Il est 100% gratuit.
-                </p>
-                <h1 class="home-aside-h1">
-                    Flux d'Informations
-                </h1>
-                <div className='info-feed'>
-                    {infos.map(({ text, votes }) => (
-                        <div className="info-feed-item">
-                            {/* <p className="vote">{votes}</p> */}
-                            <span>-</span>
-                            <li className="li-aside">{text}</li>
-                        </div>
-                    ))}
-                </div>
-                <h1 class="home-aside-h1">
-                    Chat (recent)
-                </h1>
-                <div className="chat-aside info-feed">
-                    <div className="msgs-aside">
-                        {messages.map(({ id, message, sender, photoURL, uid }) => (
-                            <div className="msgs-cta-aside">
-                                <div key={id} className={`msg-aside ${uid === auth.currentUser.uid ? 'sent' : 'received'}`}>
-                                    <p>{message}</p>
-                                </div>
-                                <hr className="hr-chat"></hr>
+    if (!user) {
+        window.location = "/sign";
+    } else {
+        return (
+            <>
+    
+                <div class="home-aside">
+                    <h1 class="hello-aside">
+                        Hello World!
+                    </h1>
+                    <p class="home-aside-p">
+                        Il s'agit d'un site collaboratif de questions-réponses 
+                        et plus destiné aux étudiants en mathématiques et en informatiques. Il est 100% gratuit.
+                    </p>
+                    <h1 class="home-aside-h1">
+                        Flux d'Informations
+                    </h1>
+                    <div className='info-feed'>
+                        {infos.map(({ text, votes }) => (
+                            <div className="info-feed-item">
+                                {/* <p className="vote">{votes}</p> */}
+                                <span>-</span>
+                                <li className="li-aside">{text}</li>
                             </div>
                         ))}
                     </div>
-                </div>
-            </div>      
+                    <h1 class="home-aside-h1">
+                        Chat (recent)
+                    </h1>
+                    <div className="chat-aside info-feed">
+                        <div className="msgs-aside">
+                            {messages.map(({ id, message, sender, photoURL, uid }) => (
+                                <div className="msgs-cta-aside">
+                                    <div key={id} className={`msg-aside ${uid === auth.currentUser.uid ? 'sent' : 'received'}`}>
+                                        <p>{message}</p>
+                                    </div>
+                                    <hr className="hr-chat"></hr>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>      
+    
+            </>
+        )
+    }
 
-        </>
-    )
 }
 
 export default HomeAside;
