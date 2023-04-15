@@ -13,7 +13,11 @@ function HomeAside() {
 
         
     useEffect(() => {    
-        if (loading) return;
+        if (loading){
+            return;   
+        } else {
+            window.location = "/sign";
+        }
 
         const q = query(collection(db, 'infos'));
         const docmt = onSnapshot(q, (querySnapshot) => {
